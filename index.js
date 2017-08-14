@@ -55,7 +55,10 @@ const toVue = (source, path) => {
     <template lang="html">${template}</template>
     <script lang="es">${script}</script>`
     const tag = prefix + (id++)
-    codeMap[tag] = vueComponent
+    codeMap[tag] = {
+      raw: code,
+      compiled: vueComponent
+    }
     return  `<${tag}></${tag}>`
   }
   const result = marked(source, { renderer })
@@ -76,11 +79,12 @@ export default function (opt = {}) {
     transform (source, id) {
       if (!/\.md$/.test(id)) return null
 
-      const { result, codeMap }  = toVue(source, id)
+      const { result, codeMap, raw }  = toVue(source, id)
       const imported = Object.keys(codeMap).map((key, vue) => {
-        vueCompile.compile(codeMap[key], (err, result) => {
+        const { raw, compiled } = codeMap[key]
+        vueCompile.compile(compiled, (err, result) => {
           if (!err) {
-            fs.writeFileSync(`./${key}`, `const ${key} = (function (module) {${result};return module.exports;})({ exports: {}})`)
+            fs.writeFileSync(`./${key}`, raw + `\n\nconst ${key} = (function (module) {${result};return module.exports;})({ exports: {}})`)
           }
         })
         return `import ${key} from '${key}';`
