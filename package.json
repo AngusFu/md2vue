@@ -1,6 +1,6 @@
 {
   "name": "md2vue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./dist/md2vue.common.js",
   "module": "dist/md2vue.esm.js",
   "repository": {
@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "buble": "^0.15.2",
+    "hanabi": "^0.4.0",
     "indent": "0.0.2",
     "marked": "^0.3.6",
     "vueify": "^9.4.1"

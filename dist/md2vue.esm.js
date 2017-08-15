@@ -1,5 +1,6 @@
 import marked from 'marked';
 import indent from 'indent';
+import hanabi from 'hanabi';
 import { compiler } from 'vueify';
 
 var reStyle = /<style>([\s\S]+)<\/style>/;
@@ -33,13 +34,40 @@ var extractMdCode = function (code) {
   }
 };
 
-var renderer = new marked.Renderer();
+// import hanabi from 'hanabi'
+
+var getRenderer = function (Renderer) {
+  var renderer = new marked.Renderer();
+  renderer.heading = heading;
+  return renderer
+};
+
+function heading (text, l) {
+  return ("<h" + l + ">" + text + "</h" + l + ">")
+}
+
+// marked.setOptions({
+//   highlight: function (code, lang, callback) {
+//     return hanabi(code)
+//   }
+// })
+
+var renderer = getRenderer();
+// const renderCode = (function (code) {
+//   return function (code, lang) {
+//     return code.call(renderer, code, lang)
+//   }
+// }(renderer.code))
 
 var tranform = function (source) {
   var id = 0;
   var demos = [];
+  renderer.code = function (code, lang) {
+    if (lang !== 'vue' && lang !== 'html') {
+      // return renderCode.call(renderer, code, lang)
+      return ("<pre v-pre class=\"lang-" + lang + "\"><code>\n" + (hanabi(code)) + "\n</code></pre>\n")
+    }
 
-  renderer.code = function (code) {
     var tag = "VueDemo" + (id++);
     var ref = extractMdCode(code);
     var style = ref.style;

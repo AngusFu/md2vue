@@ -54,3 +54,20 @@ export default {
 }
 </script>
 ```
+
+### Demo 2
+
+```javascript
+export default {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  methods: {
+    incr(delta) {
+      this.count += delta
+    }
+  }
+}
+```

@@ -6,5 +6,5 @@ const transform = require('../')
 
 transform(source)
 .then(content => {
-  require('fs').writeFileSync('./test.vue', content)
+  require('fs').writeFileSync(join(__dirname, './common.vue'), content)
 })
