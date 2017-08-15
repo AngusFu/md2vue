@@ -15,7 +15,7 @@ const vueInjection = `
 head() {
   return '测试'
 },
-layout: "component"
+layout: 'component'
 `
 md2vue(markdown, { vueInjection }).then(content => {
   require('fs').writeFileSync('./dest.vue', content)
@@ -29,7 +29,7 @@ The output could be like this:
 <template>
   <article class="markdown-body">
     // ...
-    <VueDemo0></VueDemo10>
+    <VueDemo0></VueDemo0>
     // ...
   </article>
 </template>
@@ -41,7 +41,7 @@ export default {
 + head() {
 +   return '测试'
 + },
-+ layout: "component"
++ layout: 'component'
 }
 </script>
 ```
