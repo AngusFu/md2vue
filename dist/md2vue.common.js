@@ -190,7 +190,7 @@ var wrapScript = function (ref) {
   return code ? ("\n<script>\n" + (indent(code, '  ')) + "\n  export default {\n    components: { " + names + " }\n  }\n</script>") : '';
 };
 
-var wrapMarkup = function (markup) { return ("<template>\n  <div class=\"doc-wrapper\">\n" + (indent(markup, '    ')) + "\n  </div>\n</template>"); };
+var wrapMarkup = function (markup) { return ("<template>\n  <article class=\"markdown-body\">\n" + (indent(markup, '    ')) + "\n  </article >\n</template>"); };
 
 var wrapVueCompiled = function (ref) {
   var tagName = ref.tagName;

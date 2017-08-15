@@ -22,9 +22,9 @@ ${indent(code, '  ')}
 </script>` : ''
 
 export const wrapMarkup = (markup) => `<template>
-  <div class="doc-wrapper">
+  <article class="markdown-body">
 ${indent(markup, '    ')}
-  </div>
+  </article >
 </template>`
 
 export const wrapVueCompiled = ({ tagName, compiled }) => {

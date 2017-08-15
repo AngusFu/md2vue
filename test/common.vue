@@ -1,5 +1,5 @@
 <template>
-  <div class="doc-wrapper">
+  <article class="markdown-body">
     <h2>Markdown简介</h2><blockquote>
     <p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— <a href="https://zh.wikipedia.org/wiki/Markdown">维基百科</a></p>
     </blockquote>
@@ -54,7 +54,7 @@
     }
     </code></pre>
 
-  </div>
+  </article >
 </template>
 
 <script>
