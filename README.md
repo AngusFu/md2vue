@@ -1,6 +1,6 @@
 # md2vue
 
-** NOT DONE YET.**
+**NOT DONE YET.**
 
 transform markdown document to vue component.
 
