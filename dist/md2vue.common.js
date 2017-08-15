@@ -3,6 +3,7 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var fs = _interopDefault(require('fs'));
+var indent = _interopDefault(require('indent'));
 var vueify = _interopDefault(require('vueify'));
 var buble = _interopDefault(require('buble'));
 var marked = _interopDefault(require('marked'));
@@ -168,7 +169,7 @@ var bundler = styleBundler.from(compiler, 'style');
 var ref = toVue(source);
 var result = ref.result;
 var demos = ref.demos;
-var vueOutput = "<template>\n  <div class=\"doc-wrapper\">\n    " + result + "\n  </div>\n</template>";
+var vueOutput = "<template>\n  <div class=\"doc-wrapper\">\n    " + (indent(result, '    ')) + "\n  </div>\n</template>";
 
 var tasks = demos.map(function (ref) {
     var tag = ref.tag;

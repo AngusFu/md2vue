@@ -1,14 +1,19 @@
 const vueCompiler = require('vueify').compiler
 
 // Hack: avoid unneccesary vueify code
-process.env.NODE_ENV = 'production'
+process.env.VUE_ENV = 'server'
 
 vueCompiler.applyConfig({
   extractCSS: true,
   customCompilers: {
     buble (content, cb) {
       const { code } = require('buble').transform(content)
-      cb(null, code.trim())
+      const ret = code
+        .replace(/\n{2,}/g, '\n')
+        .replace(/^\s+/, '  ')
+        .replace(/\s+$/, '')
+
+      cb(null, ret)
     }
   }
 })

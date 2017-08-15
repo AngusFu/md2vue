@@ -1,4 +1,5 @@
 const marked = require('marked')
+const indent = require('indent')
 const extractMdCode = require('./extract')
 
 const renderer = new marked.Renderer()
@@ -13,7 +14,7 @@ module.exports = (source) => {
 
     let vueComponent = `<template lang="html">
   <div class="code">
-    ${template}
+${indent(template, '    ')}
   </div>
 </template>
 <script lang="buble">
@@ -21,7 +22,7 @@ ${script}
 </script>`
 
     if (style !== '') {
-      vueComponent += `<style scoped>${style}</style>`
+      vueComponent += `\n<style scoped>${style}</style>`
     }
 
     demos.push({
@@ -30,7 +31,7 @@ ${script}
       vue: vueComponent
     })
 
-    return `<${tag}></${tag}>`
+    return `\n<${tag}></${tag}>`
   }
 
   return {

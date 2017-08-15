@@ -1,4 +1,5 @@
 import fs from 'fs';
+import indent from 'indent';
 import vueify from 'vueify';
 import buble from 'buble';
 import marked from 'marked';
@@ -164,7 +165,7 @@ var bundler = styleBundler.from(compiler, 'style');
 var ref = toVue(source);
 var result = ref.result;
 var demos = ref.demos;
-var vueOutput = "<template>\n  <div class=\"doc-wrapper\">\n    " + result + "\n  </div>\n</template>";
+var vueOutput = "<template>\n  <div class=\"doc-wrapper\">\n    " + (indent(result, '    ')) + "\n  </div>\n</template>";
 
 var tasks = demos.map(function (ref) {
     var tag = ref.tag;

@@ -5,7 +5,7 @@ class StyleBundler {
   }
 
   _handler ({ style }) {
-    this._css += style
+    this._css += '\n' + style
   }
 
   from (emitter, type) {
