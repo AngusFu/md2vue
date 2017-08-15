@@ -1,10 +1,10 @@
-const marked = require('marked')
-const indent = require('indent')
-const extractMdCode = require('./extract')
+import marked from 'marked'
+import indent from 'indent'
+import extractMdCode from './extract'
 
 const renderer = new marked.Renderer()
 
-module.exports = (source) => {
+export default (source) => {
   let id = 0
   const demos = []
 
@@ -36,6 +36,6 @@ ${script}
 
   return {
     demos,
-    result: marked(source, { renderer })
+    markup: marked(source, { renderer })
   }
 }

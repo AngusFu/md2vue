@@ -1,46 +1,44 @@
-const fs = require('fs')
-const indent = require('indent')
+import tranform from './transform'
+import vueCompiler from './compiler'
+import StyleBundler from './styleBundler'
 
-const vueCompiler = require('./compiler')
-const toVue = require('./toVue')
-const { wrapESLint } = require('./util')
-const StyleBundler = require('./styleBundler')
+import {
+  addESLint,
+  wrapCSSText,
+  wrapScript,
+  wrapMarkup,
+  wrapVueCompiled
+} from './util'
 
-const source = fs.readFileSync('./test/test.md').toString()
-const bundler = StyleBundler.from(vueCompiler, 'style')
-const { result, demos } = toVue(source)
-let vueOutput = `<template>
-  <div class="doc-wrapper">
-${indent(result, '    ')}
-  </div>
-</template>`
+export default (source) => {
+  const { markup, demos } = tranform(source)
+  const bundler = StyleBundler.from(vueCompiler)
 
-const tasks = demos.map(({ tag, raw, vue }) =>
-  vueCompiler
-    .compilePromise(vue)
-    .then(res => `const ${tag} = (function (module) {
-${indent(res, '  ')}
-  return module.exports;
-})({});\n`)
-)
+  const tasks = demos.map(({ tag, raw, vue }) =>
+    vueCompiler
+      .compilePromise(vue)
+      .then(compiled => wrapVueCompiled({
+        tagName: tag,
+        compiled
+      }))
+  )
 
-Promise.all(tasks)
-  .then(rets => wrapESLint(rets.join('\n')))
-  .then(code => {
-    const comps = demos.map(({tag}) => tag).join(', ')
-    vueOutput += `
-<script>
-${indent(code, '  ')}
-  export default {
-    components: { ${comps} }
-  }
-</script>`
-  })
-  .then(() => {
-    return bundler.pipe(css => {
-      vueOutput += `\n<style>\n${css}\n</style>`
+  return Promise.all(tasks)
+    .then(rets => addESLint(rets.join('\n')))
+    .then(code => {
+      const names = demos.map(({tag}) => tag).join(', ')
+      return Promise.all([
+        Promise.resolve({ code, names }),
+        bundler.pipe()
+      ])
     })
-  })
-  .then(() => {
-    fs.writeFileSync('./test.vue', vueOutput, 'utf-8')
-  })
+    .then(([{ code, names }, css]) => {
+      const content = [
+        wrapMarkup(markup),
+        wrapScript({ code, names }),
+        wrapCSSText(css)
+      ].join('\n')
+
+      return content
+    })
+}

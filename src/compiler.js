@@ -1,7 +1,10 @@
-const vueCompiler = require('vueify').compiler
+import {
+  compiler as vueCompiler
+} from 'vueify'
 
 // Hack: avoid unneccesary vueify code
-process.env.VUE_ENV = 'server'
+process.env.__NODE_ENV = process.env.NODE_ENV
+process.env.NODE_ENV = 'production'
 
 vueCompiler.applyConfig({
   extractCSS: true,
@@ -18,9 +21,11 @@ vueCompiler.applyConfig({
   }
 })
 
-vueCompiler.compilePromise = (content, filePath) => {
+vueCompiler.compilePromise = (content = '', filePath = '') => {
   return new Promise((resolve, reject) => {
     vueCompiler.compile(content, filePath, (err, result) => {
+      process.env.NODE_ENV = process.env.__NODE_ENV
+
       if (err) {
         reject(err)
       } else {
@@ -30,4 +35,4 @@ vueCompiler.compilePromise = (content, filePath) => {
   })
 }
 
-module.exports = vueCompiler
+export default vueCompiler

@@ -1,3 +1,5 @@
+const TYPE = 'style'
+
 class StyleBundler {
   constructor () {
     this._css = ''
@@ -8,31 +10,33 @@ class StyleBundler {
     this._css += '\n' + style
   }
 
-  from (emitter, type) {
+  from (emitter) {
     if (typeof this._remove === 'function') {
       this._remove()
     }
 
-    emitter.on(type, this._handler)
+    emitter.on(TYPE, this._handler)
 
     this._remove = () => {
-      emitter.removeListener(type, this._handler)
+      emitter.removeListener(TYPE, this._handler)
       this._css = ''
     }
   }
 
   pipe (fn) {
-    const css = this._css
-    fn(css)
+    const css = this._css.trim()
+    if (typeof fn === 'function') {
+      fn(css)
+    }
     this._remove()
-    return Promise.resolve()
+    return Promise.resolve(css)
   }
 }
 
-StyleBundler.from = function (emitter, type) {
+StyleBundler.from = function (emitter) {
   const bundler = new StyleBundler()
-  bundler.from(emitter, type)
+  bundler.from(emitter, TYPE)
   return bundler
 }
 
-module.exports = StyleBundler
+export default StyleBundler

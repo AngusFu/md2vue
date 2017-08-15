@@ -2,7 +2,7 @@ const reStyle = /<style>([\s\S]+)<\/style>/
 const reScript = /<script>([\s\S]+)<\/script>/
 const reTemplate = /<template>([\s\S]+)<\/template>/
 
-module.exports = (code) => {
+export default (code) => {
   const styleMatch = reStyle.exec(code)
   const scriptMatch = reScript.exec(code)
   const templateMatch = reTemplate.exec(code)
