@@ -39,20 +39,63 @@
     </tbody>
     </table>
     <h3>Demo</h3>
-    <VueDemo0></VueDemo0><h3>Demo 2</h3><pre v-pre class="lang-javascript"><code>
-    <span style="color: #23AC69">export</span> <span style="color: #91C132">default</span> {
-      <span style="color: #F19726">data</span>() {
-        <span style="color: #E8552D">return</span> {
-          <span style="color: #1AAB8E">count</span>: <span style="color: #E1147F">0</span>
-        }
-      },
-      <span style="color: #2980C1">methods</span>: {
-        <span style="color: #1BA1E6">incr</span>(<span style="color: #9FA0A0">delta</span>) {
-          <span style="color: #F19726">this</span>.<span style="color: #1AAB8E">count</span> += <span style="color: #9FA0A0">delta</span>
+    <VueDemo0></VueDemo0>
+
+    <pre v-pre class="lang-html"><code>
+      <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+      <span class="hljs-selector-class">.wrapper</span> {
+        <span class="hljs-attribute">backgroun</span>: red
+      }
+      </span><span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">style</span>&gt;</span>
+
+      <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"incr(-1)"</span>&gt;</span>decrease<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">button</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">readonly</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">"count"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"incr(+1)"</span>&gt;</span>increase<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">template</span>&gt;</span>
+
+      <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+      <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+        data() {
+          <span class="hljs-keyword">return</span> {
+            <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>
+          }
+        },
+        <span class="hljs-attr">methods</span>: {
+          incr(delta) {
+            <span class="hljs-keyword">this</span>.count += delta
+          }
         }
       }
-    }
+      </span><span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">script</span>&gt;</span>
     </code></pre>
+
+    <h3>Demo 2</h3>
+    <pre v-pre class="lang-javascript"><code>
+      <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+        data() {
+          <span class="hljs-keyword">return</span> {
+            <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>
+          }
+        },
+        <span class="hljs-attr">methods</span>: {
+          incr(delta) {
+            <span class="hljs-keyword">this</span>.count += delta
+          }
+        }
+      }
+    </code></pre>
+
+    <VueDemo1></VueDemo1>
+
+    <pre v-pre class="lang-html"><code>
+      <span class="hljs-tag">&lt;<span class="hljs-name">c-button</span>&gt;</span>默认按钮<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">c-button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">c-button</span> <span class="hljs-attr">primary</span>&gt;</span>主操作按钮<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">c-button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">c-button</span> <span class="hljs-attr">disabled</span>&gt;</span><span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">c-button</span>&gt;</span>
+    </code></pre>
+
 
   </article >
 </template>
@@ -83,9 +126,21 @@
     return module.exports;
   })({});
 
+  const VueDemo1 = (function (module) {
+    ;(function(){
+      module.exports = {}
+    })()
+    if (module.exports.__esModule) module.exports = module.exports.default
+    var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+    __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"code"},[_c('c-button',[_vm._v("默认按钮")]),_vm._v(" "),_c('c-button',{attrs:{"primary":""}},[_vm._v("主操作按钮")]),_vm._v(" "),_c('c-button',{attrs:{"disabled":""}})],1)}
+    __vue__options__.staticRenderFns = []
+
+    return module.exports;
+  })({});
+
   /* eslint-enable */
   export default {
-    components: { VueDemo0 }
+    components: { VueDemo0, VueDemo1 }
   }
 </script>
 

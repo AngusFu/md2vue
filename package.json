@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "buble": "^0.15.2",
-    "hanabi": "^0.4.0",
+    "highlight.js": "^9.12.0",
     "indent": "0.0.2",
     "marked": "^0.3.6",
     "vueify": "^9.4.1"

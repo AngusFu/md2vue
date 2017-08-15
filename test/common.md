@@ -71,3 +71,9 @@ export default {
   }
 }
 ```
+
+```html
+<c-button>默认按钮</c-button>
+<c-button primary>主操作按钮</c-button>
+<c-button disabled></c-button>
+```

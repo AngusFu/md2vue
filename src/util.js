@@ -34,3 +34,18 @@ ${indent(compiled, '  ')}
 })({});
 `
 }
+
+export const wrapHljsCode = (code, lang) => `
+<pre v-pre class="lang-${lang}"><code>
+${indent(code, '  ')}
+</code></pre>
+`
+
+export function escape (html, encode) {
+  return html
+    .replace(!encode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}

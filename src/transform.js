@@ -1,26 +1,25 @@
 import marked from 'marked'
 import indent from 'indent'
+import hljs from 'highlight.js'
 import extractMdCode from './extract'
 import getRenderer from './renderer'
-import hanabi from 'hanabi'
+import { wrapHljsCode } from './util'
 
 const renderer = getRenderer()
-// const renderCode = (function (code) {
-//   return function (code, lang) {
-//     return code.call(renderer, code, lang)
-//   }
-// }(renderer.code))
+const FIX_VUE = /<span class="hljs-tag">&lt;\/</g
+const FIXTURE = '<span class="hljs-tag"><span>&lt;</span>/<'
+const fix = code => code.replace(FIX_VUE, FIXTURE)
 
 export default (source) => {
   let id = 0
   const demos = []
-  renderer.code = function (code, lang) {
-    if (lang !== 'vue' && lang !== 'html') {
-      // return renderCode.call(renderer, code, lang)
-      return `<pre v-pre class="lang-${lang}"><code>
-${hanabi(code)}
-</code></pre>
-`
+  renderer.code = function (code, language) {
+    const lang = language === 'vue' ? 'html' : language
+    const markup = hljs.highlight(lang, code).value
+    const result = wrapHljsCode(fix(markup), lang)
+
+    if (lang !== 'html') {
+      return result
     }
 
     const tag = `VueDemo${id++}`
@@ -45,7 +44,7 @@ ${script}
       vue: vueComponent
     })
 
-    return `\n<${tag}></${tag}>`
+    return `\n<${tag}></${tag}>\n${result}\n`
   }
 
   return {

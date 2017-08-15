@@ -4,7 +4,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var marked = _interopDefault(require('marked'));
 var indent = _interopDefault(require('indent'));
-var hanabi = _interopDefault(require('hanabi'));
+var hljs = _interopDefault(require('highlight.js'));
 var vueify = require('vueify');
 
 var reStyle = /<style>([\s\S]+)<\/style>/;
@@ -38,8 +38,6 @@ var extractMdCode = function (code) {
   }
 };
 
-// import hanabi from 'hanabi'
-
 var getRenderer = function (Renderer) {
   var renderer = new marked.Renderer();
   renderer.heading = heading;
@@ -50,26 +48,50 @@ function heading (text, l) {
   return ("<h" + l + ">" + text + "</h" + l + ">")
 }
 
-// marked.setOptions({
-//   highlight: function (code, lang, callback) {
-//     return hanabi(code)
-//   }
-// })
+marked.setOptions({
+  highlight: function (code, lang, callback) {
+    console.log(hljs);
+    // return hanabi(code)
+  }
+});
+
+var addESLint = function (code) { return code ? ("/* eslint-disable */\n" + code + "\n/* eslint-enable */") : ''; };
+
+var wrapCSSText = function (css) { return css ? ("\n<style>\n" + css + "\n</style>\n") : ''; };
+
+var wrapScript = function (ref) {
+  var code = ref.code;
+  var names = ref.names;
+
+  return code ? ("\n<script>\n" + (indent(code, '  ')) + "\n  export default {\n    components: { " + names + " }\n  }\n</script>") : '';
+};
+
+var wrapMarkup = function (markup) { return ("<template>\n  <article class=\"markdown-body\">\n" + (indent(markup, '    ')) + "\n  </article >\n</template>"); };
+
+var wrapVueCompiled = function (ref) {
+  var tagName = ref.tagName;
+  var compiled = ref.compiled;
+
+  return ("const " + tagName + " = (function (module) {\n" + (indent(compiled, '  ')) + "\n  return module.exports;\n})({});\n")
+};
+
+var wrapHljsCode = function (code, lang) { return ("\n<pre v-pre class=\"lang-" + lang + "\"><code>\n" + (indent(code, '  ')) + "\n</code></pre>\n"); };
 
 var renderer = getRenderer();
-// const renderCode = (function (code) {
-//   return function (code, lang) {
-//     return code.call(renderer, code, lang)
-//   }
-// }(renderer.code))
+var FIX_VUE = /<span class="hljs-tag">&lt;\/</g;
+var FIXTURE = '<span class="hljs-tag"><span>&lt;</span>/<';
+var fix = function (code) { return code.replace(FIX_VUE, FIXTURE); };
 
 var tranform = function (source) {
   var id = 0;
   var demos = [];
-  renderer.code = function (code, lang) {
-    if (lang !== 'vue' && lang !== 'html') {
-      // return renderCode.call(renderer, code, lang)
-      return ("<pre v-pre class=\"lang-" + lang + "\"><code>\n" + (hanabi(code)) + "\n</code></pre>\n")
+  renderer.code = function (code, language) {
+    var lang = language === 'vue' ? 'html' : language;
+    var markup = hljs.highlight(lang, code).value;
+    var result = wrapHljsCode(fix(markup), lang);
+
+    if (lang !== 'html') {
+      return result
     }
 
     var tag = "VueDemo" + (id++);
@@ -90,7 +112,7 @@ var tranform = function (source) {
       vue: vueComponent
     });
 
-    return ("\n<" + tag + "></" + tag + ">")
+    return ("\n<" + tag + "></" + tag + ">\n" + result + "\n")
   };
 
   return {
@@ -179,27 +201,8 @@ StyleBundler.from = function (emitter) {
   return bundler
 };
 
-var addESLint = function (code) { return code ? ("/* eslint-disable */\n" + code + "\n/* eslint-enable */") : ''; };
-
-var wrapCSSText = function (css) { return css ? ("\n<style>\n" + css + "\n</style>\n") : ''; };
-
-var wrapScript = function (ref) {
-  var code = ref.code;
-  var names = ref.names;
-
-  return code ? ("\n<script>\n" + (indent(code, '  ')) + "\n  export default {\n    components: { " + names + " }\n  }\n</script>") : '';
-};
-
-var wrapMarkup = function (markup) { return ("<template>\n  <article class=\"markdown-body\">\n" + (indent(markup, '    ')) + "\n  </article >\n</template>"); };
-
-var wrapVueCompiled = function (ref) {
-  var tagName = ref.tagName;
-  var compiled = ref.compiled;
-
-  return ("const " + tagName + " = (function (module) {\n" + (indent(compiled, '  ')) + "\n  return module.exports;\n})({});\n")
-};
-
 var index = function (source) {
+  // todo
   var ref = tranform(source);
   var markup = ref.markup;
   var demos = ref.demos;
