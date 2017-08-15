@@ -11,15 +11,32 @@ ${css}
 ` : ''
 
 export const wrapScript = ({
-  code,
-  names
-}) => code ? `
-<script>
-${indent(code, '  ')}
-  export default {
-    components: { ${names} }
+  code = '',
+  names = '',
+  vueInjection = ''
+}) => {
+  if (!code) {
+    return ''
   }
-</script>` : ''
+
+  if (typeof vueInjection !== 'string') {
+    const msg = '`vueInjection` is not a string'
+    console.warn(msg)
+    throw msg
+  }
+
+  const result = indent(code, '  ')
+  return `
+<script>
+${result}
+  export default {
+    components: {
+      ${names}
+    }${vueInjection ? ',' : ''}
+    ${vueInjection}
+  }
+</script>`
+}
 
 export const wrapMarkup = (markup) => `<template>
   <article class="markdown-body">

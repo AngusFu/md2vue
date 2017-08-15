@@ -48,22 +48,27 @@ function heading (text, l) {
   return ("<h" + l + ">" + text + "</h" + l + ">")
 }
 
-marked.setOptions({
-  highlight: function (code, lang, callback) {
-    console.log(hljs);
-    // return hanabi(code)
-  }
-});
-
 var addESLint = function (code) { return code ? ("/* eslint-disable */\n" + code + "\n/* eslint-enable */") : ''; };
 
 var wrapCSSText = function (css) { return css ? ("\n<style>\n" + css + "\n</style>\n") : ''; };
 
 var wrapScript = function (ref) {
-  var code = ref.code;
-  var names = ref.names;
+  var code = ref.code; if ( code === void 0 ) code = '';
+  var names = ref.names; if ( names === void 0 ) names = '';
+  var vueInjection = ref.vueInjection; if ( vueInjection === void 0 ) vueInjection = '';
 
-  return code ? ("\n<script>\n" + (indent(code, '  ')) + "\n  export default {\n    components: { " + names + " }\n  }\n</script>") : '';
+  if (!code) {
+    return ''
+  }
+
+  if (typeof vueInjection !== 'string') {
+    var msg = '`vueInjection` is not a string';
+    console.warn(msg);
+    throw msg
+  }
+
+  var result = indent(code, '  ');
+  return ("\n<script>\n" + result + "\n  export default {\n    components: {\n      " + names + "\n    }" + (vueInjection ? ',' : '') + "\n    " + vueInjection + "\n  }\n</script>")
 };
 
 var wrapMarkup = function (markup) { return ("<template>\n  <article class=\"markdown-body\">\n" + (indent(markup, '    ')) + "\n  </article >\n</template>"); };
@@ -90,6 +95,7 @@ var tranform = function (source) {
     var markup = hljs.highlight(lang, code).value;
     var result = wrapHljsCode(fix(markup), lang);
 
+    // TODO: 优化判断条件
     if (lang !== 'html') {
       return result
     }
@@ -201,8 +207,10 @@ StyleBundler.from = function (emitter) {
   return bundler
 };
 
-var index = function (source) {
-  // todo
+var defaults = {};
+var index = function (source, opts) {
+  if ( opts === void 0 ) opts = defaults;
+
   var ref = tranform(source);
   var markup = ref.markup;
   var demos = ref.demos;
@@ -222,6 +230,8 @@ var index = function (source) {
   }
   );
 
+  var vueInjection = opts.vueInjection;
+
   return Promise.all(tasks)
     .then(function (rets) { return addESLint(rets.join('\n')); })
     .then(function (code) {
@@ -231,19 +241,17 @@ var index = function (source) {
         return tag;
       }).join(', ');
       return Promise.all([
-        Promise.resolve({ code: code, names: names }),
+        Promise.resolve({ code: code, names: names, vueInjection: vueInjection }),
         bundler.pipe()
       ])
     })
     .then(function (ref) {
-      var ref_0 = ref[0];
-      var code = ref_0.code;
-      var names = ref_0.names;
+      var obj = ref[0];
       var css = ref[1];
 
       var content = [
         wrapMarkup(markup),
-        wrapScript({ code: code, names: names }),
+        wrapScript(obj),
         wrapCSSText(css)
       ].join('\n');
 

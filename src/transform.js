@@ -18,6 +18,7 @@ export default (source) => {
     const markup = hljs.highlight(lang, code).value
     const result = wrapHljsCode(fix(markup), lang)
 
+    // TODO: 优化判断条件
     if (lang !== 'html') {
       return result
     }

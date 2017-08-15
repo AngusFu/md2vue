@@ -140,7 +140,15 @@
 
   /* eslint-enable */
   export default {
-    components: { VueDemo0, VueDemo1 }
+    components: {
+      VueDemo0, VueDemo1
+    },
+    
+head() {
+  return '测试'
+},
+layout: "component"
+
   }
 </script>
 

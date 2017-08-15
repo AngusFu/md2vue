@@ -10,8 +10,8 @@ import {
   wrapVueCompiled
 } from './util'
 
-export default (source) => {
-  // todo
+const defaults = {}
+export default (source, opts = defaults) => {
   const { markup, demos } = tranform(source)
   const bundler = StyleBundler.from(vueCompiler)
 
@@ -24,19 +24,21 @@ export default (source) => {
       }))
   )
 
+  const { vueInjection } = opts
+
   return Promise.all(tasks)
     .then(rets => addESLint(rets.join('\n')))
     .then(code => {
       const names = demos.map(({tag}) => tag).join(', ')
       return Promise.all([
-        Promise.resolve({ code, names }),
+        Promise.resolve({ code, names, vueInjection }),
         bundler.pipe()
       ])
     })
-    .then(([{ code, names }, css]) => {
+    .then(([obj, css]) => {
       const content = [
         wrapMarkup(markup),
-        wrapScript({ code, names }),
+        wrapScript(obj),
         wrapCSSText(css)
       ].join('\n')
 
