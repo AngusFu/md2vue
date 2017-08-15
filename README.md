@@ -1,8 +1,4 @@
-# rollup-plugin-doc-vue
+# md2vue
 
-transform markdown document to vue component
+transform markdown document to vue component.
 
-## TODO
-
-- use vueify instead of vue-component-compiler
-- support for scoped css
