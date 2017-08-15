@@ -2,9 +2,9 @@ const { join } = require('path')
 const fs = require('fs')
 const mdPath = join(__dirname, './common.md')
 const source = fs.readFileSync(mdPath).toString()
-const transform = require('../')
+const md2vue = require('../')
 
-transform(source, {
+md2vue(source, {
   vueInjection: `
 head() {
   return '测试'

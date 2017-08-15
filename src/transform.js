@@ -45,6 +45,8 @@ ${script}
       vue: vueComponent
     })
 
+    // TODO
+    // self closed???
     return `\n<${tag}></${tag}>\n${result}\n`
   }
 
