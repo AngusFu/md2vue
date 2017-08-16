@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>md2vue</title>
+  <link rel="stylesheet" href="./vuep.min.css">
+  <link href="//lib.baomitu.com/github-markdown-css/2.8.0/github-markdown.min.css" rel="stylesheet">
+  <style>
+    html, body, .vuep {
+      height: 100%;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <vuep :template="code"></vuep>    
+</div>
+<script src="//lib.baomitu.com/vue/2.4.2/vue.min.js"></script>
+<script src="./vuep.min.js"></script>
+
+<script>
+Vue.use(Vuep)
+
+fetch('./demo.vue')
+.then(r => r.text())
+.then(code => {
+  code = code
+    .replace('export default', 'module.exports =')
+    .replace(/<style>[\s\S]+<\/style>\s*$/, '')
+  new Vue({
+    el: '#app',
+    created () {
+      this.code = code
+    }
+  })
+})
+</script>
+</body>
+</html>

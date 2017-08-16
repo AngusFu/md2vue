@@ -2,3 +2,4 @@ src/
 test/
 .vscode/
 rollup.config.js
+demo/

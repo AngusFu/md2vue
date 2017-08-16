@@ -1,4 +1,4 @@
-const { join } = require('path')
+const { join, resolve } = require('path')
 const fs = require('fs')
 const mdPath = join(__dirname, './common.md')
 const source = fs.readFileSync(mdPath).toString()
@@ -16,5 +16,12 @@ layout: 'component'
 `
 })
 .then(content => {
-  require('fs').writeFileSync(join(__dirname, './common.vue'), content)
+  const output = join(__dirname, './common.vue')
+  require('fs').writeFileSync(output, content)
+
+  let dest = process.argv.slice(2)[0]
+  if (dest) {
+    dest = resolve(dest, 'demo.vue')
+    require('fs').writeFileSync(dest, content)
+  }
 })

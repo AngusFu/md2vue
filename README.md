@@ -1,8 +1,8 @@
 # md2vue
 
-Transform markdown document to vue component.
+Transform markdown document to vue component, with code highlighting support from [highlight.js](https://github.com/isagalaev/highlight.js).
 
-Highlighting code support from [highlight.js](https://github.com/isagalaev/highlight.js).
+Have a look at [DEMO](https://angusfu.github.io/md2vue/) ~
 
 ## API
 
