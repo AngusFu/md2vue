@@ -26,6 +26,7 @@ export const wrapScript = ({
   }
 
   const result = indent(code, '  ')
+  const injection = indent(vueInjection, '    ')
   return `
 <script>
 ${result}
@@ -33,30 +34,28 @@ ${result}
     components: {
       ${names}
     }${vueInjection ? ',' : ''}
-    ${vueInjection}
+${injection}
   }
 </script>`
 }
 
 export const wrapMarkup = (markup) => `<template>
-  <article class="markdown-body">
-${indent(markup, '    ')}
-  </article >
+<article class="markdown-body">
+${markup}
+</article >
 </template>`
 
 export const wrapVueCompiled = ({ tagName, compiled }) => {
   return `const ${tagName} = (function (module) {
-${indent(compiled, '  ')}
+${compiled}
   return module.exports;
 })({});
 `
 }
 
-export const wrapHljsCode = (code, lang) => `
-<pre v-pre class="lang-${lang}"><code>
-${indent(code, '  ')}
-</code></pre>
-`
+export const wrapHljsCode = (code, lang) => `<pre v-pre class="lang-${lang}">
+<code>${code}</code>
+</pre>`
 
 export function escape (html, encode) {
   return html

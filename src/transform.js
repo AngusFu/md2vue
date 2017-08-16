@@ -27,7 +27,7 @@ export default (source) => {
     const { style, script, template } = extractMdCode(code)
 
     let vueComponent = `<template lang="html">
-  <div class="code">
+  <div class="vue-demo">
 ${indent(template, '    ')}
   </div>
 </template>
@@ -45,9 +45,16 @@ ${script}
       vue: vueComponent
     })
 
-    // TODO
-    // self closed???
-    return `\n<${tag}></${tag}>\n${result}\n`
+    const rand = 1e8 * Math.random() | 0
+    const uid = 'vd' + Buffer.from(`${rand}`).toString('base64').replace(/=/g, '')
+    return `
+<div class="vue-demo-block">
+<${tag}/>
+<input id="${uid}" type="checkbox" />
+<label for="${uid}"></label>
+${result}
+</div>
+`
   }
 
   return {

@@ -68,19 +68,20 @@ var wrapScript = function (ref) {
   }
 
   var result = indent(code, '  ');
-  return ("\n<script>\n" + result + "\n  export default {\n    components: {\n      " + names + "\n    }" + (vueInjection ? ',' : '') + "\n    " + vueInjection + "\n  }\n</script>")
+  var injection = indent(vueInjection, '    ');
+  return ("\n<script>\n" + result + "\n  export default {\n    components: {\n      " + names + "\n    }" + (vueInjection ? ',' : '') + "\n" + injection + "\n  }\n</script>")
 };
 
-var wrapMarkup = function (markup) { return ("<template>\n  <article class=\"markdown-body\">\n" + (indent(markup, '    ')) + "\n  </article >\n</template>"); };
+var wrapMarkup = function (markup) { return ("<template>\n<article class=\"markdown-body\">\n" + markup + "\n</article >\n</template>"); };
 
 var wrapVueCompiled = function (ref) {
   var tagName = ref.tagName;
   var compiled = ref.compiled;
 
-  return ("const " + tagName + " = (function (module) {\n" + (indent(compiled, '  ')) + "\n  return module.exports;\n})({});\n")
+  return ("const " + tagName + " = (function (module) {\n" + compiled + "\n  return module.exports;\n})({});\n")
 };
 
-var wrapHljsCode = function (code, lang) { return ("\n<pre v-pre class=\"lang-" + lang + "\"><code>\n" + (indent(code, '  ')) + "\n</code></pre>\n"); };
+var wrapHljsCode = function (code, lang) { return ("<pre v-pre class=\"lang-" + lang + "\">\n<code>" + code + "</code>\n</pre>"); };
 
 var renderer = getRenderer();
 var FIX_VUE = /<span class="hljs-tag">&lt;\/</g;
@@ -106,7 +107,7 @@ var tranform = function (source) {
     var script = ref.script;
     var template = ref.template;
 
-    var vueComponent = "<template lang=\"html\">\n  <div class=\"code\">\n" + (indent(template, '    ')) + "\n  </div>\n</template>\n<script lang=\"buble\">\n" + script + "\n</script>";
+    var vueComponent = "<template lang=\"html\">\n  <div class=\"vue-demo\">\n" + (indent(template, '    ')) + "\n  </div>\n</template>\n<script lang=\"buble\">\n" + script + "\n</script>";
 
     if (style !== '') {
       vueComponent += "\n<style scoped>" + style + "</style>";
@@ -118,7 +119,9 @@ var tranform = function (source) {
       vue: vueComponent
     });
 
-    return ("\n<" + tag + "></" + tag + ">\n" + result + "\n")
+    var rand = 1e8 * Math.random() | 0;
+    var uid = 'vd' + Buffer.from(("" + rand)).toString('base64').replace(/=/g, '');
+    return ("\n<div class=\"vue-demo-block\">\n<" + tag + "/>\n<input id=\"" + uid + "\" type=\"checkbox\" />\n<label for=\"" + uid + "\"></label>\n" + result + "\n</div>\n")
   };
 
   return {
