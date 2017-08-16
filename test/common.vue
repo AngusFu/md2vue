@@ -45,8 +45,8 @@
 </table>
 <h3>Demo</h3>
 <div class="vue-demo-block">
-<VueDemo0/>
-<input id="vdOTMwNDUyMDI" type="checkbox" /><label for="vdOTMwNDUyMDI"></label>
+<md2vuedemo0></md2vuedemo0>
+<input id="vdNzE0NjU5NjE" type="checkbox" /><label for="vdNzE0NjU5NjE"></label>
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
 <span class="hljs-selector-class">.wrapper</span> {
@@ -93,8 +93,8 @@
 }</code>
 </pre>
 <div class="vue-demo-block">
-<VueDemo1/>
-<input id="vdNTE4OTg2NjM" type="checkbox" /><label for="vdNTE4OTg2NjM"></label>
+<md2vuedemo1></md2vuedemo1>
+<input id="vdOTM3NDY1Mzg" type="checkbox" /><label for="vdOTM3NDY1Mzg"></label>
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">c-button</span>&gt;</span>默认按钮<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">c-button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">c-button</span> <span class="hljs-attr">primary</span>&gt;</span>主操作按钮<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">c-button</span>&gt;</span>
@@ -107,7 +107,7 @@
 
 <script>
   /* eslint-disable */
-  const VueDemo0 = (function (module) {
+  const md2vuedemo0 = (function (module) {
   ;(function(){
     module.exports = {
     data: function data() {
@@ -131,7 +131,7 @@
     return module.exports;
   })({});
 
-  const VueDemo1 = (function (module) {
+  const md2vuedemo1 = (function (module) {
   ;(function(){
     module.exports = {}
   })()
@@ -146,7 +146,8 @@
   /* eslint-enable */
   export default {
     components: {
-      VueDemo0, VueDemo1
+      'md2vuedemo0': md2vuedemo0,
+'md2vuedemo1': md2vuedemo1
     }
 
   }

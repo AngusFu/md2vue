@@ -65,6 +65,12 @@ Renderer.prototype.link = function (href, title, text) {
   return out;
 };
 
+function camelCase(str) {
+  return str.replace(/[_.-](\w|$)/g, function (_,x) {
+      return x.toUpperCase()
+  });
+}
+
 var addESLint = function (code) { return code ? ("/* eslint-disable */\n" + code + "\n/* eslint-enable */") : ''; };
 
 var wrapCSSText = function (css) { return css ? ("\n<style>\n" + css + "\n</style>\n") : ''; };
@@ -95,7 +101,7 @@ var wrapVueCompiled = function (ref) {
   var tagName = ref.tagName;
   var compiled = ref.compiled;
 
-  return ("const " + tagName + " = (function (module) {\n" + compiled + "\n  return module.exports;\n})({});\n")
+  return ("const " + (camelCase(tagName)) + " = (function (module) {\n" + compiled + "\n  return module.exports;\n})({});\n")
 };
 
 var wrapHljsCode = function (code, lang) { return ("<pre v-pre class=\"lang-" + lang + "\">\n<code>" + code + "</code>\n</pre>"); };
@@ -121,7 +127,7 @@ var tranform = function (source, config) {
       return result
     }
 
-    var tag = "VueDemo" + (id++);
+    var tag = "md2vuedemo" + ((id++).toString(36));
     var ref = extractMdCode(code);
     var style = ref.style;
     var script = ref.script;
@@ -146,7 +152,7 @@ var tranform = function (source, config) {
       var uid = 'vd' + Buffer.from(("" + rand)).toString('base64').replace(/=/g, '');
       ctrl = "<input id=\"" + uid + "\" type=\"checkbox\" /><label for=\"" + uid + "\"></label>";
     }
-    return ("\n<div class=\"vue-demo-block\">\n<" + tag + "/>\n" + ctrl + "\n" + result + "\n</div>\n")
+    return ("\n<div class=\"vue-demo-block\">\n<" + tag + "></" + tag + ">\n" + ctrl + "\n" + result + "\n</div>\n")
   };
 
   return {
@@ -270,8 +276,8 @@ var index = function (source, opts) {
       var names = demos.map(function (ref) {
         var tag = ref.tag;
 
-        return tag;
-      }).join(', ');
+        return ("'" + tag + "': " + (camelCase(tag)))
+      }).join(',\n');
       return Promise.all([
         Promise.resolve({ code: code, names: names, vueInjection: vueInjection }),
         bundler.pipe()

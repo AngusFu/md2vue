@@ -26,7 +26,7 @@
   "scripts": {
     "start": "rollup -c rollup.config.js -w",
     "build": "rollup -c rollup.config.js",
-    "preview": "live-server ./demo",
+    "preview": "npm run build && node test/ ./demo && live-server ./demo",
     "deploy": "npm run build && node test/ ./demo && gh-pages -d demo"
   }
 }
