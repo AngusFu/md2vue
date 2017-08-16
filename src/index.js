@@ -1,6 +1,6 @@
 import tranform from './transform'
 import vueCompiler from './compiler'
-import StyleBundler from './styleBundler'
+import StyleBundler from './StyleBundler'
 
 import {
   camelCase,

@@ -25,7 +25,8 @@ fetch('./demo.vue')
 .then(code => {
   code = code
     .replace('export default', 'module.exports =')
-    .replace(/<style>[\s\S]+<\/style>\s*$/, '')
+    .replace(/<style>/g, '<!--\n<style>')
+    .replace(/<\/style>/g, '</style>\n--!>')
   new Vue({
     el: '#app',
     created () {

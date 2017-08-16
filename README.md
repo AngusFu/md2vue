@@ -2,7 +2,7 @@
 
 Transform markdown document to vue component, with code highlighting support from [highlight.js](https://github.com/isagalaev/highlight.js).
 
-Have a look at [DEMO](https://angusfu.github.io/md2vue/) ~
+Have a look at the generated [code](https://angusfu.github.io/md2vue/) ~
 
 ## API
 
