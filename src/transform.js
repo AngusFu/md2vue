@@ -26,7 +26,7 @@ export default (source, config) => {
       return result
     }
 
-    const tag = `VueDemo${id++}`
+    const tag = `md2vuedemo${(id++).toString(36)}`
     const { style, script, template } = extractMdCode(code)
 
     let vueComponent = `<template lang="html">
@@ -57,7 +57,7 @@ ${script}
     }
     return `
 <div class="vue-demo-block">
-<${tag}/>
+<${tag}></${tag}>
 ${ctrl}
 ${result}
 </div>

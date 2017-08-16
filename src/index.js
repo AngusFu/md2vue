@@ -3,6 +3,7 @@ import vueCompiler from './compiler'
 import StyleBundler from './styleBundler'
 
 import {
+  camelCase,
   addESLint,
   wrapCSSText,
   wrapScript,
@@ -33,7 +34,9 @@ export default (source, opts = {}) => {
   return Promise.all(tasks)
     .then(rets => addESLint(rets.join('\n')))
     .then(code => {
-      const names = demos.map(({tag}) => tag).join(', ')
+      const names = demos.map(({tag}) => {
+        return `'${tag}': ${camelCase(tag)}`
+      }).join(',\n')
       return Promise.all([
         Promise.resolve({ code, names, vueInjection }),
         bundler.pipe()

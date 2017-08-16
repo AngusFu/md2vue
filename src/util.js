@@ -1,5 +1,11 @@
 import indent from 'indent'
 
+export function camelCase(str) {
+  return str.replace(/[_.-](\w|$)/g, (_,x) => {
+      return x.toUpperCase()
+  });
+}
+
 export const addESLint = (code) => code ? `/* eslint-disable */
 ${code}
 /* eslint-enable */` : ''
@@ -46,7 +52,7 @@ ${markup}
 </template>`
 
 export const wrapVueCompiled = ({ tagName, compiled }) => {
-  return `const ${tagName} = (function (module) {
+  return `const ${camelCase(tagName)} = (function (module) {
 ${compiled}
   return module.exports;
 })({});
