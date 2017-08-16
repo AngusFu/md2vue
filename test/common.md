@@ -2,6 +2,12 @@
 
 > Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— [维基百科](https://zh.wikipedia.org/wiki/Markdown)
 
+<br>
+
+<a href="/">link markup test</a>
+
+[markdown link](./component/)
+
 ### 笔记标题
 **马克飞象**会自动使用文档内出现的第一个标题作为笔记标题。例如本文，就是第一行的 `欢迎使用马克飞象`。
 

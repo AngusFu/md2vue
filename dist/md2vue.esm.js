@@ -34,15 +34,32 @@ var extractMdCode = function (code) {
   }
 };
 
-var getRenderer = function (Renderer) {
-  var renderer = new marked.Renderer();
-  renderer.heading = heading;
-  return renderer
+var Renderer = marked.Renderer;
+
+var getRenderer = function () {
+  return new Renderer()
 };
 
-function heading (text, l) {
+Renderer.prototype.heading = function (text, l) {
   return ("<h" + l + ">" + text + "</h" + l + ">")
-}
+};
+
+Renderer.prototype.link = function (href, title, text) {
+  var relative = !/^(https?\:)?\/\//.test(href);
+  var out = "<a href=\"" + href + "\"";
+
+  if (relative === false) {
+    out += " target=\"blank\"";
+  }
+
+  if (title) {
+    out += " title=\"" + title + "\"";
+  }
+
+  out += ">" + text + "</a>";
+
+  return out;
+};
 
 var addESLint = function (code) { return code ? ("/* eslint-disable */\n" + code + "\n/* eslint-enable */") : ''; };
 

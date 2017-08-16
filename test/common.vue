@@ -1,8 +1,11 @@
 <template>
 <article class="markdown-body">
 <h2>Markdown简介</h2><blockquote>
-<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— <a href="https://zh.wikipedia.org/wiki/Markdown">维基百科</a></p>
+<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— <a href="https://zh.wikipedia.org/wiki/Markdown" target="blank">维基百科</a></p>
 </blockquote>
+<p><br></p>
+<p><a href="/">link markup test</a></p>
+<p><a href="./component/">markdown link</a></p>
 <h3>笔记标题</h3><p><strong>马克飞象</strong>会自动使用文档内出现的第一个标题作为笔记标题。例如本文，就是第一行的 <code>欢迎使用马克飞象</code>。</p>
 <h3>快捷编辑</h3><p>保存在印象笔记中的笔记，右上角会有一个红色的编辑按钮，点击后会回到<strong>马克飞象</strong>中打开并编辑该笔记。</p>
 <blockquote>
@@ -41,7 +44,7 @@
 <h3>Demo</h3>
 <div class="vue-demo-block">
 <VueDemo0/>
-<input id="vdNzcwNzU2NjE" type="checkbox" /><label for="vdNzcwNzU2NjE"></label>
+<input id="vdNzExNjk1NjE" type="checkbox" /><label for="vdNzExNjk1NjE"></label>
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
 <span class="hljs-selector-class">.wrapper</span> {
@@ -89,7 +92,7 @@
 </pre>
 <div class="vue-demo-block">
 <VueDemo1/>
-<input id="vdNjk5ODI3NjY" type="checkbox" /><label for="vdNjk5ODI3NjY"></label>
+<input id="vdNDk2NzMwNzY" type="checkbox" /><label for="vdNDk2NzMwNzY"></label>
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">c-button</span>&gt;</span>默认按钮<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">c-button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">c-button</span> <span class="hljs-attr">primary</span>&gt;</span>主操作按钮<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">c-button</span>&gt;</span>
