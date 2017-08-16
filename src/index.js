@@ -10,11 +10,17 @@ import {
   wrapVueCompiled
 } from './util'
 
-const defaults = {}
-export default (source, opts = defaults) => {
-  const { markup, demos } = tranform(source)
-  const bundler = StyleBundler.from(vueCompiler)
+const defaults = {
+  toggleCode: true,
+  vueInjection: ''
+}
 
+export default (source, opts = {}) => {
+  const config = Object.assign(opts, defaults)
+  const { vueInjection } = config
+
+  const { markup, demos } = tranform(source, config)
+  const bundler = StyleBundler.from(vueCompiler)
   const tasks = demos.map(({ tag, raw, vue }) =>
     vueCompiler
       .compilePromise(vue)
@@ -23,8 +29,6 @@ export default (source, opts = defaults) => {
         compiled
       }))
   )
-
-  const { vueInjection } = opts
 
   return Promise.all(tasks)
     .then(rets => addESLint(rets.join('\n')))

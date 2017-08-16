@@ -10,9 +10,12 @@ const FIX_VUE = /<span class="hljs-tag">&lt;\/</g
 const FIXTURE = '<span class="hljs-tag"><span>&lt;</span>/<'
 const fix = code => code.replace(FIX_VUE, FIXTURE)
 
-export default (source) => {
+export default (source, config) => {
   let id = 0
   const demos = []
+
+  const { toggleCode } = config
+
   renderer.code = function (code, language) {
     const lang = language === 'vue' ? 'html' : language
     const markup = hljs.highlight(lang, code).value
@@ -45,13 +48,17 @@ ${script}
       vue: vueComponent
     })
 
-    const rand = 1e8 * Math.random() | 0
-    const uid = 'vd' + Buffer.from(`${rand}`).toString('base64').replace(/=/g, '')
+    let ctrl = ''
+
+    if (toggleCode) {
+      const rand = 1e8 * Math.random() | 0
+      const uid = 'vd' + Buffer.from(`${rand}`).toString('base64').replace(/=/g, '')
+      ctrl = `<input id="${uid}" type="checkbox" /><label for="${uid}"></label>`
+    }
     return `
 <div class="vue-demo-block">
 <${tag}/>
-<input id="${uid}" type="checkbox" />
-<label for="${uid}"></label>
+${ctrl}
 ${result}
 </div>
 `

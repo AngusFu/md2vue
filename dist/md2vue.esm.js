@@ -84,9 +84,12 @@ var FIX_VUE = /<span class="hljs-tag">&lt;\/</g;
 var FIXTURE = '<span class="hljs-tag"><span>&lt;</span>/<';
 var fix = function (code) { return code.replace(FIX_VUE, FIXTURE); };
 
-var tranform = function (source) {
+var tranform = function (source, config) {
   var id = 0;
   var demos = [];
+
+  var toggleCode = config.toggleCode;
+
   renderer.code = function (code, language) {
     var lang = language === 'vue' ? 'html' : language;
     var markup = hljs.highlight(lang, code).value;
@@ -115,9 +118,14 @@ var tranform = function (source) {
       vue: vueComponent
     });
 
-    var rand = 1e8 * Math.random() | 0;
-    var uid = 'vd' + Buffer.from(("" + rand)).toString('base64').replace(/=/g, '');
-    return ("\n<div class=\"vue-demo-block\">\n<" + tag + "/>\n<input id=\"" + uid + "\" type=\"checkbox\" />\n<label for=\"" + uid + "\"></label>\n" + result + "\n</div>\n")
+    var ctrl = '';
+
+    if (toggleCode) {
+      var rand = 1e8 * Math.random() | 0;
+      var uid = 'vd' + Buffer.from(("" + rand)).toString('base64').replace(/=/g, '');
+      ctrl = "<input id=\"" + uid + "\" type=\"checkbox\" /><label for=\"" + uid + "\"></label>";
+    }
+    return ("\n<div class=\"vue-demo-block\">\n<" + tag + "/>\n" + ctrl + "\n" + result + "\n</div>\n")
   };
 
   return {
@@ -206,15 +214,21 @@ StyleBundler.from = function (emitter) {
   return bundler
 };
 
-var defaults = {};
-var index = function (source, opts) {
-  if ( opts === void 0 ) opts = defaults;
+var defaults = {
+  toggleCode: true,
+  vueInjection: ''
+};
 
-  var ref = tranform(source);
+var index = function (source, opts) {
+  if ( opts === void 0 ) opts = {};
+
+  var config = Object.assign(opts, defaults);
+  var vueInjection = config.vueInjection;
+
+  var ref = tranform(source, config);
   var markup = ref.markup;
   var demos = ref.demos;
   var bundler = StyleBundler.from(compiler);
-
   var tasks = demos.map(function (ref) {
       var tag = ref.tag;
       var raw = ref.raw;
@@ -228,8 +242,6 @@ var index = function (source, opts) {
       }); });
   }
   );
-
-  var vueInjection = opts.vueInjection;
 
   return Promise.all(tasks)
     .then(function (rets) { return addESLint(rets.join('\n')); })

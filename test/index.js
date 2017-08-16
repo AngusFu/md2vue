@@ -5,11 +5,14 @@ const source = fs.readFileSync(mdPath).toString()
 const md2vue = require('../')
 
 md2vue(source, {
+  toggleCode: false,
   vueInjection: `
-head() {
-  return '测试'
+head () {
+  return {
+    title: '组件'
+  }
 },
-layout: "component"
+layout: 'component'
 `
 })
 .then(content => {

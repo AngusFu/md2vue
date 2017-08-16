@@ -41,8 +41,7 @@
 <h3>Demo</h3>
 <div class="vue-demo-block">
 <VueDemo0/>
-<input id="vdOTM2NjM1NzE" type="checkbox" />
-<label for="vdOTM2NjM1NzE"></label>
+<input id="vdNzcwNzU2NjE" type="checkbox" /><label for="vdNzcwNzU2NjE"></label>
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
 <span class="hljs-selector-class">.wrapper</span> {
@@ -90,8 +89,7 @@
 </pre>
 <div class="vue-demo-block">
 <VueDemo1/>
-<input id="vdMzM1NTk5MTQ" type="checkbox" />
-<label for="vdMzM1NTk5MTQ"></label>
+<input id="vdNjk5ODI3NjY" type="checkbox" /><label for="vdNjk5ODI3NjY"></label>
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">c-button</span>&gt;</span>默认按钮<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">c-button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">c-button</span> <span class="hljs-attr">primary</span>&gt;</span>主操作按钮<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">c-button</span>&gt;</span>
@@ -144,12 +142,7 @@
   export default {
     components: {
       VueDemo0, VueDemo1
-    },
-
-    head() {
-      return '测试'
-    },
-    layout: "component"
+    }
 
   }
 </script>
