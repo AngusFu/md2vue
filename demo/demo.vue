@@ -20,14 +20,14 @@
 
 <div class="vue-demo-block">
 <md2vuedemo0></md2vuedemo0>
-<input id="vdNTY4MzgxMTQ" type="checkbox" /><label for="vdNTY4MzgxMTQ"></label>
+
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
 <span class="hljs-selector-class">.wrapper</span> {
   <span class="hljs-attribute">background</span>: red
 }
 <span class="hljs-selector-tag">input</span> {
-  <span class="hljs-attribute">width</span>: <span class="hljs-number">30px</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>;
   <span class="hljs-attribute">text-align</span>: center;
 }
 </span><span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">style</span>&gt;</span>
@@ -60,7 +60,7 @@
 
 <div class="vue-demo-block">
 <md2vuedemo1></md2vuedemo1>
-<input id="vdMTQzODIwNzg" type="checkbox" /><label for="vdMTQzODIwNzg"></label>
+
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"click"</span>&gt;</span>click<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">button</span>&gt;</span>
 
@@ -127,12 +127,19 @@
   export default {
     components: {
       'md2vuedemo0': md2vuedemo0,
-'md2vuedemo1': md2vuedemo1
-    }
+      'md2vuedemo1': md2vuedemo1
+    },
+
+    head () {
+      return {
+        title: '组件'
+      }
+    },
+    layout: 'component'
 
   }
 </script>
 
 <style>
-.wrapper[data-v-bba68bf6]{background:red}input[data-v-bba68bf6]{width:30px;text-align:center}
+.wrapper[data-v-bba68bf6]{background:red}input[data-v-bba68bf6]{width:50px;text-align:center}
 </style>

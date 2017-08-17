@@ -65,10 +65,10 @@ Renderer.prototype.link = function (href, title, text) {
   return out;
 };
 
-function camelCase(str) {
+function camelCase (str) {
   return str.replace(/[_.-](\w|$)/g, function (_,x) {
-      return x.toUpperCase()
-  });
+    return x.toUpperCase()
+  })
 }
 
 var addESLint = function (code) { return code ? ("/* eslint-disable */\n" + code + "\n/* eslint-enable */") : ''; };
@@ -90,9 +90,9 @@ var wrapScript = function (ref) {
     throw msg
   }
 
-  var result = indent(code, '  ');
-  var injection = indent(vueInjection, '    ');
-  return ("\n<script>\n" + result + "\n  export default {\n    components: {\n      " + names + "\n    }" + (vueInjection ? ',' : '') + "\n" + injection + "\n  }\n</script>")
+  var result = indent(code, 2);
+  var injection = indent(vueInjection, 4);
+  return ("\n<script>\n" + result + "\n  export default {\n    components: {\n" + (indent(names, 6)) + "\n    }" + (vueInjection ? ',' : '') + "\n" + injection + "\n  }\n</script>")
 };
 
 var wrapMarkup = function (markup) { return ("<template>\n<article class=\"markdown-body\">\n" + markup + "\n</article >\n</template>"); };
@@ -249,7 +249,7 @@ var defaults = {
 var index = function (source, opts) {
   if ( opts === void 0 ) opts = {};
 
-  var config = Object.assign(opts, defaults);
+  var config = Object.assign(defaults, opts);
   var vueInjection = config.vueInjection;
 
   var ref = tranform(source, config);

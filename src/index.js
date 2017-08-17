@@ -17,7 +17,7 @@ const defaults = {
 }
 
 export default (source, opts = {}) => {
-  const config = Object.assign(opts, defaults)
+  const config = Object.assign(defaults, opts)
   const { vueInjection } = config
 
   const { markup, demos } = tranform(source, config)

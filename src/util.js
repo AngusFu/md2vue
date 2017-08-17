@@ -1,9 +1,9 @@
 import indent from 'indent'
 
-export function camelCase(str) {
+export function camelCase (str) {
   return str.replace(/[_.-](\w|$)/g, (_,x) => {
-      return x.toUpperCase()
-  });
+    return x.toUpperCase()
+  })
 }
 
 export const addESLint = (code) => code ? `/* eslint-disable */
@@ -31,14 +31,14 @@ export const wrapScript = ({
     throw msg
   }
 
-  const result = indent(code, '  ')
-  const injection = indent(vueInjection, '    ')
+  const result = indent(code, 2)
+  const injection = indent(vueInjection, 4)
   return `
 <script>
 ${result}
   export default {
     components: {
-      ${names}
+${indent(names, 6)}
     }${vueInjection ? ',' : ''}
 ${injection}
   }
