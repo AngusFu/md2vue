@@ -1,51 +1,47 @@
-## Markdown简介
+## Introduction to md2vue
 
-**[markdonw source](https://github.com/AngusFu/md2vue/blob/master/test/common.md)**
+You can get raw text of this document **[here](/AngusFu/md2vue/blob/master/test/common.md)**.
 
-> Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— [维基百科](https://zh.wikipedia.org/wiki/Markdown)
+> Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— [wikipedia](https://en.wikipedia.org/wiki/Markdown)
 
-<br>
+### Inspiration
 
-<a href="/">link markup test</a>
+Inspired by <a href="https://nuxtjs.org">nuxt</a>, [md2vue](https://github.com/AngusFu/md2vue) was initially aimed at transforming markdown texts in our Vue project, which were used both for documentation and demostration.
 
-[markdown link](./component/)
+### Dev Dependencies
 
-[markdown link](http://wemlion.com)
+- [marked](/chjj/marked): A markdown parser and compiler. Built for speed.
+- [highlight.js](https://github.com/isagalaev/highlight.js): Javascript syntax highlighter.
+- [vueify](https://github.com/vuejs/vueify): Browserify transform for single-file Vue components
+- [rollup](https://github.com/rollup/rollup): Next-generation ES6 module bundler.
+- [buble](https://buble.surge.sh/): The blazing fast, batteries-included ES2015 compiler.
 
-### 笔记标题
-**马克飞象**会自动使用文档内出现的第一个标题作为笔记标题。例如本文，就是第一行的 `欢迎使用马克飞象`。
+### Typography & UI
 
-### 快捷编辑
-保存在印象笔记中的笔记，右上角会有一个红色的编辑按钮，点击后会回到**马克飞象**中打开并编辑该笔记。
->**注意：**目前用户在印象笔记中单方面做的任何修改，马克飞象是无法自动感知和更新的。所以请务必回到马克飞象编辑。
-
-### 数据同步
-**马克飞象**通过**将Markdown原文以隐藏内容保存在笔记中**的精妙设计，实现了对Markdown的存储和再次编辑。既解决了其他产品只是单向导出HTML的单薄，又规避了服务端存储Markdown带来的隐私安全问题。这样，服务端仅作为对印象笔记 API调用和数据转换之用。
-
->**隐私声明：用户所有的笔记数据，均保存在印象笔记中。马克飞象不存储用户的任何笔记数据。**
-
-### 表格
-| Item      |    Value | Qty  |
-| :-------- | --------:| :--: |
-| Computer  | 1600 USD |  5   |
-| Phone     |   12 USD |  12  |
-| Pipe      |    1 USD | 234  |
+- [github-markdown-css](https://github.com/sindresorhus/github-markdown-css): The minimal amount of CSS to replicate the GitHub Markdown style.
+- [highlight.js](https://github.com/isagalaev/highlight.js): Code highlighting.
 
 
 ### Demo
 
+The following code in vue can be rendered into an real tiny vue app:
+
 ```html
 <style>
 .wrapper {
-  backgroun: red
+  background: red
+}
+input {
+  width: 50px;
+  text-align: center;
 }
 </style>
 
 <template>
   <div class="wrapper">
-    <button @click="incr(-1)">decrease</button>
+    <button @click="incr(-1)">-</button>
     <input type="text" readonly :value="count">
-    <button @click="incr(+1)">increase</button>
+    <button @click="incr(+1)">+</button>
   </div>
 </template>
 
@@ -65,25 +61,18 @@ export default {
 </script>
 ```
 
-### Demo 2
+You can also leave out `<template>` tags, just like this:
 
-```javascript
+```html
+<button @click="click">click</button>
+
+<script>
 export default {
-  data() {
-    return {
-      count: 0
-    }
-  },
   methods: {
-    incr(delta) {
-      this.count += delta
+    click() {
+      alert('clicked!')
     }
   }
 }
-```
-
-```html
-<c-button>默认按钮</c-button>
-<c-button primary>主操作按钮</c-button>
-<c-button disabled>禁用按钮</c-button>
+</script>
 ```
