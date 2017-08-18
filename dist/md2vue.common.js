@@ -92,7 +92,7 @@ var wrapScript = function (ref) {
 
   var result = indent(code, 2);
   var injection = indent(vueInjection, 4);
-  return ("\n<script>\n" + result + "\n  export default {\n    components: {\n" + (indent(names, 6)) + "\n    }" + (vueInjection ? ',' : '') + "\n" + injection + "\n  }\n</script>")
+  return ("\n<script>\n" + result + "\n  module.exports = {\n    components: {\n" + (indent(names, 6)) + "\n    }" + (vueInjection ? ',' : '') + "\n" + injection + "\n  }\n</script>")
 };
 
 var wrapMarkup = function (markup) { return ("<template>\n<article class=\"markdown-body\">\n" + markup + "\n</article >\n</template>"); };
@@ -102,6 +102,14 @@ var wrapVueCompiled = function (ref) {
   var compiled = ref.compiled;
 
   return ("const " + (camelCase(tagName)) + " = (function (module) {\n" + compiled + "\n  return module.exports;\n})({});\n")
+};
+
+var wrapModule = function (ref) {
+  var componentName = ref.componentName;
+  var compiled = ref.compiled;
+  var css = ref.css;
+
+  return ("module.exports = (function (module) {\n" + compiled + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n  exports.methods = {\n    beforeCreate: function () {\n      this._ic_ = insert(\"" + (css.replace(/\n/g, ' ')) + "\")\n    },\n    destroyed: function () {\n      this._ic_ && this._ic_()\n    }\n  }\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n  if (typeof window !== void 0 && window.Vue) {\n    Vue.use(exports )\n  }\n  return module.exports;\n\n  function insert(css) {\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n\n    if ('textContent' in elem) {\n      elem.textContent = css\n    } else {\n      elem.styleSheet.cssText = css\n    }\n\n    document.getElementsByTagName('head')[0].appendChild(elem)\n    return function () {\n      document.getElementsByTagName('head')[0].removeChild(elem)\n    }\n  }\n  })({});\n")
 };
 
 var wrapHljsCode = function (code, lang) { return ("<pre v-pre class=\"lang-" + lang + "\">\n<code>" + code + "</code>\n</pre>"); };
@@ -243,14 +251,17 @@ StyleBundler.from = function (emitter) {
 
 var defaults = {
   toggleCode: true,
-  vueInjection: ''
+  vueInjection: '',
+  target: 'vue'
 };
 
 var index = function (source, opts) {
   if ( opts === void 0 ) opts = {};
 
-  var config = Object.assign(defaults, opts);
+  var config = Object.assign({}, defaults, opts);
   var vueInjection = config.vueInjection;
+  var target = config.target;
+  var componentName = config.componentName;
 
   var ref = tranform(source, config);
   var markup = ref.markup;
@@ -293,7 +304,22 @@ var index = function (source, opts) {
         wrapCSSText(css)
       ].join('\n');
 
-      return content
+      if (!target || target === 'vue') {
+        return content
+      }
+
+      if (!componentName) {
+        throw '[Error] `componentName` must be specified!'
+      }
+      console.log(target, componentName);
+
+      return vueify.compiler
+        .compilePromise(content)
+        .then(function (compiled) { return wrapModule({
+          componentName: componentName,
+          compiled: compiled,
+          css: css
+        }); })
     })
 };
 

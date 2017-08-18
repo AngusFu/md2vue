@@ -8,17 +8,23 @@ import {
   wrapCSSText,
   wrapScript,
   wrapMarkup,
-  wrapVueCompiled
+  wrapVueCompiled,
+  wrapModule
 } from './util'
 
 const defaults = {
   toggleCode: true,
-  vueInjection: ''
+  vueInjection: '',
+  target: 'vue'
 }
 
 export default (source, opts = {}) => {
-  const config = Object.assign(defaults, opts)
-  const { vueInjection } = config
+  const config = Object.assign({}, defaults, opts)
+  const {
+    vueInjection,
+    target,
+    componentName
+  } = config
 
   const { markup, demos } = tranform(source, config)
   const bundler = StyleBundler.from(vueCompiler)
@@ -49,6 +55,20 @@ export default (source, opts = {}) => {
         wrapCSSText(css)
       ].join('\n')
 
-      return content
+      if (!target || target === 'vue') {
+        return content
+      }
+
+      if (!componentName) {
+        throw '[Error] `componentName` must be specified!'
+      }
+
+      return vueCompiler
+        .compilePromise(content)
+        .then(compiled => wrapModule({
+          componentName,
+          compiled,
+          css
+        }))
     })
 }

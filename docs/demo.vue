@@ -20,7 +20,7 @@
 
 <div class="vue-demo-block">
 <md2vuedemo0></md2vuedemo0>
-<input id="vdNDU4NjY5OTE" type="checkbox" /><label for="vdNDU4NjY5OTE"></label>
+<input id="vdMTQyMjU5NDY" type="checkbox" /><label for="vdMTQyMjU5NDY"></label>
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
 <span class="hljs-selector-class">.wrapper</span> <span class="hljs-selector-tag">input</span> {
@@ -57,7 +57,7 @@
 
 <div class="vue-demo-block">
 <md2vuedemo1></md2vuedemo1>
-<input id="vdMTIwNjc5ODA" type="checkbox" /><label for="vdMTIwNjc5ODA"></label>
+<input id="vdMTQyNzIyMTM" type="checkbox" /><label for="vdMTQyNzIyMTM"></label>
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"click"</span>&gt;</span>click<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">button</span>&gt;</span>
 
@@ -121,7 +121,7 @@
   })({});
 
   /* eslint-enable */
-  export default {
+  module.exports = {
     components: {
       'md2vuedemo0': md2vuedemo0,
       'md2vuedemo1': md2vuedemo1
@@ -138,5 +138,6 @@
 </script>
 
 <style>
+.wrapper input[data-v-bba68bf6]{width:50px;text-align:center}
 .wrapper input[data-v-bba68bf6]{width:50px;text-align:center}
 </style>

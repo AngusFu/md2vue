@@ -36,7 +36,7 @@ export const wrapScript = ({
   return `
 <script>
 ${result}
-  export default {
+  module.exports = {
     components: {
 ${indent(names, 6)}
     }${vueInjection ? ',' : ''}
@@ -56,6 +56,46 @@ export const wrapVueCompiled = ({ tagName, compiled }) => {
 ${compiled}
   return module.exports;
 })({});
+`
+}
+
+export const wrapModule = ({ componentName, compiled, css }) => {
+  return `module.exports = (function (module) {
+${compiled}
+  var exports = module.exports
+  exports.name = "${componentName}"
+  exports.methods = {
+    beforeCreate: function () {
+      this._ic_ = insert("${css.replace(/\n/g, ' ')}")
+    },
+    destroyed: function () {
+      this._ic_ && this._ic_()
+    }
+  }
+  module.exports.install = function (Vue) {
+    Vue.component(exports.name, exports)
+  }
+  if (typeof window !== void 0 && window.Vue) {
+    Vue.use(exports )
+  }
+  return module.exports;
+
+  function insert(css) {
+    var elem = document.createElement('style')
+    elem.setAttribute('type', 'text/css')
+
+    if ('textContent' in elem) {
+      elem.textContent = css
+    } else {
+      elem.styleSheet.cssText = css
+    }
+
+    document.getElementsByTagName('head')[0].appendChild(elem)
+    return function () {
+      document.getElementsByTagName('head')[0].removeChild(elem)
+    }
+  }
+  })({});
 `
 }
 
