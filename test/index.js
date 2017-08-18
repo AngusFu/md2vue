@@ -5,7 +5,7 @@ const source = fs.readFileSync(mdPath).toString()
 const md2vue = require('../')
 
 md2vue(source, {
-  toggleCode: false,
+  toggleCode: true,
   vueInjection: `
 head () {
   return {

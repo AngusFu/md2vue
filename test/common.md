@@ -28,10 +28,7 @@ The following code in vue can be rendered into an real tiny vue app:
 
 ```html
 <style>
-.wrapper {
-  background: red
-}
-input {
+.wrapper input {
   width: 50px;
   text-align: center;
 }
