@@ -23,6 +23,14 @@ Vue.use(Vuep)
 fetch('./demo.vue')
 .then(r => r.text())
 .then(code => {
+  const m =  /<style>([\s\S]+)<\/style>/.exec(code)
+  if (m && m[1]) {
+    var elem = document.createElement('style')
+    elem.setAttribute('type', 'text/css')
+    elem.textContent = m[1]
+    document.getElementsByTagName('head')[0].appendChild(elem)
+  }
+
   code = code
     .replace('export default', 'module.exports =')
     .replace(/<style>/g, '<!--\n<style>')
