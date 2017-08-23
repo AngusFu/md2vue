@@ -89,4 +89,4 @@ md2vue(markdown, {
 - loader
 - command line
 - sourceMap
-- consider using [remark](http://remark.js.org/), which allows for custom plugin  
+- consider using [remark](http://remark.js.org/) 
