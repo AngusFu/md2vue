@@ -2,6 +2,7 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
+var yamlFront = _interopDefault(require('yaml-front-matter'));
 var marked = _interopDefault(require('marked'));
 var indent = _interopDefault(require('indent'));
 var hljs = _interopDefault(require('highlight.js'));
@@ -49,7 +50,7 @@ Renderer.prototype.heading = function (text, l) {
 };
 
 Renderer.prototype.link = function (href, title, text) {
-  var relative = !/^(https?\:)?\/\//.test(href);
+  var relative = !/^(https?:)?\/\//.test(href);
   var out = "<a href=\"" + href + "\"";
 
   if (relative === false) {
@@ -62,13 +63,11 @@ Renderer.prototype.link = function (href, title, text) {
 
   out += ">" + text + "</a>";
 
-  return out;
+  return out
 };
 
 function camelCase (str) {
-  return str.replace(/[_.-](\w|$)/g, function (_,x) {
-    return x.toUpperCase()
-  })
+  return str.replace(/[_.-](\w|$)/g, function (_, x) { return x.toUpperCase(); })
 }
 
 var addESLint = function (code) { return code ? ("/* eslint-disable */\n" + code + "\n/* eslint-enable */") : ''; };
@@ -309,9 +308,8 @@ var index = function (source, opts) {
       }
 
       if (!componentName) {
-        throw '[Error] `componentName` must be specified!'
+        throw new Error('[Error] `componentName` must be specified!')
       }
-      console.log(target, componentName);
 
       return vueify.compiler
         .compilePromise(content)

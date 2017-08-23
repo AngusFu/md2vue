@@ -1,3 +1,4 @@
+import yamlFront from 'yaml-front-matter';
 import marked from 'marked';
 import indent from 'indent';
 import hljs from 'highlight.js';
@@ -45,7 +46,7 @@ Renderer.prototype.heading = function (text, l) {
 };
 
 Renderer.prototype.link = function (href, title, text) {
-  var relative = !/^(https?\:)?\/\//.test(href);
+  var relative = !/^(https?:)?\/\//.test(href);
   var out = "<a href=\"" + href + "\"";
 
   if (relative === false) {
@@ -58,13 +59,11 @@ Renderer.prototype.link = function (href, title, text) {
 
   out += ">" + text + "</a>";
 
-  return out;
+  return out
 };
 
 function camelCase (str) {
-  return str.replace(/[_.-](\w|$)/g, function (_,x) {
-    return x.toUpperCase()
-  })
+  return str.replace(/[_.-](\w|$)/g, function (_, x) { return x.toUpperCase(); })
 }
 
 var addESLint = function (code) { return code ? ("/* eslint-disable */\n" + code + "\n/* eslint-enable */") : ''; };
@@ -305,9 +304,8 @@ var index = function (source, opts) {
       }
 
       if (!componentName) {
-        throw '[Error] `componentName` must be specified!'
+        throw new Error('[Error] `componentName` must be specified!')
       }
-      console.log(target, componentName);
 
       return compiler
         .compilePromise(content)
