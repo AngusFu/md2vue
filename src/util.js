@@ -1,9 +1,7 @@
 import indent from 'indent'
 
 export function camelCase (str) {
-  return str.replace(/[_.-](\w|$)/g, (_,x) => {
-    return x.toUpperCase()
-  })
+  return str.replace(/[_.-](\w|$)/g, (_, x) => x.toUpperCase())
 }
 
 export const addESLint = (code) => code ? `/* eslint-disable */

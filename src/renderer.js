@@ -10,7 +10,7 @@ Renderer.prototype.heading = function (text, l) {
 }
 
 Renderer.prototype.link = function (href, title, text) {
-  let relative = !/^(https?\:)?\/\//.test(href)
+  let relative = !/^(https?:)?\/\//.test(href)
   let out = `<a href="${href}"`
 
   if (relative === false) {
@@ -23,5 +23,5 @@ Renderer.prototype.link = function (href, title, text) {
 
   out += `>${text}</a>`
 
-  return out;
+  return out
 }

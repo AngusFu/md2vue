@@ -60,7 +60,7 @@ export default (source, opts = {}) => {
       }
 
       if (!componentName) {
-        throw '[Error] `componentName` must be specified!'
+        throw new Error('[Error] `componentName` must be specified!')
       }
 
       return vueCompiler
