@@ -1,4 +1,3 @@
-import yamlFront from 'yaml-front-matter'
 import tranform from './transform'
 import vueCompiler from './compiler'
 import StyleBundler from './StyleBundler'
@@ -17,17 +16,6 @@ const defaults = {
   toggleCode: true,
   vueInjection: '',
   target: 'vue'
-}
-
-// TODO
-function getFrontMatter (source) {
-  const yamlConfig = yamlFront.loadFront(source, 'mdContent')
-  const { mdContent } = yamlConfig
-  delete yamlConfig.mdContent
-  return Promise.resolve({
-    source: mdContent,
-    yamlConfig
-  })
 }
 
 export default function (source, opts = {}) {

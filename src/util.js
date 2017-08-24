@@ -19,10 +19,6 @@ export const wrapScript = ({
   names = '',
   vueInjection = ''
 }) => {
-  if (!code) {
-    return ''
-  }
-
   if (typeof vueInjection !== 'string') {
     const msg = '`vueInjection` is not a string'
     console.warn(msg)
@@ -64,7 +60,10 @@ ${compiled}
   exports.name = "${componentName}"
   exports.methods = {
     beforeCreate: function () {
-      this._ic_ = insert("${css.replace(/\n/g, ' ')}")
+      const css = "${css.replace(/\n/g, ' ')}"
+      if (css) {
+        this._ic_ = insert(css)
+      }
     },
     destroyed: function () {
       this._ic_ && this._ic_()
