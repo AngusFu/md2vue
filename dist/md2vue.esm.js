@@ -159,10 +159,6 @@ var tranform = function (source, config) {
   }
 };
 
-// Hack: avoid unneccesary vueify code
-process.env.__NODE_ENV = process.env.NODE_ENV;
-process.env.NODE_ENV = 'production';
-
 compiler.applyConfig({
   extractCSS: true,
   customCompilers: {
@@ -185,8 +181,6 @@ compiler.compilePromise = function (content, filePath) {
 
   return new Promise(function (resolve, reject) {
     compiler.compile(content, filePath, function (err, result) {
-      process.env.NODE_ENV = process.env.__NODE_ENV;
-
       if (err) {
         reject(err);
       } else {

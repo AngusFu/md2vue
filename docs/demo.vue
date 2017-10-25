@@ -20,7 +20,7 @@
 
 <div class="vue-demo-block">
 <md2vuedemo0></md2vuedemo0>
-<input id="vdMTQyMjU5NDY" type="checkbox" /><label for="vdMTQyMjU5NDY"></label>
+<input id="vdMzU5OTM3NDQ" type="checkbox" /><label for="vdMzU5OTM3NDQ"></label>
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
 <span class="hljs-selector-class">.wrapper</span> <span class="hljs-selector-tag">input</span> {
@@ -57,7 +57,7 @@
 
 <div class="vue-demo-block">
 <md2vuedemo1></md2vuedemo1>
-<input id="vdMTQyNzIyMTM" type="checkbox" /><label for="vdMTQyNzIyMTM"></label>
+<input id="vdMjA2NjM4NzM" type="checkbox" /><label for="vdMjA2NjM4NzM"></label>
 <pre v-pre class="lang-html">
 <code><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"click"</span>&gt;</span>click<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">button</span>&gt;</span>
 
@@ -95,10 +95,20 @@
   })()
   if (module.exports.__esModule) module.exports = module.exports.default
   var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+  if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
   __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('div',{staticClass:"wrapper"},[_c('button',{on:{"click":function($event){_vm.incr(-1)}}},[_vm._v("-")]),_vm._v(" "),_c('input',{attrs:{"type":"text","readonly":""},domProps:{"value":_vm.count}}),_vm._v(" "),_c('button',{on:{"click":function($event){_vm.incr(+1)}}},[_vm._v("+")])])])}
   __vue__options__.staticRenderFns = []
   __vue__options__._scopeId = "data-v-bba68bf6"
-
+  if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+    hotAPI.install(require("vue"), true)
+    if (!hotAPI.compatible) return
+    module.hot.accept()
+    if (!module.hot.data) {
+      hotAPI.createRecord("data-v-bba68bf6", __vue__options__)
+    } else {
+      hotAPI.rerender("data-v-bba68bf6", __vue__options__)
+    }
+  })()}
     return module.exports;
   })({});
 
@@ -114,9 +124,19 @@
   })()
   if (module.exports.__esModule) module.exports = module.exports.default
   var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+  if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
   __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('button',{on:{"click":_vm.click}},[_vm._v("click")])])}
   __vue__options__.staticRenderFns = []
-
+  if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+    hotAPI.install(require("vue"), true)
+    if (!hotAPI.compatible) return
+    module.hot.accept()
+    if (!module.hot.data) {
+      hotAPI.createRecord("data-v-bba68bf6", __vue__options__)
+    } else {
+      hotAPI.rerender("data-v-bba68bf6", __vue__options__)
+    }
+  })()}
     return module.exports;
   })({});
 
@@ -138,6 +158,12 @@
 </script>
 
 <style>
-.wrapper input[data-v-bba68bf6]{width:50px;text-align:center}
-.wrapper input[data-v-bba68bf6]{width:50px;text-align:center}
+.wrapper input[data-v-bba68bf6] {
+  width: 50px;
+  text-align: center;
+}
+.wrapper input[data-v-bba68bf6] {
+  width: 50px;
+  text-align: center;
+}
 </style>
