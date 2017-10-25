@@ -2,10 +2,6 @@ import {
   compiler as vueCompiler
 } from 'vueify'
 
-// Hack: avoid unneccesary vueify code
-process.env.__NODE_ENV = process.env.NODE_ENV
-process.env.NODE_ENV = 'production'
-
 vueCompiler.applyConfig({
   extractCSS: true,
   customCompilers: {
@@ -24,8 +20,6 @@ vueCompiler.applyConfig({
 vueCompiler.compilePromise = (content = '', filePath = '') => {
   return new Promise((resolve, reject) => {
     vueCompiler.compile(content, filePath, (err, result) => {
-      process.env.NODE_ENV = process.env.__NODE_ENV
-
       if (err) {
         reject(err)
       } else {
