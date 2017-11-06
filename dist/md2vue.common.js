@@ -106,7 +106,7 @@ var wrapModule = function (ref) {
   return ("module.exports = (function (module) {\n" + compiled + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n  exports.methods = {\n    beforeCreate: function () {\n      const css = \"" + (css.replace(/\n/g, ' ')) + "\"\n      if (css) {\n        this._ic_ = insert(css)\n      }\n    },\n    destroyed: function () {\n      this._ic_ && this._ic_()\n    }\n  }\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n  if (typeof window !== void 0 && window.Vue) {\n    Vue.use(exports )\n  }\n  return module.exports;\n\n  function insert(css) {\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n\n    if ('textContent' in elem) {\n      elem.textContent = css\n    } else {\n      elem.styleSheet.cssText = css\n    }\n\n    document.getElementsByTagName('head')[0].appendChild(elem)\n    return function () {\n      document.getElementsByTagName('head')[0].removeChild(elem)\n    }\n  }\n  })({});\n")
 };
 
-var wrapHljsCode = function (code, lang) { return ("<pre v-pre class=\"lang-" + lang + "\">\n<code>" + code + "</code>\n</pre>"); };
+var wrapHljsCode = function (code, lang) { return ("<pre v-pre class=\"lang-" + lang + "\"><code>" + code + "</code></pre>"); };
 
 var renderer = getRenderer();
 var FIX_VUE = /<span class="hljs-tag">&lt;\/</g;
