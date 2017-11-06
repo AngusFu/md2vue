@@ -96,9 +96,7 @@ ${compiled}
 `
 }
 
-export const wrapHljsCode = (code, lang) => `<pre v-pre class="lang-${lang}">
-<code>${code}</code>
-</pre>`
+export const wrapHljsCode = (code, lang) => `<pre v-pre class="lang-${lang}"><code>${code}</code></pre>`
 
 export function escape (html, encode) {
   return html
