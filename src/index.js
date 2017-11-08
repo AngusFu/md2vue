@@ -1,4 +1,4 @@
-import tranform from './transform'
+import transform from './transform'
 import vueCompiler from './compiler'
 import StyleBundler from './StyleBundler'
 
@@ -26,11 +26,11 @@ export default function (source, opts = {}) {
     componentName
   } = config
 
-  const { markup, demos } = tranform(source, config)
+  const { markup, demos } = transform(source, config)
   const bundler = StyleBundler.from(vueCompiler)
-  const tasks = demos.map(({ tag, raw, vue }) =>
+  const tasks = demos.map(({ tag, raw, vue }, index) =>
     vueCompiler
-      .compilePromise(vue)
+      .compilePromise(vue, tag)
       .then(compiled => wrapVueCompiled({
         tagName: tag,
         compiled
@@ -64,7 +64,7 @@ export default function (source, opts = {}) {
       }
 
       return vueCompiler
-        .compilePromise(content)
+        .compilePromise(content, componentName)
         .then(compiled => wrapModule({
           componentName,
           compiled,

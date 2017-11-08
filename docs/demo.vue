@@ -20,9 +20,8 @@
 
 <div class="vue-demo-block">
 <md2vuedemo0></md2vuedemo0>
-<input id="vdMzU5OTM3NDQ" type="checkbox" /><label for="vdMzU5OTM3NDQ"></label>
-<pre v-pre class="lang-html">
-<code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+<input id="vdMzgxNTcyOTE" type="checkbox" /><label for="vdMzgxNTcyOTE"></label>
+<pre v-pre class="lang-html"><code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
 <span class="hljs-selector-class">.wrapper</span> <span class="hljs-selector-tag">input</span> {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>;
   <span class="hljs-attribute">text-align</span>: center;
@@ -50,16 +49,19 @@
     }
   }
 }
-</span><span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">script</span>&gt;</span></code>
-</pre>
+</span><span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">script</span>&gt;</span></code></pre>
 </div>
 <p>You can also leave out <code>&lt;template&gt;</code> tags, just like this:</p>
 
 <div class="vue-demo-block">
 <md2vuedemo1></md2vuedemo1>
-<input id="vdMjA2NjM4NzM" type="checkbox" /><label for="vdMjA2NjM4NzM"></label>
-<pre v-pre class="lang-html">
-<code><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"click"</span>&gt;</span>click<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">button</span>&gt;</span>
+<input id="vdMzY5MTkwMzc" type="checkbox" /><label for="vdMzY5MTkwMzc"></label>
+<pre v-pre class="lang-html"><code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+<span class="hljs-selector-tag">button</span> {
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;
+}
+</span><span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"click"</span>&gt;</span>click<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">button</span>&gt;</span>
 
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
@@ -69,8 +71,7 @@
     }
   }
 }
-</span><span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">script</span>&gt;</span></code>
-</pre>
+</span><span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">script</span>&gt;</span></code></pre>
 </div>
 
 </article >
@@ -98,15 +99,15 @@
   if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
   __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('div',{staticClass:"wrapper"},[_c('button',{on:{"click":function($event){_vm.incr(-1)}}},[_vm._v("-")]),_vm._v(" "),_c('input',{attrs:{"type":"text","readonly":""},domProps:{"value":_vm.count}}),_vm._v(" "),_c('button',{on:{"click":function($event){_vm.incr(+1)}}},[_vm._v("+")])])])}
   __vue__options__.staticRenderFns = []
-  __vue__options__._scopeId = "data-v-bba68bf6"
+  __vue__options__._scopeId = "data-v-029571ac"
   if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.install(require("vue"), true)
     if (!hotAPI.compatible) return
     module.hot.accept()
     if (!module.hot.data) {
-      hotAPI.createRecord("data-v-bba68bf6", __vue__options__)
+      hotAPI.createRecord("data-v-029571ac", __vue__options__)
     } else {
-      hotAPI.rerender("data-v-bba68bf6", __vue__options__)
+      hotAPI.rerender("data-v-029571ac", __vue__options__)
     }
   })()}
     return module.exports;
@@ -127,14 +128,15 @@
   if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
   __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('button',{on:{"click":_vm.click}},[_vm._v("click")])])}
   __vue__options__.staticRenderFns = []
+  __vue__options__._scopeId = "data-v-029571ad"
   if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.install(require("vue"), true)
     if (!hotAPI.compatible) return
     module.hot.accept()
     if (!module.hot.data) {
-      hotAPI.createRecord("data-v-bba68bf6", __vue__options__)
+      hotAPI.createRecord("data-v-029571ad", __vue__options__)
     } else {
-      hotAPI.rerender("data-v-bba68bf6", __vue__options__)
+      hotAPI.rerender("data-v-029571ad", __vue__options__)
     }
   })()}
     return module.exports;
@@ -158,12 +160,18 @@
 </script>
 
 <style>
-.wrapper input[data-v-bba68bf6] {
+.wrapper input[data-v-029571ac] {
   width: 50px;
   text-align: center;
 }
-.wrapper input[data-v-bba68bf6] {
+button[data-v-029571ad] {
+  font-size: 20px;
+}
+.wrapper input[data-v-029571ac] {
   width: 50px;
   text-align: center;
+}
+button[data-v-029571ad] {
+  font-size: 20px;
 }
 </style>

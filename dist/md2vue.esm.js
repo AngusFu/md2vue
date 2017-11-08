@@ -109,7 +109,7 @@ var FIX_VUE = /<span class="hljs-tag">&lt;\/</g;
 var FIXTURE = '<span class="hljs-tag"><span>&lt;</span>/<';
 var fix = function (code) { return code.replace(FIX_VUE, FIXTURE); };
 
-var tranform = function (source, config) {
+var transform = function (source, config) {
   var id = 0;
   var demos = [];
 
@@ -247,17 +247,17 @@ var index = function (source, opts) {
   var target = config.target;
   var componentName = config.componentName;
 
-  var ref = tranform(source, config);
+  var ref = transform(source, config);
   var markup = ref.markup;
   var demos = ref.demos;
   var bundler = StyleBundler.from(compiler);
-  var tasks = demos.map(function (ref) {
+  var tasks = demos.map(function (ref, index) {
       var tag = ref.tag;
       var raw = ref.raw;
       var vue = ref.vue;
 
       return compiler
-      .compilePromise(vue)
+      .compilePromise(vue, tag)
       .then(function (compiled) { return wrapVueCompiled({
         tagName: tag,
         compiled: compiled
@@ -297,7 +297,7 @@ var index = function (source, opts) {
       }
 
       return compiler
-        .compilePromise(content)
+        .compilePromise(content, componentName)
         .then(function (compiled) { return wrapModule({
           componentName: componentName,
           compiled: compiled,

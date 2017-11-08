@@ -61,6 +61,11 @@ export default {
 You can also leave out `<template>` tags, just like this:
 
 ```html
+<style>
+button {
+  font-size: 20px;
+}
+</style>
 <button @click="click">click</button>
 
 <script>
