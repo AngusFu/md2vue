@@ -13,12 +13,15 @@ const fix = code => code.replace(FIX_VUE, FIXTURE)
 export default (source, config) => {
   let id = 0
   const demos = []
+  renderer.code = code
 
-  const { toggleCode } = config
+  const markup = marked(source, { renderer })
 
-  renderer.code = function (code, language) {
+  return { demos, markup }
+
+  function code (raw, language) {
     const lang = language === 'vue' ? 'html' : language
-    const markup = hljs.highlight(lang, code).value
+    const markup = hljs.highlight(lang, raw).value
     const result = wrapHljsCode(fix(markup), lang)
 
     // TODO: 优化判断条件
@@ -27,9 +30,9 @@ export default (source, config) => {
     }
 
     const tag = `md2vuedemo${(id++).toString(36)}`
-    const { style, script, template } = extractMdCode(code)
+    const { style, script, template } = extractMdCode(raw)
 
-    let vueComponent = `<template lang="html">
+    let vue = `<template lang="html">
   <div class="vue-demo">
 ${indent(template, '    ')}
   </div>
@@ -39,33 +42,25 @@ ${script}
 </script>`
 
     if (style !== '') {
-      vueComponent += `\n<style scoped>${style}</style>`
+      vue = `<style scoped>${style}</style>\n` + vue
     }
 
-    demos.push({
-      tag,
-      raw: code,
-      vue: vueComponent
-    })
+    demos.push({ tag, raw, vue })
 
-    let ctrl = ''
+    let customMarkups = ''
 
-    if (toggleCode) {
-      const rand = 1e8 * Math.random() | 0
-      const uid = 'vd' + Buffer.from(`${rand}`).toString('base64').replace(/=/g, '')
-      ctrl = `<input id="${uid}" type="checkbox" /><label for="${uid}"></label>`
+    if (typeof config.customMarkups === 'function') {
+      customMarkups = config.customMarkups() || ''
+    } else if (config.customMarkups === 'string') {
+      customMarkups = config.customMarkups || ''
     }
+
     return `
 <div class="vue-demo-block">
 <${tag}></${tag}>
-${ctrl}
+${customMarkups}
 ${result}
 </div>
 `
-  }
-
-  return {
-    demos,
-    markup: marked(source, { renderer })
   }
 }

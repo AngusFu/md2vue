@@ -1,3 +1,14 @@
+
+<style>
+.wrapper input[data-v-029571ac] {
+  width: 50px;
+  text-align: center;
+}
+button[data-v-029571ad] {
+  font-size: 20px;
+}
+</style>
+
 <template>
 <article class="markdown-body">
 <h2>Introduction to md2vue</h2><p>You can get raw text of this document <strong><a href="/AngusFu/md2vue/blob/master/test/common.md">here</a></strong>.</p>
@@ -20,7 +31,7 @@
 
 <div class="vue-demo-block">
 <md2vuedemo0></md2vuedemo0>
-<input id="vdMzgxNTcyOTE" type="checkbox" /><label for="vdMzgxNTcyOTE"></label>
+<input id="vue-demo-4183062603545775" type="checkbox" /><label for="vue-demo-4183062603545775"></label>
 <pre v-pre class="lang-html"><code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
 <span class="hljs-selector-class">.wrapper</span> <span class="hljs-selector-tag">input</span> {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>;
@@ -55,7 +66,7 @@
 
 <div class="vue-demo-block">
 <md2vuedemo1></md2vuedemo1>
-<input id="vdMzY5MTkwMzc" type="checkbox" /><label for="vdMzY5MTkwMzc"></label>
+<input id="vue-demo-5671216164014174" type="checkbox" /><label for="vue-demo-5671216164014174"></label>
 <pre v-pre class="lang-html"><code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
 <span class="hljs-selector-tag">button</span> {
   <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;
@@ -107,7 +118,7 @@
     if (!module.hot.data) {
       hotAPI.createRecord("data-v-029571ac", __vue__options__)
     } else {
-      hotAPI.rerender("data-v-029571ac", __vue__options__)
+      hotAPI.reload("data-v-029571ac", __vue__options__)
     }
   })()}
     return module.exports;
@@ -136,42 +147,23 @@
     if (!module.hot.data) {
       hotAPI.createRecord("data-v-029571ad", __vue__options__)
     } else {
-      hotAPI.rerender("data-v-029571ad", __vue__options__)
+      hotAPI.reload("data-v-029571ad", __vue__options__)
     }
   })()}
     return module.exports;
   })({});
 
   /* eslint-enable */
-  module.exports = {
-    components: {
-      'md2vuedemo0': md2vuedemo0,
-      'md2vuedemo1': md2vuedemo1
-    },
-
-    head () {
+module.exports = {
+  head: function head() {
       return {
         title: '组件'
       }
     },
-    layout: 'component'
-
-  }
+  layout: "component"
+}
+module.exports.components = {
+  'md2vuedemo0': md2vuedemo0,
+  'md2vuedemo1': md2vuedemo1
+}
 </script>
-
-<style>
-.wrapper input[data-v-029571ac] {
-  width: 50px;
-  text-align: center;
-}
-button[data-v-029571ad] {
-  font-size: 20px;
-}
-.wrapper input[data-v-029571ac] {
-  width: 50px;
-  text-align: center;
-}
-button[data-v-029571ad] {
-  font-size: 20px;
-}
-</style>

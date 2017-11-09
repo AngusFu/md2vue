@@ -13,15 +13,13 @@ import {
 } from './util'
 
 const defaults = {
-  toggleCode: true,
-  vueInjection: '',
   target: 'vue'
 }
 
 export default function (source, opts = {}) {
   const config = Object.assign({}, defaults, opts)
   const {
-    vueInjection,
+    documentInfo,
     target,
     componentName
   } = config
@@ -44,15 +42,15 @@ export default function (source, opts = {}) {
         return `'${tag}': ${camelCase(tag)}`
       }).join(',\n')
       return Promise.all([
-        Promise.resolve({ code, names, vueInjection }),
+        Promise.resolve({ code, names, documentInfo }),
         bundler.pipe()
       ])
     })
     .then(([obj, css]) => {
       const content = [
+        wrapCSSText(css),
         wrapMarkup(markup),
-        wrapScript(obj),
-        wrapCSSText(css)
+        wrapScript(obj)
       ].join('\n')
 
       if (!target || target === 'vue') {

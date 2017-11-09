@@ -72,17 +72,32 @@ var wrapCSSText = function (css) { return css ? ("\n<style>\n" + css + "\n</styl
 var wrapScript = function (ref) {
   var code = ref.code; if ( code === void 0 ) code = '';
   var names = ref.names; if ( names === void 0 ) names = '';
-  var vueInjection = ref.vueInjection; if ( vueInjection === void 0 ) vueInjection = '';
+  var documentInfo = ref.documentInfo; if ( documentInfo === void 0 ) documentInfo = {};
 
-  if (typeof vueInjection !== 'string') {
-    var msg = '`vueInjection` is not a string';
+  if (typeof documentInfo !== 'object') {
+    var msg = '`documentInfo` is not an object';
     console.warn(msg);
     throw msg
   }
 
   var result = indent(code, 2);
-  var injection = indent(vueInjection, 4);
-  return ("\n<script>\n" + result + "\n  module.exports = {\n    components: {\n" + (indent(names, 6)) + "\n    }" + (vueInjection ? ',' : '') + "\n" + injection + "\n  }\n</script>")
+  var injection = Object.keys(documentInfo).map(function (key) {
+    var val = documentInfo[key];
+
+    if (typeof val === 'function') {
+      val = val.toString();
+      // short style: `a(){}`
+      if (/^function /.test(val) === false) {
+        val = 'function ' + val;
+      }
+    } else {
+      val = JSON.stringify(val);
+    }
+
+    return ("  " + key + ": " + val)
+  });
+
+  return ("\n<script>\n" + result + "\nmodule.exports = {\n" + (injection.join(',\n')) + "\n}\nmodule.exports.components = {\n" + (indent(names, 2)) + "\n}\n</script>")
 };
 
 var wrapMarkup = function (markup) { return ("<template>\n<article class=\"markdown-body\">\n" + markup + "\n</article >\n</template>"); };
@@ -112,12 +127,15 @@ var fix = function (code) { return code.replace(FIX_VUE, FIXTURE); };
 var transform = function (source, config) {
   var id = 0;
   var demos = [];
+  renderer.code = code;
 
-  var toggleCode = config.toggleCode;
+  var markup = marked(source, { renderer: renderer });
 
-  renderer.code = function (code, language) {
+  return { demos: demos, markup: markup }
+
+  function code (raw, language) {
     var lang = language === 'vue' ? 'html' : language;
-    var markup = hljs.highlight(lang, code).value;
+    var markup = hljs.highlight(lang, raw).value;
     var result = wrapHljsCode(fix(markup), lang);
 
     // TODO: 优化判断条件
@@ -126,36 +144,28 @@ var transform = function (source, config) {
     }
 
     var tag = "md2vuedemo" + ((id++).toString(36));
-    var ref = extractMdCode(code);
+    var ref = extractMdCode(raw);
     var style = ref.style;
     var script = ref.script;
     var template = ref.template;
 
-    var vueComponent = "<template lang=\"html\">\n  <div class=\"vue-demo\">\n" + (indent(template, '    ')) + "\n  </div>\n</template>\n<script lang=\"buble\">\n" + script + "\n</script>";
+    var vue = "<template lang=\"html\">\n  <div class=\"vue-demo\">\n" + (indent(template, '    ')) + "\n  </div>\n</template>\n<script lang=\"buble\">\n" + script + "\n</script>";
 
     if (style !== '') {
-      vueComponent += "\n<style scoped>" + style + "</style>";
+      vue = "<style scoped>" + style + "</style>\n" + vue;
     }
 
-    demos.push({
-      tag: tag,
-      raw: code,
-      vue: vueComponent
-    });
+    demos.push({ tag: tag, raw: raw, vue: vue });
 
-    var ctrl = '';
+    var customMarkups = '';
 
-    if (toggleCode) {
-      var rand = 1e8 * Math.random() | 0;
-      var uid = 'vd' + Buffer.from(("" + rand)).toString('base64').replace(/=/g, '');
-      ctrl = "<input id=\"" + uid + "\" type=\"checkbox\" /><label for=\"" + uid + "\"></label>";
+    if (typeof config.customMarkups === 'function') {
+      customMarkups = config.customMarkups() || '';
+    } else if (config.customMarkups === 'string') {
+      customMarkups = config.customMarkups || '';
     }
-    return ("\n<div class=\"vue-demo-block\">\n<" + tag + "></" + tag + ">\n" + ctrl + "\n" + result + "\n</div>\n")
-  };
 
-  return {
-    demos: demos,
-    markup: marked(source, { renderer: renderer })
+    return ("\n<div class=\"vue-demo-block\">\n<" + tag + "></" + tag + ">\n" + customMarkups + "\n" + result + "\n</div>\n")
   }
 };
 
@@ -234,8 +244,6 @@ StyleBundler.from = function (emitter) {
 };
 
 var defaults = {
-  toggleCode: true,
-  vueInjection: '',
   target: 'vue'
 };
 
@@ -243,7 +251,7 @@ var index = function (source, opts) {
   if ( opts === void 0 ) opts = {};
 
   var config = Object.assign({}, defaults, opts);
-  var vueInjection = config.vueInjection;
+  var documentInfo = config.documentInfo;
   var target = config.target;
   var componentName = config.componentName;
 
@@ -274,7 +282,7 @@ var index = function (source, opts) {
         return ("'" + tag + "': " + (camelCase(tag)))
       }).join(',\n');
       return Promise.all([
-        Promise.resolve({ code: code, names: names, vueInjection: vueInjection }),
+        Promise.resolve({ code: code, names: names, documentInfo: documentInfo }),
         bundler.pipe()
       ])
     })
@@ -283,9 +291,9 @@ var index = function (source, opts) {
       var css = ref[1];
 
       var content = [
+        wrapCSSText(css),
         wrapMarkup(markup),
-        wrapScript(obj),
-        wrapCSSText(css)
+        wrapScript(obj)
       ].join('\n');
 
       if (!target || target === 'vue') {

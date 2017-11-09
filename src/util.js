@@ -17,25 +17,40 @@ ${css}
 export const wrapScript = ({
   code = '',
   names = '',
-  vueInjection = ''
+  documentInfo = {}
 }) => {
-  if (typeof vueInjection !== 'string') {
-    const msg = '`vueInjection` is not a string'
+  if (typeof documentInfo !== 'object') {
+    const msg = '`documentInfo` is not an object'
     console.warn(msg)
     throw msg
   }
 
   const result = indent(code, 2)
-  const injection = indent(vueInjection, 4)
+  const injection = Object.keys(documentInfo).map((key) => {
+    let val = documentInfo[key]
+
+    if (typeof val === 'function') {
+      val = val.toString()
+      // short style: `a(){}`
+      if (/^function /.test(val) === false) {
+        val = 'function ' + val
+      }
+    } else {
+      val = JSON.stringify(val)
+    }
+
+    return `  ${key}: ${val}`
+  })
+
   return `
 <script>
 ${result}
-  module.exports = {
-    components: {
-${indent(names, 6)}
-    }${vueInjection ? ',' : ''}
-${injection}
-  }
+module.exports = {
+${injection.join(',\n')}
+}
+module.exports.components = {
+${indent(names, 2)}
+}
 </script>`
 }
 

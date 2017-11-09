@@ -31,14 +31,10 @@ fetch('./demo.vue')
     document.getElementsByTagName('head')[0].appendChild(elem)
   }
 
-  code = code
-    .replace('export default', 'module.exports =')
-    .replace(/<style>/g, '<!--\n<style>')
-    .replace(/<\/style>/g, '</style>\n-->')
   new Vue({
     el: '#app',
     created () {
-      this.code = code
+      this.code = code.replace('export default', 'module.exports =')
     }
   })
 })
