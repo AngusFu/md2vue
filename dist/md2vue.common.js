@@ -69,7 +69,7 @@ function camelCase (str) {
   return str.replace(/[_.-](\w|$)/g, function (_, x) { return x.toUpperCase(); })
 }
 
-var addESLint = function (code) { return code ? ("/* eslint-disable */\n" + code + "\n/* eslint-enable */") : ''; };
+var addESLint = function (code) { return ("/* eslint-disable */\n" + code + "\n"); };
 
 var wrapCSSText = function (css) { return css ? ("\n<style>\n" + css + "\n</style>\n") : ''; };
 

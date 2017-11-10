@@ -5,6 +5,7 @@ const source = fs.readFileSync(mdPath).toString()
 const md2vue = require('../')
 
 let id = 1333
+let title = 'foo'
 
 md2vue(source, {
   customMarkups () {
@@ -12,11 +13,7 @@ md2vue(source, {
     return `<input id="${uid}" type="checkbox" /><label for="${uid}"></label>`
   },
   documentInfo: {
-    head () {
-      return {
-        title: '组件'
-      }
-    },
+    head: new Function(`return { title: '${title}' }`),
     layout: 'component'
   }
 })

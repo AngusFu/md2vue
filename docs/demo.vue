@@ -153,13 +153,11 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   return module.exports;
 })({});
 
-/* eslint-enable */
+
 module.exports = {
-  head: function head() {
-      return {
-        title: '组件'
-      }
-    },
+  head: function anonymous() {
+return { title: 'foo' }
+},
   layout: "component"
 }
 module.exports.components = {
