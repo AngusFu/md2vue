@@ -84,7 +84,6 @@ var wrapScript = function (ref) {
     throw msg
   }
 
-  var result = indent(code, 2);
   var injection = Object.keys(documentInfo).map(function (key) {
     var val = documentInfo[key];
 
@@ -101,7 +100,7 @@ var wrapScript = function (ref) {
     return ("  " + key + ": " + val)
   });
 
-  return ("\n<script>\n" + result + "\nmodule.exports = {\n" + (injection.join(',\n')) + "\n}\nmodule.exports.components = {\n" + (indent(names, 2)) + "\n}\n</script>")
+  return ("\n<script>\n" + code + "\nmodule.exports = {\n" + (injection.join(',\n')) + "\n}\nmodule.exports.components = {\n" + (indent(names, 2)) + "\n}\n</script>")
 };
 
 var wrapMarkup = function (markup) { return ("<template>\n<article class=\"markdown-body\">\n" + markup + "\n</article >\n</template>"); };

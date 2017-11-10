@@ -4,9 +4,11 @@ const mdPath = join(__dirname, './common.md')
 const source = fs.readFileSync(mdPath).toString()
 const md2vue = require('../')
 
+let id = 1333
+
 md2vue(source, {
   customMarkups () {
-    const uid = `vue-demo-${String(Math.random()).split('.')[1]}`
+    const uid = `vue-demo-${id++}`
     return `<input id="${uid}" type="checkbox" /><label for="${uid}"></label>`
   },
   documentInfo: {

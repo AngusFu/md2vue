@@ -31,7 +31,7 @@ button[data-v-029571ad] {
 
 <div class="vue-demo-block">
 <md2vuedemo0></md2vuedemo0>
-<input id="vue-demo-4183062603545775" type="checkbox" /><label for="vue-demo-4183062603545775"></label>
+<input id="vue-demo-1333" type="checkbox" /><label for="vue-demo-1333"></label>
 <pre v-pre class="lang-html"><code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
 <span class="hljs-selector-class">.wrapper</span> <span class="hljs-selector-tag">input</span> {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>;
@@ -66,7 +66,7 @@ button[data-v-029571ad] {
 
 <div class="vue-demo-block">
 <md2vuedemo1></md2vuedemo1>
-<input id="vue-demo-5671216164014174" type="checkbox" /><label for="vue-demo-5671216164014174"></label>
+<input id="vue-demo-1334" type="checkbox" /><label for="vue-demo-1334"></label>
 <pre v-pre class="lang-html"><code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
 <span class="hljs-selector-tag">button</span> {
   <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;
@@ -89,71 +89,71 @@ button[data-v-029571ad] {
 </template>
 
 <script>
-  /* eslint-disable */
-  const md2vuedemo0 = (function (module) {
-  ;(function(){
-    module.exports = {
-    data: function data() {
-      return {
-        count: 0
-      }
-    },
-    methods: {
-      incr: function incr(delta) {
-        this.count += delta
-      }
+/* eslint-disable */
+const md2vuedemo0 = (function (module) {
+;(function(){
+  module.exports = {
+  data: function data() {
+    return {
+      count: 0
+    }
+  },
+  methods: {
+    incr: function incr(delta) {
+      this.count += delta
     }
   }
-  })()
-  if (module.exports.__esModule) module.exports = module.exports.default
-  var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
-  if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-  __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('div',{staticClass:"wrapper"},[_c('button',{on:{"click":function($event){_vm.incr(-1)}}},[_vm._v("-")]),_vm._v(" "),_c('input',{attrs:{"type":"text","readonly":""},domProps:{"value":_vm.count}}),_vm._v(" "),_c('button',{on:{"click":function($event){_vm.incr(+1)}}},[_vm._v("+")])])])}
-  __vue__options__.staticRenderFns = []
-  __vue__options__._scopeId = "data-v-029571ac"
-  if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
-    hotAPI.install(require("vue"), true)
-    if (!hotAPI.compatible) return
-    module.hot.accept()
-    if (!module.hot.data) {
-      hotAPI.createRecord("data-v-029571ac", __vue__options__)
-    } else {
-      hotAPI.reload("data-v-029571ac", __vue__options__)
-    }
-  })()}
-    return module.exports;
-  })({});
+}
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('div',{staticClass:"wrapper"},[_c('button',{on:{"click":function($event){_vm.incr(-1)}}},[_vm._v("-")]),_vm._v(" "),_c('input',{attrs:{"type":"text","readonly":""},domProps:{"value":_vm.count}}),_vm._v(" "),_c('button',{on:{"click":function($event){_vm.incr(+1)}}},[_vm._v("+")])])])}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-029571ac"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-029571ac", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-029571ac", __vue__options__)
+  }
+})()}
+  return module.exports;
+})({});
 
-  const md2vuedemo1 = (function (module) {
-  ;(function(){
-    module.exports = {
-    methods: {
-      click: function click() {
-        alert('clicked!')
-      }
+const md2vuedemo1 = (function (module) {
+;(function(){
+  module.exports = {
+  methods: {
+    click: function click() {
+      alert('clicked!')
     }
   }
-  })()
-  if (module.exports.__esModule) module.exports = module.exports.default
-  var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
-  if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-  __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('button',{on:{"click":_vm.click}},[_vm._v("click")])])}
-  __vue__options__.staticRenderFns = []
-  __vue__options__._scopeId = "data-v-029571ad"
-  if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
-    hotAPI.install(require("vue"), true)
-    if (!hotAPI.compatible) return
-    module.hot.accept()
-    if (!module.hot.data) {
-      hotAPI.createRecord("data-v-029571ad", __vue__options__)
-    } else {
-      hotAPI.reload("data-v-029571ad", __vue__options__)
-    }
-  })()}
-    return module.exports;
-  })({});
+}
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('button',{on:{"click":_vm.click}},[_vm._v("click")])])}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-029571ad"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-029571ad", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-029571ad", __vue__options__)
+  }
+})()}
+  return module.exports;
+})({});
 
-  /* eslint-enable */
+/* eslint-enable */
 module.exports = {
   head: function head() {
       return {

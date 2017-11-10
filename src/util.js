@@ -25,7 +25,6 @@ export const wrapScript = ({
     throw msg
   }
 
-  const result = indent(code, 2)
   const injection = Object.keys(documentInfo).map((key) => {
     let val = documentInfo[key]
 
@@ -44,7 +43,7 @@ export const wrapScript = ({
 
   return `
 <script>
-${result}
+${code}
 module.exports = {
 ${injection.join(',\n')}
 }
