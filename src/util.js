@@ -4,9 +4,9 @@ export function camelCase (str) {
   return str.replace(/[_.-](\w|$)/g, (_, x) => x.toUpperCase())
 }
 
-export const addESLint = (code) => code ? `/* eslint-disable */
+export const addESLint = (code) => `/* eslint-disable */
 ${code}
-/* eslint-enable */` : ''
+`
 
 export const wrapCSSText = (css) => css ? `
 <style>
