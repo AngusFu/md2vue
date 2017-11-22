@@ -55,7 +55,7 @@ ${script}
     }
 
     return `
-<div class="vue-demo-block">
+<div class="vue-demo-block${effectOnly ? ' vue-demo-block-demo-only' : ''}">
 <${tag}></${tag}>
 ${effectOnly ? '' : customMarkups}
 ${effectOnly ? '' : wrapHljsCode(fix(markup), lang)}

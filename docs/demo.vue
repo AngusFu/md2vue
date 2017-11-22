@@ -29,7 +29,7 @@ button[data-v-029571ad] {
 </ul>
 <h3>Demo</h3><p>The following code in vue can be rendered into an real tiny vue app:</p>
 
-<div class="vue-demo-block">
+<div class="vue-demo-block vue-demo-block-demo-only">
 <md2vuedemo0></md2vuedemo0>
 
 

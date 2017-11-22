@@ -171,7 +171,7 @@ var transform = function (source, config) {
       customMarkups = config.customMarkups || '';
     }
 
-    return ("\n<div class=\"vue-demo-block\">\n<" + tag + "></" + tag + ">\n" + (effectOnly ? '' : customMarkups) + "\n" + (effectOnly ? '' : wrapHljsCode(fix(markup), lang)) + "\n</div>\n")
+    return ("\n<div class=\"vue-demo-block" + (effectOnly ? ' vue-demo-block-demo-only' : '') + "\">\n<" + tag + "></" + tag + ">\n" + (effectOnly ? '' : customMarkups) + "\n" + (effectOnly ? '' : wrapHljsCode(fix(markup), lang)) + "\n</div>\n")
   }
 };
 
