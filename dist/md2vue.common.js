@@ -9,7 +9,7 @@ var vueify = require('vueify');
 
 var reStyle = /<style>([\s\S]+)<\/style>/;
 var reScript = /<script>([\s\S]+)<\/script>/;
-var reTemplate = /<template>([\s\S]+)<\/template>/;
+var reTemplate = /<template(|\s*[^>]+)>([\s\S]+)<\/template>/;
 
 var extractMdCode = function (code) {
   var styleMatch = reStyle.exec(code);
@@ -18,7 +18,8 @@ var extractMdCode = function (code) {
 
   var style = styleMatch ? styleMatch[1].trim() : '';
   var script = scriptMatch ? scriptMatch[1].trim() : '';
-  var template = templateMatch ? templateMatch[1].trim() : '';
+  var template = templateMatch ? templateMatch[2].trim() : '';
+  var templateAttr = templateMatch ? templateMatch[1].trim() : '';
 
   // case where `<template>` absent
   if (template === '') {
@@ -34,7 +35,8 @@ var extractMdCode = function (code) {
   return {
     style: style,
     script: script,
-    template: template
+    template: template,
+    effectOnly: templateAttr.indexOf('demo-only') > -1
   }
 };
 
@@ -144,11 +146,10 @@ var transform = function (source, config) {
   function code (raw, language) {
     var lang = language === 'vue' ? 'html' : language;
     var markup = hljs.highlight(lang, raw).value;
-    var result = wrapHljsCode(fix(markup), lang);
 
     // TODO: 优化判断条件
     if (lang !== 'html') {
-      return result
+      return wrapHljsCode(fix(markup), lang)
     }
 
     var tag = "md2vuedemo" + ((id++).toString(36));
@@ -156,6 +157,7 @@ var transform = function (source, config) {
     var style = ref.style;
     var script = ref.script;
     var template = ref.template;
+    var effectOnly = ref.effectOnly;
 
     var vue = "<template lang=\"html\">\n  <div class=\"vue-demo\">\n" + (indent(template, '    ')) + "\n  </div>\n</template>\n<script lang=\"buble\">\n" + script + "\n</script>";
 
@@ -173,7 +175,7 @@ var transform = function (source, config) {
       customMarkups = config.customMarkups || '';
     }
 
-    return ("\n<div class=\"vue-demo-block\">\n<" + tag + "></" + tag + ">\n" + customMarkups + "\n" + result + "\n</div>\n")
+    return ("\n<div class=\"vue-demo-block\">\n<" + tag + "></" + tag + ">\n" + (effectOnly ? '' : customMarkups) + "\n" + (effectOnly ? '' : wrapHljsCode(fix(markup), lang)) + "\n</div>\n")
   }
 };
 

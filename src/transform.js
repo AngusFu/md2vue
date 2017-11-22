@@ -22,15 +22,14 @@ export default (source, config) => {
   function code (raw, language) {
     const lang = language === 'vue' ? 'html' : language
     const markup = hljs.highlight(lang, raw).value
-    const result = wrapHljsCode(fix(markup), lang)
 
     // TODO: 优化判断条件
     if (lang !== 'html') {
-      return result
+      return wrapHljsCode(fix(markup), lang)
     }
 
     const tag = `md2vuedemo${(id++).toString(36)}`
-    const { style, script, template } = extractMdCode(raw)
+    const { style, script, template, effectOnly } = extractMdCode(raw)
 
     let vue = `<template lang="html">
   <div class="vue-demo">
@@ -58,8 +57,8 @@ ${script}
     return `
 <div class="vue-demo-block">
 <${tag}></${tag}>
-${customMarkups}
-${result}
+${effectOnly ? '' : customMarkups}
+${effectOnly ? '' : wrapHljsCode(fix(markup), lang)}
 </div>
 `
   }

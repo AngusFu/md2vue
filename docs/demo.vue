@@ -31,36 +31,8 @@ button[data-v-029571ad] {
 
 <div class="vue-demo-block">
 <md2vuedemo0></md2vuedemo0>
-<input id="vue-demo-1333" type="checkbox" /><label for="vue-demo-1333"></label>
-<pre v-pre class="lang-html"><code><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
-<span class="hljs-selector-class">.wrapper</span> <span class="hljs-selector-tag">input</span> {
-  <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>;
-  <span class="hljs-attribute">text-align</span>: center;
-}
-</span><span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">style</span>&gt;</span>
 
-<span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"incr(-1)"</span>&gt;</span>-<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">readonly</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">"count"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"incr(+1)"</span>&gt;</span>+<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">button</span>&gt;</span>
-  <span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">template</span>&gt;</span>
 
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  data() {
-    <span class="hljs-keyword">return</span> {
-      <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>
-    }
-  },
-  <span class="hljs-attr">methods</span>: {
-    incr(delta) {
-      <span class="hljs-keyword">this</span>.count += delta
-    }
-  }
-}
-</span><span class="hljs-tag"><span>&lt;</span>/<span class="hljs-name">script</span>&gt;</span></code></pre>
 </div>
 <p>You can also leave out <code>&lt;template&gt;</code> tags, just like this:</p>
 

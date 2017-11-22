@@ -34,7 +34,7 @@ The following code in vue can be rendered into an real tiny vue app:
 }
 </style>
 
-<template>
+<template demo-only>
   <div class="wrapper">
     <button @click="incr(-1)">-</button>
     <input type="text" readonly :value="count">
