@@ -154,14 +154,10 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 })({});
 
 
-module.exports = {
-  head: function anonymous() {
-return { title: 'foo' }
-},
-  layout: "component"
-}
-module.exports.components = {
+const __exports = {"head": function anonymous() {;return { title: 'foo' };},"layout": "component","directives": {"effect-only": {"inserted": function inserted(el) {;console.log(el);}}}};
+__exports.components = {
   'md2vuedemo0': md2vuedemo0,
   'md2vuedemo1': md2vuedemo1
 }
+module.exports = __exports;
 </script>

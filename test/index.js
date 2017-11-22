@@ -14,7 +14,14 @@ md2vue(source, {
   },
   documentInfo: {
     head: new Function(`return { title: '${title}' }`),
-    layout: 'component'
+    layout: 'component',
+    directives: {
+      'effect-only': {
+        inserted (el) {
+          console.log(el)
+        }
+      }
+    }
   }
 })
 .then(content => {

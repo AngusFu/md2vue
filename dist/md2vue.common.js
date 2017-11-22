@@ -84,23 +84,7 @@ var wrapScript = function (ref) {
     throw msg
   }
 
-  var injection = Object.keys(documentInfo).map(function (key) {
-    var val = documentInfo[key];
-
-    if (typeof val === 'function') {
-      val = val.toString();
-      // short style: `a(){}`
-      if (/^function /.test(val) === false) {
-        val = 'function ' + val;
-      }
-    } else {
-      val = JSON.stringify(val);
-    }
-
-    return ("  " + key + ": " + val)
-  });
-
-  return ("\n<script>\n" + code + "\nmodule.exports = {\n" + (injection.join(',\n')) + "\n}\nmodule.exports.components = {\n" + (indent(names, 2)) + "\n}\n</script>")
+  return ("\n<script>\n" + code + "\nconst __exports = " + (toJSON(documentInfo)) + ";\n__exports.components = {\n" + (indent(names, 2)) + "\n}\nmodule.exports = __exports;\n</script>")
 };
 
 var wrapMarkup = function (markup) { return ("<template>\n<article class=\"markdown-body\">\n" + markup + "\n</article >\n</template>"); };
@@ -121,6 +105,27 @@ var wrapModule = function (ref) {
 };
 
 var wrapHljsCode = function (code, lang) { return ("<pre v-pre class=\"lang-" + lang + "\"><code>" + code + "</code></pre>"); };
+
+
+
+function toJSON (obj) {
+  if (typeof obj === 'function') {
+    obj = obj.toString().replace(/\n\s*/g, ';');
+    // short style: `a(){}`
+    if (/^function /.test(obj) === false) {
+      obj = 'function ' + obj;
+    }
+
+    return obj
+  }
+
+  if (obj && typeof obj === 'object') {
+    var arr = Object.keys(obj).map(function (key) { return ("\"" + key + "\": " + (toJSON(obj[key]))); });
+    return ("{" + (arr.join(',')) + "}")
+  }
+
+  return JSON.stringify(obj)
+}
 
 var renderer = getRenderer();
 var FIX_VUE = /<span class="hljs-tag">&lt;\/</g;

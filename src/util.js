@@ -25,31 +25,14 @@ export const wrapScript = ({
     throw msg
   }
 
-  const injection = Object.keys(documentInfo).map((key) => {
-    let val = documentInfo[key]
-
-    if (typeof val === 'function') {
-      val = val.toString()
-      // short style: `a(){}`
-      if (/^function /.test(val) === false) {
-        val = 'function ' + val
-      }
-    } else {
-      val = JSON.stringify(val)
-    }
-
-    return `  ${key}: ${val}`
-  })
-
   return `
 <script>
 ${code}
-module.exports = {
-${injection.join(',\n')}
-}
-module.exports.components = {
+const __exports = ${toJSON(documentInfo)};
+__exports.components = {
 ${indent(names, 2)}
 }
+module.exports = __exports;
 </script>`
 }
 
@@ -119,4 +102,23 @@ export function escape (html, encode) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;')
+}
+
+function toJSON (obj) {
+  if (typeof obj === 'function') {
+    obj = obj.toString().replace(/\n\s*/g, ';')
+    // short style: `a(){}`
+    if (/^function /.test(obj) === false) {
+      obj = 'function ' + obj
+    }
+
+    return obj
+  }
+
+  if (obj && typeof obj === 'object') {
+    const arr = Object.keys(obj).map(key => `"${key}": ${toJSON(obj[key])}`)
+    return `{${arr.join(',')}}`
+  }
+
+  return JSON.stringify(obj)
 }
