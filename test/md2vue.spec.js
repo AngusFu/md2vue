@@ -24,17 +24,14 @@ const documentInfo = {
   }
 }
 
-it('transform markdown file to vue file correctly', async () => {
+it('transforms markdown file correctly', async () => {
   const vue = await md2vue(source, {
     target: 'vue',
     highlight: 'prism',
     customMarkups,
     documentInfo
   })
-  expect(vue).toMatchSnapshot()
-})
 
-it('transform markdown file to javascript correctly', async () => {
   const js = await md2vue(source, {
     target: 'js',
     componentName: 'common-comp',
@@ -42,5 +39,7 @@ it('transform markdown file to javascript correctly', async () => {
     customMarkups,
     documentInfo
   })
+
+  expect(vue).toMatchSnapshot()
   expect(js).toMatchSnapshot()
 })

@@ -11,6 +11,7 @@ export default (code, lang = 'autoit') => {
       require(`prismjs/components/prism-${lang}`)
     } catch (e) {
       lang = 'autoit'
+      require('prismjs/components/prism-autoit')
     }
   }
   return Prism.highlight(code, Prism.languages[lang])
