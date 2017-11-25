@@ -14,7 +14,7 @@ Renderer.prototype.link = function (href, title, text) {
   let out = `<a href="${href}"`
 
   if (relative === false) {
-    out += ` target="blank"`
+    out += ` target="_blank"`
   }
 
   if (title) {
