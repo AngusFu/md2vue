@@ -6,4 +6,4 @@ Have a look at the generated [code](https://angusfu.github.io/md2vue/) ~
 
 ## How to use
 
-See [test/index.js](./test/index.js)
+See [here](https://angusfu.github.io/md2vue/doc.html) or [here](./test/common.md) ~
