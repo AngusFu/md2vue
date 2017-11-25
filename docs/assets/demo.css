@@ -85,3 +85,7 @@ html, body, .vuep {
 .vue-demo-block > pre::-webkit-scrollbar-thumb {
   background: #cecece;
 }
+
+.vue-demo-block-demo-only > .vue-demo {
+  margin: 0;
+}

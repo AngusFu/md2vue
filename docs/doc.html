@@ -5,40 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>md2vue</title>
-  <link rel="stylesheet" href="./assets/vuep.min.css">
   <link rel="stylesheet" href="//lib.baomitu.com/github-markdown-css/2.8.0/github-markdown.min.css">
   <link href="//lib.baomitu.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" rel="stylesheet">
   <link href="//lib.baomitu.com/prism/9000.0.1/themes/prism.min.css" rel="stylesheet">
   <link rel="stylesheet" href="./assets/demo.css">
+  <style>
+    body {
+      height: auto;
+      max-width: 1000px;
+      margin: 30px auto 0;
+      padding-bottom: 100px;
+    }
+  </style>
 </head>
 <body>
 <div id="app">
-  <vuep :template="code"></vuep>    
+  <common-comp />  
 </div>
 <script src="//lib.baomitu.com/vue/2.4.2/vue.min.js"></script>
-<script src="./assets/vuep.min.js"></script>
-
+<script src="./assets/common.component.js"></script>
 <script>
-Vue.use(Vuep)
-
-fetch('./assets/demo.vue')
-.then(r => r.text())
-.then(code => {
-  const m =  /<style>([\s\S]+)<\/style>/.exec(code)
-  if (m && m[1]) {
-    var elem = document.createElement('style')
-    elem.setAttribute('type', 'text/css')
-    elem.textContent = m[1]
-    document.getElementsByTagName('head')[0].appendChild(elem)
-  }
-
-  new Vue({
-    el: '#app',
-    created () {
-      this.code = code.replace('export default', 'module.exports =')
-    }
-  })
-})
+new Vue({ el: '#app' })
 </script>
 </body>
 </html>

@@ -18,14 +18,20 @@
     "vueify": "github:AngusFu/vueify"
   },
   "devDependencies": {
+    "jest": "^21.2.1",
+    "live-server": "^1.2.0",
+    "npm-run-all": "^4.1.2",
     "rollup": "^0.47.4",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^8.1.0",
     "rollup-plugin-node-resolve": "^3.0.0"
   },
   "scripts": {
-    "start": "rollup -c rollup.config.js -w",
+    "start": "run-s build build-doc && run-p watch-build preview",
+    "watch-build": "rollup -c rollup.config.js -w",
     "build": "rollup -c rollup.config.js",
-    "preview": "npm run build && node test/ ./docs && live-server ./docs"
+    "build-doc": "node build-doc",
+    "preview": "live-server ./docs",
+    "test": "jest"
   }
 }

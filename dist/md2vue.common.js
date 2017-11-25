@@ -56,7 +56,7 @@ Renderer.prototype.link = function (href, title, text) {
   var out = "<a href=\"" + href + "\"";
 
   if (relative === false) {
-    out += " target=\"blank\"";
+    out += " target=\"_blank\"";
   }
 
   if (title) {
@@ -70,6 +70,21 @@ Renderer.prototype.link = function (href, title, text) {
 
 function camelCase (str) {
   return str.replace(/[_.-](\w|$)/g, function (_, x) { return x.toUpperCase(); })
+}
+
+function kebabCase (name) {
+  return name
+    .replace(/^[A-Z]/, function (m) { return m.toLowerCase(); })
+    .replace(
+      /([0-9a-zA-Z])[\b\s]*([0-9A-Z])/g,
+      function (m, g1, g2) { return (g1 + "-" + (g2.toLowerCase())); }
+    )
+}
+
+function pascalCase (name) {
+  return kebabCase(name)
+    .replace(/-([0-9a-zA-Z])/g, function (m, g1) { return g1.toUpperCase(); })
+    .replace(/^[a-z]/, function (m) { return m.toUpperCase(); })
 }
 
 var addESLint = function (code) { return ("/* eslint-disable */\n" + code + "\n"); };
@@ -104,7 +119,9 @@ var wrapModule = function (ref) {
   var compiled = ref.compiled;
   var css = ref.css;
 
-  return ("module.exports = (function (module) {\n" + compiled + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n  exports.methods = {\n    beforeCreate: function () {\n      const css = \"" + (css.replace(/\n/g, ' ')) + "\"\n      if (css) {\n        this._ic_ = insert(css)\n      }\n    },\n    destroyed: function () {\n      this._ic_ && this._ic_()\n    }\n  }\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n  if (typeof window !== void 0 && window.Vue) {\n    Vue.use(exports )\n  }\n  return module.exports;\n\n  function insert(css) {\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n\n    if ('textContent' in elem) {\n      elem.textContent = css\n    } else {\n      elem.styleSheet.cssText = css\n    }\n\n    document.getElementsByTagName('head')[0].appendChild(elem)\n    return function () {\n      document.getElementsByTagName('head')[0].removeChild(elem)\n    }\n  }\n  })({});\n")
+  componentName = kebabCase(componentName);
+
+  return ("/* eslint-disable */\nvar moduleExports = (function (module) {\n  'use strict';\n" + (indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')) + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n  exports.created = function () {\n    const css = \"" + (css.replace(/\n/g, ' ')) + "\"\n    if (css) {\n      this.____ = insert(css)\n    }\n  }\n  exports.destroyed = function () {\n    this.____ && this.____()\n  }\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n\n  return module.exports;\n\n  function insert(css) {\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n\n    if ('textContent' in elem) {\n      elem.textContent = css\n    } else {\n      elem.styleSheet.cssText = css\n    }\n\n    document.getElementsByTagName('head')[0].appendChild(elem)\n    return function () {\n      document.getElementsByTagName('head')[0].removeChild(elem)\n    }\n  }\n})({});\ntypeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);\ntypeof window !== void 0 && window.Vue && Vue.use(moduleExports);\nthis[\"" + (pascalCase(componentName)) + "\"] = moduleExports;\n")
 };
 
 var wrapHljsCode = function (code, lang) { return ("<pre v-pre class=\"lang-" + lang + "\"><code>" + code + "</code></pre>"); };
