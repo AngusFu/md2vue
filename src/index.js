@@ -13,7 +13,8 @@ import {
 } from './util'
 
 const defaults = {
-  target: 'vue'
+  target: 'vue',
+  highlight: 'highlight.js'
 }
 
 export default function (source, opts = {}) {

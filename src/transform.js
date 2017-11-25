@@ -1,9 +1,16 @@
 import marked from 'marked'
 import indent from 'indent'
-import hljs from 'highlight.js'
 import extractMdCode from './extract'
 import getRenderer from './renderer'
 import { wrapHljsCode } from './util'
+
+import highlightJs from './highlight/hljs'
+import prismJs from './highlight/prism'
+
+const highlightMap = {
+  'highlight.js': highlightJs,
+  prism: prismJs
+}
 
 const renderer = getRenderer()
 const FIX_VUE = /<span class="hljs-tag">&lt;\/</g
@@ -16,12 +23,23 @@ export default (source, config) => {
   renderer.code = code
 
   const markup = marked(source, { renderer })
-
   return { demos, markup }
 
   function code (raw, language) {
+    const { highlight } = config
+
+    let fn = null
+
+    if (typeof highlight === 'function') {
+      fn = highlight
+    } else if (highlightMap[highlight]) {
+      fn = highlightMap[highlight]
+    } else {
+      throw new Error('Invalid highlight option!')
+    }
+
     const lang = language === 'vue' ? 'html' : language
-    const markup = hljs.highlight(lang, raw).value
+    const markup = fn(raw, lang)
 
     // TODO: 优化判断条件
     if (lang !== 'html') {
@@ -47,7 +65,6 @@ ${script}
     demos.push({ tag, raw, vue })
 
     let customMarkups = ''
-
     if (typeof config.customMarkups === 'function') {
       customMarkups = config.customMarkups() || ''
     } else if (config.customMarkups === 'string') {

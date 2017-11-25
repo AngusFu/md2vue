@@ -1,6 +1,7 @@
 import marked from 'marked';
 import indent from 'indent';
 import hljs from 'highlight.js';
+import Prism from 'prismjs';
 import { compiler } from 'vueify';
 
 var reStyle = /<style>([\s\S]+)<\/style>/;
@@ -125,6 +126,40 @@ function toJSON (obj) {
   return JSON.stringify(obj)
 }
 
+/**
+ * SEE https://github.com/PrismJS/prism
+ * @param {String} code
+ * @param {String} lang
+ */
+var highlightJs = function (code, lang) {
+  return hljs.highlight(lang, code).value
+};
+
+/**
+ * SEE https://github.com/PrismJS/prism
+ * @param {String} code
+ * @param {String} lang
+ */
+var prismJs = function (code, lang) {
+  if ( lang === void 0 ) lang = 'autoit';
+
+  if (!Prism.languages[lang]) {
+    try {
+      require(("prismjs/components/prism-" + lang));
+    } catch (e) {
+      lang = 'autoit';
+    }
+  }
+  return Prism.highlight(code, Prism.languages[lang])
+};
+
+global.Prism = Prism;
+
+var highlightMap = {
+  'highlight.js': highlightJs,
+  prism: prismJs
+};
+
 var renderer = getRenderer();
 var FIX_VUE = /<span class="hljs-tag">&lt;\/</g;
 var FIXTURE = '<span class="hljs-tag"><span>&lt;</span>/<';
@@ -136,12 +171,23 @@ var transform = function (source, config) {
   renderer.code = code;
 
   var markup = marked(source, { renderer: renderer });
-
   return { demos: demos, markup: markup }
 
   function code (raw, language) {
+    var highlight = config.highlight;
+
+    var fn = null;
+
+    if (typeof highlight === 'function') {
+      fn = highlight;
+    } else if (highlightMap[highlight]) {
+      fn = highlightMap[highlight];
+    } else {
+      throw new Error('Invalid highlight option!')
+    }
+
     var lang = language === 'vue' ? 'html' : language;
-    var markup = hljs.highlight(lang, raw).value;
+    var markup = fn(raw, lang);
 
     // TODO: 优化判断条件
     if (lang !== 'html') {
@@ -164,7 +210,6 @@ var transform = function (source, config) {
     demos.push({ tag: tag, raw: raw, vue: vue });
 
     var customMarkups = '';
-
     if (typeof config.customMarkups === 'function') {
       customMarkups = config.customMarkups() || '';
     } else if (config.customMarkups === 'string') {
@@ -250,7 +295,8 @@ StyleBundler.from = function (emitter) {
 };
 
 var defaults = {
-  target: 'vue'
+  target: 'vue',
+  highlight: 'highlight.js'
 };
 
 var index = function (source, opts) {

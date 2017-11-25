@@ -8,6 +8,7 @@ let id = 1333
 let title = 'foo'
 
 md2vue(source, {
+  highlight: 'prism',
   customMarkups () {
     const uid = `vue-demo-${id++}`
     return `<input id="${uid}" type="checkbox" /><label for="${uid}"></label>`
