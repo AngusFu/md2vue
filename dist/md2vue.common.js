@@ -102,7 +102,7 @@ var wrapScript = function (ref) {
     throw msg
   }
 
-  return ("\n<script>\n" + code + "\nconst __exports = " + (toJSON(documentInfo)) + ";\n__exports.components = {\n" + (indent(names, 2)) + "\n}\nmodule.exports = __exports;\n</script>")
+  return ("\n<script>\n" + code + "\nvar __exports = " + (toJSON(documentInfo)) + ";\n__exports.components = {\n" + (indent(names, 2)) + "\n}\nmodule.exports = __exports;\n</script>")
 };
 
 var wrapMarkup = function (markup) { return ("<template>\n<article class=\"markdown-body\">\n" + markup + "\n</article >\n</template>"); };
@@ -111,7 +111,7 @@ var wrapVueCompiled = function (ref) {
   var tagName = ref.tagName;
   var compiled = ref.compiled;
 
-  return ("const " + (camelCase(tagName)) + " = (function (module) {\n" + compiled + "\n  return module.exports;\n})({});\n")
+  return ("var " + (camelCase(tagName)) + " = (function (module) {\n" + compiled + "\n  return module.exports;\n})({});\n")
 };
 
 var wrapModule = function (ref) {
@@ -121,7 +121,7 @@ var wrapModule = function (ref) {
 
   componentName = kebabCase(componentName);
 
-  return ("/* eslint-disable */\nvar moduleExports = (function (module) {\n  'use strict';\n" + (indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')) + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n  exports.created = function () {\n    const css = \"" + (css.replace(/\n/g, ' ')) + "\"\n    if (css) {\n      this.____ = insert(css)\n    }\n  }\n  exports.destroyed = function () {\n    this.____ && this.____()\n  }\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n\n  return module.exports;\n\n  function insert(css) {\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n\n    if ('textContent' in elem) {\n      elem.textContent = css\n    } else {\n      elem.styleSheet.cssText = css\n    }\n\n    document.getElementsByTagName('head')[0].appendChild(elem)\n    return function () {\n      document.getElementsByTagName('head')[0].removeChild(elem)\n    }\n  }\n})({});\ntypeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);\ntypeof window !== void 0 && window.Vue && Vue.use(moduleExports);\nthis[\"" + (pascalCase(componentName)) + "\"] = moduleExports;\n")
+  return ("/* eslint-disable */\nvar moduleExports = (function (module) {\n  'use strict';\n" + (indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')) + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n  exports.created = function () {\n    var css = \"" + (css.replace(/\n/g, ' ')) + "\"\n    if (css) {\n      this.____ = insert(css)\n    }\n  }\n  exports.destroyed = function () {\n    this.____ && this.____()\n  }\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n\n  return module.exports;\n\n  function insert(css) {\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n\n    if ('textContent' in elem) {\n      elem.textContent = css\n    } else {\n      elem.styleSheet.cssText = css\n    }\n\n    document.getElementsByTagName('head')[0].appendChild(elem)\n    return function () {\n      document.getElementsByTagName('head')[0].removeChild(elem)\n    }\n  }\n})({});\ntypeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);\ntypeof window !== void 0 && window.Vue && Vue.use(moduleExports);\nthis[\"" + (pascalCase(componentName)) + "\"] = moduleExports;\n")
 };
 
 var wrapHljsCode = function (code, lang) { return ("<pre v-pre class=\"lang-" + lang + "\"><code>" + code + "</code></pre>"); };

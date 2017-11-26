@@ -43,7 +43,7 @@ export const wrapScript = ({
   return `
 <script>
 ${code}
-const __exports = ${toJSON(documentInfo)};
+var __exports = ${toJSON(documentInfo)};
 __exports.components = {
 ${indent(names, 2)}
 }
@@ -58,7 +58,7 @@ ${markup}
 </template>`
 
 export const wrapVueCompiled = ({ tagName, compiled }) => {
-  return `const ${camelCase(tagName)} = (function (module) {
+  return `var ${camelCase(tagName)} = (function (module) {
 ${compiled}
   return module.exports;
 })({});
@@ -75,7 +75,7 @@ ${indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')}
   var exports = module.exports
   exports.name = "${componentName}"
   exports.created = function () {
-    const css = "${css.replace(/\n/g, ' ')}"
+    var css = "${css.replace(/\n/g, ' ')}"
     if (css) {
       this.____ = insert(css)
     }
