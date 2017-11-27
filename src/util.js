@@ -90,6 +90,7 @@ ${indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')}
   return module.exports;
 
   function insert(css) {
+    if (typeof document === 'undefined') return;
     var elem = document.createElement('style')
     elem.setAttribute('type', 'text/css')
 
@@ -99,9 +100,10 @@ ${indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')}
       elem.styleSheet.cssText = css
     }
 
-    document.getElementsByTagName('head')[0].appendChild(elem)
+    var head = document.getElementsByTagName('head')[0]
+    head.appendChild(elem)
     return function () {
-      document.getElementsByTagName('head')[0].removeChild(elem)
+      head.removeChild(elem)
     }
   }
 })({});

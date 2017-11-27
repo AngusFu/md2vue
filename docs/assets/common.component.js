@@ -3,7 +3,7 @@ var moduleExports = (function (module) {
   'use strict';
   ;(function(){
   /* eslint-disable */
-  const md2vuedemo0 = (function (module) {
+  var md2vuedemo0 = (function (module) {
   ;(function(){
     module.exports = {
       data: function data() {
@@ -37,7 +37,7 @@ var moduleExports = (function (module) {
     return module.exports;
   })({});
 
-  const md2vuedemo1 = (function (module) {
+  var md2vuedemo1 = (function (module) {
   ;(function(){
     module.exports = {
       methods: {
@@ -66,7 +66,7 @@ var moduleExports = (function (module) {
     return module.exports;
   })({});
 
-  const md2vuedemo2 = (function (module) {
+  var md2vuedemo2 = (function (module) {
   ;(function(){
     module.exports = {
       methods: {
@@ -96,7 +96,7 @@ var moduleExports = (function (module) {
   })({});
 
 
-  const __exports = {"head": function anonymous() {;return { title: 'foo' };},"layout": "component","directives": {"effect-only": {"inserted": function inserted(el) {;console.log(el);}}}};
+  var __exports = {"head": function anonymous() {;return { title: 'foo' };},"layout": "component","directives": {"effect-only": {"inserted": function inserted(el) {;console.log(el);}}}};
   __exports.components = {
     'md2vuedemo0': md2vuedemo0,
     'md2vuedemo1': md2vuedemo1,
@@ -123,7 +123,7 @@ var moduleExports = (function (module) {
   var exports = module.exports
   exports.name = "common-comp"
   exports.created = function () {
-    const css = ".wrapper input[data-v-029571ac] {     width: 50px;     text-align: center;   } button[data-v-029571ad] {     font-size: 14px;   } button[data-v-029571ae] {     font-size: 14px;   }"
+    var css = ".wrapper input[data-v-029571ac] {     width: 50px;     text-align: center;   } button[data-v-029571ad] {     font-size: 14px;   } button[data-v-029571ae] {     font-size: 14px;   }"
     if (css) {
       this.____ = insert(css)
     }
@@ -138,6 +138,7 @@ var moduleExports = (function (module) {
   return module.exports;
 
   function insert(css) {
+    if (typeof document === 'undefined') return;
     var elem = document.createElement('style')
     elem.setAttribute('type', 'text/css')
 
@@ -147,9 +148,10 @@ var moduleExports = (function (module) {
       elem.styleSheet.cssText = css
     }
 
-    document.getElementsByTagName('head')[0].appendChild(elem)
+    var head = document.getElementsByTagName('head')[0]
+    head.appendChild(elem)
     return function () {
-      document.getElementsByTagName('head')[0].removeChild(elem)
+      head.removeChild(elem)
     }
   }
 })({});

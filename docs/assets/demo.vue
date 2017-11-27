@@ -155,7 +155,7 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 
 <script>
 /* eslint-disable */
-const md2vuedemo0 = (function (module) {
+var md2vuedemo0 = (function (module) {
 ;(function(){
   module.exports = {
     data: function data() {
@@ -189,7 +189,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   return module.exports;
 })({});
 
-const md2vuedemo1 = (function (module) {
+var md2vuedemo1 = (function (module) {
 ;(function(){
   module.exports = {
     methods: {
@@ -218,7 +218,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   return module.exports;
 })({});
 
-const md2vuedemo2 = (function (module) {
+var md2vuedemo2 = (function (module) {
 ;(function(){
   module.exports = {
     methods: {
@@ -248,7 +248,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 })({});
 
 
-const __exports = {"head": function anonymous() {;return { title: 'foo' };},"layout": "component","directives": {"effect-only": {"inserted": function inserted(el) {;console.log(el);}}}};
+var __exports = {"head": function anonymous() {;return { title: 'foo' };},"layout": "component","directives": {"effect-only": {"inserted": function inserted(el) {;console.log(el);}}}};
 __exports.components = {
   'md2vuedemo0': md2vuedemo0,
   'md2vuedemo1': md2vuedemo1,
