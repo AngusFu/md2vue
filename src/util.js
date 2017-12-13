@@ -75,7 +75,7 @@ ${indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')}
   var exports = module.exports
   exports.name = "${componentName}"
   exports.created = function () {
-    var css = "${css.replace(/\n/g, ' ')}"
+    var css = "${escape(css.replace(/\n/g, ' '))}"
     if (css) {
       this.____ = insert(css)
     }
@@ -94,6 +94,7 @@ ${indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')}
     var elem = document.createElement('style')
     elem.setAttribute('type', 'text/css')
 
+    css = unescape(css)
     if ('textContent' in elem) {
       elem.textContent = css
     } else {

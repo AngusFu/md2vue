@@ -137,6 +137,7 @@ var moduleExports = (function (module) {
     var elem = document.createElement('style')
     elem.setAttribute('type', 'text/css')
 
+    css = unescape(css)
     if ('textContent' in elem) {
       elem.textContent = css
     } else {
