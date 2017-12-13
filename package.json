@@ -1,6 +1,6 @@
 {
   "name": "md2vue",
-  "version": "2.0.8",
+  "version": "3.0.0-alpha",
   "main": "./dist/md2vue.common.js",
   "module": "dist/md2vue.esm.js",
   "repository": {
@@ -15,7 +15,7 @@
     "indent": "0.0.2",
     "marked": "^0.3.6",
     "prismjs": "^1.8.4",
-    "vueify": "github:AngusFu/vueify"
+    "vueify": "^9.4.1"
   },
   "devDependencies": {
     "jest": "^21.2.1",

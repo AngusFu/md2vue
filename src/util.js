@@ -41,7 +41,7 @@ export const wrapScript = ({
   }
 
   return `
-<script>
+<script lang="buble">
 ${code}
 var __exports = ${toJSON(documentInfo)};
 __exports.components = {

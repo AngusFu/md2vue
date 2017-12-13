@@ -153,7 +153,7 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 </article >
 </template>
 
-<script>
+<script lang="buble">
 /* eslint-disable */
 var md2vuedemo0 = (function (module) {
 ;(function(){

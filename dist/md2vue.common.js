@@ -102,7 +102,7 @@ var wrapScript = function (ref) {
     throw msg
   }
 
-  return ("\n<script>\n" + code + "\nvar __exports = " + (toJSON(documentInfo)) + ";\n__exports.components = {\n" + (indent(names, 2)) + "\n}\nmodule.exports = __exports;\n</script>")
+  return ("\n<script lang=\"buble\">\n" + code + "\nvar __exports = " + (toJSON(documentInfo)) + ";\n__exports.components = {\n" + (indent(names, 2)) + "\n}\nmodule.exports = __exports;\n</script>")
 };
 
 var wrapMarkup = function (markup) { return ("<template>\n<article class=\"markdown-body\">\n" + markup + "\n</article >\n</template>"); };
