@@ -51,6 +51,7 @@ export const wrapScript = ({
     props: { name: String, index: Number },
     render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },
     mounted: function () {
+      var el = this.$el
       var name = this.name;
       var index = this.index;
       var style = ___styles[index]
@@ -64,8 +65,9 @@ export const wrapScript = ({
         vueProto = vueProto.__proto__;
       }
       var Vue = vueProto.constructor;
-      var shadowRoot = this.$el.attachShadow({mode: 'closed'});
-
+      var shadowRoot = el.attachShadow
+        ? el.attachShadow({ mode: 'closed' })
+        : el.createShadowRoot()
       var styleElem = document.createElement('style');
       styleElem.setAttribute('type', 'text/css');
       style = unescape(style);
