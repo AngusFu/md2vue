@@ -43,7 +43,7 @@ export const wrapScript = ({
   }
 
   styles = styles
-    .map(style => `unescape("${escape(style.replace(/\n/g, ' '))}")`)
+    .map(style => `decodeURIComponent("${encodeURIComponent(style.replace(/\n/g, ' '))}")`)
     .join('\n, ')
 
   const shadowComponent = !shadow ? '' : `,
@@ -70,12 +70,8 @@ export const wrapScript = ({
         : el.createShadowRoot()
       var styleElem = document.createElement('style');
       styleElem.setAttribute('type', 'text/css');
-      style = unescape(style);
-      if ('textContent' in styleElem) {
-        styleElem.textContent = style;
-      } else {
-        styleElem.styleSheet.cssText = style;
-      }
+      styleElem.innerHTML = cssReset + style
+
       shadowRoot.appendChild(styleElem);
 
       var div = document.createElement('div');
@@ -91,11 +87,30 @@ export const wrapScript = ({
     }
   }
 `
+  const cssReset = `
+    .vue-demo {
+      color: initial;
+      margin: initial;
+      padding: initial;
+      box-sizing: initial;
+      border: initial;
+      background: initial;
+      font: initial;
+      word-wrap: initial;
+      word-spacing: initial;
+      word-break: initial;
+      white-space: initial;
+      text-align: initial;
+      text-indent: inherit;
+    }
+`
+
   return `
 <script lang="buble">
 var ___styles = [
 ${styles}
 ];
+var cssReset = "${cssReset.replace(/\n\s*/g, '')}";
 ${code}
 var __exports = ${toJSON(documentInfo)};
 __exports.components = {\n${indent(names, 2)}${shadowComponent}
@@ -120,18 +135,13 @@ ${compiled}
 
 export const wrapModule = ({ componentName, compiled, css }) => {
   componentName = kebabCase(componentName)
-  css = escape(css.replace(/\n/g, ' '))
+  css = encodeURIComponent(css.replace(/\n/g, ' '))
   let cssCode = css.trim() === '' ? '' : `
   var insert = function (css) {
     if (typeof window === 'undefined' || typeof document === 'undefined') return;
     var elem = document.createElement('style')
     elem.setAttribute('type', 'text/css')
-    css = unescape(css)
-    if ('textContent' in elem) {
-      elem.textContent = css
-    } else {
-      elem.styleSheet.cssText = css
-    }
+    elem.innerHTML = decodeURIComponent(css)
 
     var head = document.getElementsByTagName('head')[0]
     head.appendChild(elem)
@@ -170,15 +180,6 @@ this["${pascalCase(componentName)}"] = moduleExports;
 }
 
 export const wrapHljsCode = (code, lang) => `<pre v-pre class="lang-${lang}"><code>${code}</code></pre>`
-
-export function escape (html, encode) {
-  return html
-    .replace(!encode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
-}
 
 function toJSON (obj) {
   if (typeof obj === 'function') {

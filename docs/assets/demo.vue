@@ -136,16 +136,39 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 
 
 </div>
+<h2>Test</h2>
+<div class="vue-demo-block">
+<shadow-demo name="md2vuedemo3" :index="3"/>
+<input id="vue-demo-1336" type="checkbox" /><label for="vue-demo-1336"></label>
+<pre v-pre class="lang-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>lorem
+    xxxxx
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>22222<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+    methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'clicked!'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre>
+</div>
 
 </article >
 </template>
 
 <script lang="buble">
 var ___styles = [
-unescape(".wrapper input {     width: 50px;     text-align: center;   }")
-, unescape("button {     font-size: 14px;   }")
-, unescape("button {     font-size: 14px;   }")
+decodeURIComponent(".wrapper%20input%20%7B%20%20%20%20%20width%3A%2050px%3B%20%20%20%20%20text-align%3A%20center%3B%20%20%20%7D")
+, decodeURIComponent("button%20%7B%20%20%20%20%20font-size%3A%2014px%3B%20%20%20%7D")
+, decodeURIComponent("button%20%7B%20%20%20%20%20font-size%3A%2014px%3B%20%20%20%7D")
+, decodeURIComponent("")
 ];
+var cssReset = ".vue-demo {color: initial;margin: initial;padding: initial;box-sizing: initial;border: initial;background: initial;font: initial;word-wrap: initial;word-spacing: initial;word-break: initial;white-space: initial;text-align: initial;text-indent: inherit;}";
 /* eslint-disable */
 var md2vuedemo0 = (function (module) {
 ;(function(){
@@ -236,16 +259,46 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   return module.exports;
 })({});
 
+var md2vuedemo3 = (function (module) {
+;(function(){
+  module.exports = {
+    methods: {
+      click: function click() {
+        alert('clicked!')
+      }
+    }
+  }
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('p',[_vm._v("lorem\n      xxxxx\n    ")]),_vm._v(" "),_c('input',{attrs:{"value":"22222"}})])}]
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-029571af", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-029571af", __vue__options__)
+  }
+})()}
+  return module.exports;
+})({});
+
 
 var __exports = {"head": function anonymous() {;return { title: 'foo' };},"layout": "component","directives": {"effect-only": {"inserted": function inserted(el) {;console.log(el);}}}};
 __exports.components = {
   'md2vuedemo0': md2vuedemo0,
   'md2vuedemo1': md2vuedemo1,
   'md2vuedemo2': md2vuedemo2,
+  'md2vuedemo3': md2vuedemo3,
   'shadow-demo': {
     props: { name: String, index: Number },
     render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },
     mounted: function () {
+      var el = this.$el
       var name = this.name;
       var index = this.index;
       var style = ___styles[index]
@@ -259,16 +312,13 @@ __exports.components = {
         vueProto = vueProto.__proto__;
       }
       var Vue = vueProto.constructor;
-      var shadowRoot = this.$el.attachShadow({mode: 'closed'});
-
+      var shadowRoot = el.attachShadow
+        ? el.attachShadow({ mode: 'closed' })
+        : el.createShadowRoot()
       var styleElem = document.createElement('style');
       styleElem.setAttribute('type', 'text/css');
-      style = unescape(style);
-      if ('textContent' in styleElem) {
-        styleElem.textContent = style;
-      } else {
-        styleElem.styleSheet.cssText = style;
-      }
+      styleElem.innerHTML = cssReset + style
+
       shadowRoot.appendChild(styleElem);
 
       var div = document.createElement('div');
@@ -278,7 +328,8 @@ __exports.components = {
         components: {
         'md2vuedemo0': md2vuedemo0,
         'md2vuedemo1': md2vuedemo1,
-        'md2vuedemo2': md2vuedemo2
+        'md2vuedemo2': md2vuedemo2,
+        'md2vuedemo3': md2vuedemo3
         }, 
         render (h) {
           return h(name)

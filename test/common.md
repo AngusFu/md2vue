@@ -199,3 +199,24 @@ Noticed the difference? Hmm, just wrap your template, append a `demo-only` attri
   }
 </script>
 ```
+
+## Test
+
+```html
+<template>
+  <p>lorem
+    xxxxx
+  </p>
+  <input value="22222">
+</template>
+
+<script>
+  export default {
+    methods: {
+      click() {
+        alert('clicked!')
+      }
+    }
+  }
+</script>
+```

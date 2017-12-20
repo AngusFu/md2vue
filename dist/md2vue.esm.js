@@ -101,11 +101,13 @@ var wrapScript = function (ref) {
   }
 
   styles = styles
-    .map(function (style) { return ("unescape(\"" + (escape(style.replace(/\n/g, ' '))) + "\")"); })
+    .map(function (style) { return ("decodeURIComponent(\"" + (encodeURIComponent(style.replace(/\n/g, ' '))) + "\")"); })
     .join('\n, ');
 
-  var shadowComponent = !shadow ? '' : (",\n  'shadow-demo': {\n    props: { name: String, index: Number },\n    render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },\n    mounted: function () {\n      var name = this.name;\n      var index = this.index;\n      var style = ___styles[index]\n\n      var objectProto = ({}).__proto__;\n      var vueProto = this.__proto__;\n      while (vueProto) {\n        if (vueProto.__proto__ === objectProto) {\n          break\n        }\n        vueProto = vueProto.__proto__;\n      }\n      var Vue = vueProto.constructor;\n      var shadowRoot = this.$el.attachShadow({mode: 'closed'});\n\n      var styleElem = document.createElement('style');\n      styleElem.setAttribute('type', 'text/css');\n      style = unescape(style);\n      if ('textContent' in styleElem) {\n        styleElem.textContent = style;\n      } else {\n        styleElem.styleSheet.cssText = style;\n      }\n      shadowRoot.appendChild(styleElem);\n\n      var div = document.createElement('div');\n      shadowRoot.appendChild(div);\n\n      new Vue({\n        components: {\n" + (indent(names, 8)) + "\n        }, \n        render (h) {\n          return h(name)\n        }\n      }).$mount(div)\n    }\n  }\n");
-  return ("\n<script lang=\"buble\">\nvar ___styles = [\n" + styles + "\n];\n" + code + "\nvar __exports = " + (toJSON(documentInfo)) + ";\n__exports.components = {\n" + (indent(names, 2)) + shadowComponent + "\n}\nmodule.exports = __exports;\n</script>")
+  var shadowComponent = !shadow ? '' : (",\n  'shadow-demo': {\n    props: { name: String, index: Number },\n    render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },\n    mounted: function () {\n      var el = this.$el\n      var name = this.name;\n      var index = this.index;\n      var style = ___styles[index]\n\n      var objectProto = ({}).__proto__;\n      var vueProto = this.__proto__;\n      while (vueProto) {\n        if (vueProto.__proto__ === objectProto) {\n          break\n        }\n        vueProto = vueProto.__proto__;\n      }\n      var Vue = vueProto.constructor;\n      var shadowRoot = el.attachShadow\n        ? el.attachShadow({ mode: 'closed' })\n        : el.createShadowRoot()\n      var styleElem = document.createElement('style');\n      styleElem.setAttribute('type', 'text/css');\n      styleElem.innerHTML = cssReset + style\n\n      shadowRoot.appendChild(styleElem);\n\n      var div = document.createElement('div');\n      shadowRoot.appendChild(div);\n\n      new Vue({\n        components: {\n" + (indent(names, 8)) + "\n        }, \n        render (h) {\n          return h(name)\n        }\n      }).$mount(div)\n    }\n  }\n");
+  var cssReset = "\n    .vue-demo {\n      color: initial;\n      margin: initial;\n      padding: initial;\n      box-sizing: initial;\n      border: initial;\n      background: initial;\n      font: initial;\n      word-wrap: initial;\n      word-spacing: initial;\n      word-break: initial;\n      white-space: initial;\n      text-align: initial;\n      text-indent: inherit;\n    }\n";
+
+  return ("\n<script lang=\"buble\">\nvar ___styles = [\n" + styles + "\n];\nvar cssReset = \"" + (cssReset.replace(/\n\s*/g, '')) + "\";\n" + code + "\nvar __exports = " + (toJSON(documentInfo)) + ";\n__exports.components = {\n" + (indent(names, 2)) + shadowComponent + "\n}\nmodule.exports = __exports;\n</script>")
 };
 
 var wrapMarkup = function (markup) { return ("<template>\n<article class=\"markdown-body\">\n" + markup + "\n</article >\n</template>"); };
@@ -123,22 +125,13 @@ var wrapModule = function (ref) {
   var css = ref.css;
 
   componentName = kebabCase(componentName);
-  css = escape(css.replace(/\n/g, ' '));
-  var cssCode = css.trim() === '' ? '' : ("\n  var insert = function (css) {\n    if (typeof window === 'undefined' || typeof document === 'undefined') return;\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n    css = unescape(css)\n    if ('textContent' in elem) {\n      elem.textContent = css\n    } else {\n      elem.styleSheet.cssText = css\n    }\n\n    var head = document.getElementsByTagName('head')[0]\n    head.appendChild(elem)\n    return function () {\n      head.removeChild(elem)\n    }\n  }\n  exports.created = function () {\n    var css = \"" + css + "\"\n    if (css) {\n      this.____ = insert(css)\n    }\n  }\n  exports.destroyed = function () {\n    this.____ && this.____()\n  }\n");
+  css = encodeURIComponent(css.replace(/\n/g, ' '));
+  var cssCode = css.trim() === '' ? '' : ("\n  var insert = function (css) {\n    if (typeof window === 'undefined' || typeof document === 'undefined') return;\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n    elem.innerHTML = decodeURIComponent(css)\n\n    var head = document.getElementsByTagName('head')[0]\n    head.appendChild(elem)\n    return function () {\n      head.removeChild(elem)\n    }\n  }\n  exports.created = function () {\n    var css = \"" + css + "\"\n    if (css) {\n      this.____ = insert(css)\n    }\n  }\n  exports.destroyed = function () {\n    this.____ && this.____()\n  }\n");
 
   return ("/* eslint-disable */\nvar moduleExports = (function (module) {\n  'use strict';\n" + (indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')) + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n" + cssCode + "\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n\n  return module.exports;\n})({});\ntypeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);\ntypeof window !== void 0 && window.Vue && Vue.use(moduleExports);\nthis[\"" + (pascalCase(componentName)) + "\"] = moduleExports;\n")
 };
 
 var wrapHljsCode = function (code, lang) { return ("<pre v-pre class=\"lang-" + lang + "\"><code>" + code + "</code></pre>"); };
-
-function escape (html, encode) {
-  return html
-    .replace(!encode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
-}
 
 function toJSON (obj) {
   if (typeof obj === 'function') {
