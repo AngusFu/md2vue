@@ -20,7 +20,8 @@ html, body, .vuep {
   box-shadow: none;
 }
 
-.vue-demo-block > .vue-demo {
+.vue-demo-block > .vue-demo,
+.vue-demo-block > .vue-shadow-demo {
   margin: 2em;
 }
 
@@ -86,6 +87,7 @@ html, body, .vuep {
   background: #cecece;
 }
 
-.vue-demo-block-demo-only > .vue-demo {
+.vue-demo-block-demo-only > .vue-demo,
+.vue-demo-block-demo-only > .vue-shadow-demo {
   margin: 0;
 }

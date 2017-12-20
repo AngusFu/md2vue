@@ -32,6 +32,8 @@ ${css}
 export const wrapScript = ({
   code = '',
   names = '',
+  shadow = false,
+  styles = [],
   documentInfo = {}
 }) => {
   if (typeof documentInfo !== 'object') {
@@ -40,12 +42,61 @@ export const wrapScript = ({
     throw msg
   }
 
+  styles = styles
+    .map(style => `unescape("${escape(style.replace(/\n/g, ' '))}")`)
+    .join('\n, ')
+
+  const shadowComponent = !shadow ? '' : `,
+  'shadow-demo': {
+    props: { name: String, index: Number },
+    render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },
+    mounted: function () {
+      var name = this.name;
+      var index = this.index;
+      var style = ___styles[index]
+
+      var objectProto = ({}).__proto__;
+      var vueProto = this.__proto__;
+      while (vueProto) {
+        if (vueProto.__proto__ === objectProto) {
+          break
+        }
+        vueProto = vueProto.__proto__
+      }
+      var Vue = vueProto.constructor
+      var shadowRoot = this.$el.createShadowRoot();
+
+      var styleElem = document.createElement('style')
+      styleElem.setAttribute('type', 'text/css')
+      style = unescape(style)
+      if ('textContent' in styleElem) {
+        styleElem.textContent = style
+      } else {
+        styleElem.styleSheet.cssText = style
+      }
+      shadowRoot.appendChild(styleElem);
+
+      var div = document.createElement('div');
+      shadowRoot.appendChild(div);
+
+      new Vue({
+        components: {\n${indent(names, 8)}
+        }, 
+        render (h) {
+          return h(name)
+        }
+      }).$mount(div)
+    }
+  }
+`
   return `
 <script lang="buble">
+var ___styles = [
+${styles}
+];
 ${code}
 var __exports = ${toJSON(documentInfo)};
-__exports.components = {
-${indent(names, 2)}
+__exports.components = {\n${indent(names, 2)}${shadowComponent}
 }
 module.exports = __exports;
 </script>`
@@ -67,33 +118,12 @@ ${compiled}
 
 export const wrapModule = ({ componentName, compiled, css }) => {
   componentName = kebabCase(componentName)
-
-  return `/* eslint-disable */
-var moduleExports = (function (module) {
-  'use strict';
-${indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')}
-  var exports = module.exports
-  exports.name = "${componentName}"
-  exports.created = function () {
-    var css = "${escape(css.replace(/\n/g, ' '))}"
-    if (css) {
-      this.____ = insert(css)
-    }
-  }
-  exports.destroyed = function () {
-    this.____ && this.____()
-  }
-  module.exports.install = function (Vue) {
-    Vue.component(exports.name, exports)
-  }
-
-  return module.exports;
-
-  function insert(css) {
-    if (typeof document === 'undefined') return;
+  css = escape(css.replace(/\n/g, ' '))
+  let cssCode = css.trim() === '' ? '' : `
+  var insert = function (css) {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
     var elem = document.createElement('style')
     elem.setAttribute('type', 'text/css')
-
     css = unescape(css)
     if ('textContent' in elem) {
       elem.textContent = css
@@ -107,6 +137,29 @@ ${indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')}
       head.removeChild(elem)
     }
   }
+  exports.created = function () {
+    var css = "${css}"
+    if (css) {
+      this.____ = insert(css)
+    }
+  }
+  exports.destroyed = function () {
+    this.____ && this.____()
+  }
+`
+
+  return `/* eslint-disable */
+var moduleExports = (function (module) {
+  'use strict';
+${indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')}
+  var exports = module.exports
+  exports.name = "${componentName}"
+${cssCode}
+  module.exports.install = function (Vue) {
+    Vue.component(exports.name, exports)
+  }
+
+  return module.exports;
 })({});
 typeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);
 typeof window !== void 0 && window.Vue && Vue.use(moduleExports);

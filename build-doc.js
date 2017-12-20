@@ -32,6 +32,7 @@ const documentInfo = {
   const vue = await md2vue(source, {
     target: 'vue',
     highlight: 'prism',
+    shadow: true,
     customMarkups,
     documentInfo
   })
@@ -43,6 +44,7 @@ const documentInfo = {
     target: 'js',
     componentName: 'common-comp',
     highlight: 'prism',
+    shadow: true,
     customMarkups,
     documentInfo
   })

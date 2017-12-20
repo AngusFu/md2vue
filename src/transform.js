@@ -26,7 +26,7 @@ export default (source, config) => {
   return { demos, markup }
 
   function code (raw, language) {
-    const { highlight } = config
+    const { highlight, shadow } = config
 
     let fn = null
 
@@ -46,7 +46,7 @@ export default (source, config) => {
       return wrapHljsCode(fix(markup), lang)
     }
 
-    const tag = `md2vuedemo${(id++).toString(36)}`
+    const tag = `md2vuedemo${id.toString(36)}`
     const { style, script, template, effectOnly } = extractMdCode(raw)
 
     let vue = `<template lang="html">
@@ -58,11 +58,16 @@ ${indent(template, '    ')}
 ${script}
 </script>`
 
+    let shadowCss = ''
     if (style !== '') {
-      vue = `<style scoped>${style}</style>\n` + vue
+      if (shadow === false) {
+        vue = `<style scoped>${style}</style>\n` + vue
+      } else {
+        shadowCss = style
+      }
     }
 
-    demos.push({ tag, raw, vue })
+    demos.push({ tag, raw, vue, shadowCss })
 
     let customMarkups = ''
     if (typeof config.customMarkups === 'function') {
@@ -71,9 +76,17 @@ ${script}
       customMarkups = config.customMarkups || ''
     }
 
+    let demoApp = `<${tag} />`
+
+    if (shadow === true) {
+      demoApp = `<shadow-demo name="${tag}" :index="${id}"/>`
+    }
+
+    id += 1
+
     return `
 <div class="vue-demo-block${effectOnly ? ' vue-demo-block-demo-only' : ''}">
-<${tag}></${tag}>
+${demoApp}
 ${effectOnly ? '' : customMarkups}
 ${effectOnly ? '' : wrapHljsCode(fix(markup), lang)}
 </div>

@@ -43,3 +43,26 @@ it('transforms markdown file correctly', async () => {
   expect(vue).toMatchSnapshot()
   expect(js).toMatchSnapshot()
 })
+
+
+it('transforms markdown file with shadow demo apps correctly', async () => {
+  const vue = await md2vue(source, {
+    target: 'vue',
+    shadow: true,
+    highlight: 'prism',
+    customMarkups,
+    documentInfo
+  })
+
+  const js = await md2vue(source, {
+    target: 'js',
+    shadow: true,
+    componentName: 'common-comp',
+    highlight: 'prism',
+    customMarkups,
+    documentInfo
+  })
+
+  expect(vue).toMatchSnapshot()
+  expect(js).toMatchSnapshot()
+})

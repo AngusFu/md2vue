@@ -94,6 +94,8 @@ var wrapCSSText = function (css) { return css ? ("\n<style>\n" + css + "\n</styl
 var wrapScript = function (ref) {
   var code = ref.code; if ( code === void 0 ) code = '';
   var names = ref.names; if ( names === void 0 ) names = '';
+  var shadow = ref.shadow; if ( shadow === void 0 ) shadow = false;
+  var styles = ref.styles; if ( styles === void 0 ) styles = [];
   var documentInfo = ref.documentInfo; if ( documentInfo === void 0 ) documentInfo = {};
 
   if (typeof documentInfo !== 'object') {
@@ -102,7 +104,12 @@ var wrapScript = function (ref) {
     throw msg
   }
 
-  return ("\n<script lang=\"buble\">\n" + code + "\nvar __exports = " + (toJSON(documentInfo)) + ";\n__exports.components = {\n" + (indent(names, 2)) + "\n}\nmodule.exports = __exports;\n</script>")
+  styles = styles
+    .map(function (style) { return ("unescape(\"" + (escape(style.replace(/\n/g, ' '))) + "\")"); })
+    .join('\n, ');
+
+  var shadowComponent = !shadow ? '' : (",\n  'shadow-demo': {\n    props: { name: String, index: Number },\n    render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },\n    mounted: function () {\n      var name = this.name;\n      var index = this.index;\n      var style = ___styles[index]\n\n      var objectProto = ({}).__proto__;\n      var vueProto = this.__proto__;\n      while (vueProto) {\n        if (vueProto.__proto__ === objectProto) {\n          break\n        }\n        vueProto = vueProto.__proto__\n      }\n      var Vue = vueProto.constructor\n      var shadowRoot = this.$el.createShadowRoot();\n\n      var styleElem = document.createElement('style')\n      styleElem.setAttribute('type', 'text/css')\n      style = unescape(style)\n      if ('textContent' in styleElem) {\n        styleElem.textContent = style\n      } else {\n        styleElem.styleSheet.cssText = style\n      }\n      shadowRoot.appendChild(styleElem);\n\n      var div = document.createElement('div');\n      shadowRoot.appendChild(div);\n\n      new Vue({\n        components: {\n" + (indent(names, 8)) + "\n        }, \n        render (h) {\n          return h(name)\n        }\n      }).$mount(div)\n    }\n  }\n");
+  return ("\n<script lang=\"buble\">\nvar ___styles = [\n" + styles + "\n];\n" + code + "\nvar __exports = " + (toJSON(documentInfo)) + ";\n__exports.components = {\n" + (indent(names, 2)) + shadowComponent + "\n}\nmodule.exports = __exports;\n</script>")
 };
 
 var wrapMarkup = function (markup) { return ("<template>\n<article class=\"markdown-body\">\n" + markup + "\n</article >\n</template>"); };
@@ -120,8 +127,10 @@ var wrapModule = function (ref) {
   var css = ref.css;
 
   componentName = kebabCase(componentName);
+  css = escape(css.replace(/\n/g, ' '));
+  var cssCode = css.trim() === '' ? '' : ("\n  var insert = function (css) {\n    if (typeof window === 'undefined' || typeof document === 'undefined') return;\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n    css = unescape(css)\n    if ('textContent' in elem) {\n      elem.textContent = css\n    } else {\n      elem.styleSheet.cssText = css\n    }\n\n    var head = document.getElementsByTagName('head')[0]\n    head.appendChild(elem)\n    return function () {\n      head.removeChild(elem)\n    }\n  }\n  exports.created = function () {\n    var css = \"" + css + "\"\n    if (css) {\n      this.____ = insert(css)\n    }\n  }\n  exports.destroyed = function () {\n    this.____ && this.____()\n  }\n");
 
-  return ("/* eslint-disable */\nvar moduleExports = (function (module) {\n  'use strict';\n" + (indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')) + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n  exports.created = function () {\n    var css = \"" + (escape(css.replace(/\n/g, ' '))) + "\"\n    if (css) {\n      this.____ = insert(css)\n    }\n  }\n  exports.destroyed = function () {\n    this.____ && this.____()\n  }\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n\n  return module.exports;\n\n  function insert(css) {\n    if (typeof document === 'undefined') return;\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n\n    css = unescape(css)\n    if ('textContent' in elem) {\n      elem.textContent = css\n    } else {\n      elem.styleSheet.cssText = css\n    }\n\n    var head = document.getElementsByTagName('head')[0]\n    head.appendChild(elem)\n    return function () {\n      head.removeChild(elem)\n    }\n  }\n})({});\ntypeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);\ntypeof window !== void 0 && window.Vue && Vue.use(moduleExports);\nthis[\"" + (pascalCase(componentName)) + "\"] = moduleExports;\n")
+  return ("/* eslint-disable */\nvar moduleExports = (function (module) {\n  'use strict';\n" + (indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')) + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n" + cssCode + "\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n\n  return module.exports;\n})({});\ntypeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);\ntypeof window !== void 0 && window.Vue && Vue.use(moduleExports);\nthis[\"" + (pascalCase(componentName)) + "\"] = moduleExports;\n")
 };
 
 var wrapHljsCode = function (code, lang) { return ("<pre v-pre class=\"lang-" + lang + "\"><code>" + code + "</code></pre>"); };
@@ -154,20 +163,10 @@ function toJSON (obj) {
   return JSON.stringify(obj)
 }
 
-/**
- * SEE https://github.com/PrismJS/prism
- * @param {String} code
- * @param {String} lang
- */
 var highlightJs = function (code, lang) {
   return hljs.highlight(lang, code).value
 };
 
-/**
- * SEE https://github.com/PrismJS/prism
- * @param {String} code
- * @param {String} lang
- */
 var prismJs = function (code, lang) {
   if ( lang === void 0 ) lang = 'autoit';
 
@@ -204,6 +203,7 @@ var transform = function (source, config) {
 
   function code (raw, language) {
     var highlight = config.highlight;
+    var shadow = config.shadow;
 
     var fn = null;
 
@@ -223,7 +223,7 @@ var transform = function (source, config) {
       return wrapHljsCode(fix(markup), lang)
     }
 
-    var tag = "md2vuedemo" + ((id++).toString(36));
+    var tag = "md2vuedemo" + (id.toString(36));
     var ref = extractMdCode(raw);
     var style = ref.style;
     var script = ref.script;
@@ -232,11 +232,16 @@ var transform = function (source, config) {
 
     var vue = "<template lang=\"html\">\n  <div class=\"vue-demo\">\n" + (indent(template, '    ')) + "\n  </div>\n</template>\n<script lang=\"buble\">\n" + script + "\n</script>";
 
+    var shadowCss = '';
     if (style !== '') {
-      vue = "<style scoped>" + style + "</style>\n" + vue;
+      if (shadow === false) {
+        vue = "<style scoped>" + style + "</style>\n" + vue;
+      } else {
+        shadowCss = style;
+      }
     }
 
-    demos.push({ tag: tag, raw: raw, vue: vue });
+    demos.push({ tag: tag, raw: raw, vue: vue, shadowCss: shadowCss });
 
     var customMarkups = '';
     if (typeof config.customMarkups === 'function') {
@@ -245,7 +250,15 @@ var transform = function (source, config) {
       customMarkups = config.customMarkups || '';
     }
 
-    return ("\n<div class=\"vue-demo-block" + (effectOnly ? ' vue-demo-block-demo-only' : '') + "\">\n<" + tag + "></" + tag + ">\n" + (effectOnly ? '' : customMarkups) + "\n" + (effectOnly ? '' : wrapHljsCode(fix(markup), lang)) + "\n</div>\n")
+    var demoApp = "<" + tag + " />";
+
+    if (shadow === true) {
+      demoApp = "<shadow-demo name=\"" + tag + "\" :index=\"" + id + "\"/>";
+    }
+
+    id += 1;
+
+    return ("\n<div class=\"vue-demo-block" + (effectOnly ? ' vue-demo-block-demo-only' : '') + "\">\n" + demoApp + "\n" + (effectOnly ? '' : customMarkups) + "\n" + (effectOnly ? '' : wrapHljsCode(fix(markup), lang)) + "\n</div>\n")
   }
 };
 
@@ -324,6 +337,7 @@ StyleBundler.from = function (emitter) {
 };
 
 var defaults = {
+  shadow: false,
   target: 'vue',
   highlight: 'highlight.js'
 };
@@ -332,8 +346,9 @@ var index = function (source, opts) {
   if ( opts === void 0 ) opts = {};
 
   var config = Object.assign({}, defaults, opts);
-  var documentInfo = config.documentInfo;
   var target = config.target;
+  var shadow = config.shadow;
+  var documentInfo = config.documentInfo;
   var componentName = config.componentName;
 
   var ref = transform(source, config);
@@ -344,26 +359,40 @@ var index = function (source, opts) {
       var tag = ref.tag;
       var raw = ref.raw;
       var vue = ref.vue;
+      var shadowCss = ref.shadowCss;
 
       return vueify.compiler
       .compilePromise(vue, tag)
       .then(function (compiled) { return wrapVueCompiled({
         tagName: tag,
+        shadowCss: shadowCss,
         compiled: compiled
-      }); });
+      }); })
+      .then(function (compiled) { return ({ compiled: compiled, shadowCss: shadowCss }); });
   }
   );
 
   return Promise.all(tasks)
-    .then(function (rets) { return addESLint(rets.join('\n')); })
-    .then(function (code) {
+    .then(function (rets) {
+      var code = rets.map(function (item) { return item.compiled; }).join('\n');
+      var styles = rets.map(function (item) { return item.shadowCss; });
+
+      return {
+        styles: styles,
+        code: addESLint(code)
+      }
+    })
+    .then(function (ref) {
+      var code = ref.code;
+      var styles = ref.styles;
+
       var names = demos.map(function (ref) {
         var tag = ref.tag;
 
         return ("'" + tag + "': " + (camelCase(tag)))
       }).join(',\n');
       return Promise.all([
-        Promise.resolve({ code: code, names: names, documentInfo: documentInfo }),
+        Promise.resolve({ code: code, styles: styles, names: names, documentInfo: documentInfo, shadow: shadow }),
         bundler.pipe()
       ])
     })

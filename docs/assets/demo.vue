@@ -1,17 +1,4 @@
 
-<style>
-.wrapper input[data-v-029571ac] {
-    width: 50px;
-    text-align: center;
-  }
-button[data-v-029571ad] {
-    font-size: 14px;
-  }
-button[data-v-029571ae] {
-    font-size: 14px;
-  }
-</style>
-
 <template>
 <article class="markdown-body">
 <h1>Introduction to md2vue</h1><p>You can get raw text of this document <strong><a href="/AngusFu/md2vue/blob/master/test/common.md">here</a></strong>.</p>
@@ -68,7 +55,7 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 <p>The following code in vue can be rendered into an real tiny vue app:</p>
 
 <div class="vue-demo-block">
-<md2vuedemo0></md2vuedemo0>
+<shadow-demo name="md2vuedemo0" :index="0"/>
 <input id="vue-demo-1333" type="checkbox" /><label for="vue-demo-1333"></label>
 <pre v-pre class="lang-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
   <span class="token selector">.wrapper input</span> <span class="token punctuation">{</span>
@@ -103,7 +90,7 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 <p>You can also leave out <code>&lt;template&gt;</code> tags, just like this:</p>
 
 <div class="vue-demo-block">
-<md2vuedemo1></md2vuedemo1>
+<shadow-demo name="md2vuedemo1" :index="1"/>
 <input id="vue-demo-1334" type="checkbox" /><label for="vue-demo-1334"></label>
 <pre v-pre class="lang-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
   <span class="token selector">button</span> <span class="token punctuation">{</span>
@@ -145,7 +132,7 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre><p>Noticed the difference? Hmm, just wrap your template, append a <code>demo-only</code> attribute to it. So let&#39;s take a look:</p>
 
 <div class="vue-demo-block vue-demo-block-demo-only">
-<md2vuedemo2></md2vuedemo2>
+<shadow-demo name="md2vuedemo2" :index="2"/>
 
 
 </div>
@@ -154,6 +141,11 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 </template>
 
 <script lang="buble">
+var ___styles = [
+unescape(".wrapper input {     width: 50px;     text-align: center;   }")
+, unescape("button {     font-size: 14px;   }")
+, unescape("button {     font-size: 14px;   }")
+];
 /* eslint-disable */
 var md2vuedemo0 = (function (module) {
 ;(function(){
@@ -175,7 +167,6 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('div',{staticClass:"wrapper"},[_c('button',{on:{"click":function($event){_vm.incr(-1)}}},[_vm._v("-")]),_vm._v(" "),_c('input',{attrs:{"type":"text","readonly":""},domProps:{"value":_vm.count}}),_vm._v(" "),_c('button',{on:{"click":function($event){_vm.incr(+1)}}},[_vm._v("+")])])])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-029571ac"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -204,7 +195,6 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('button',{on:{"click":_vm.click}},[_vm._v("click me!")])])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-029571ad"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -233,7 +223,6 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('button',{on:{"click":_vm.click}},[_vm._v("click me!")])])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-029571ae"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -252,7 +241,52 @@ var __exports = {"head": function anonymous() {;return { title: 'foo' };},"layou
 __exports.components = {
   'md2vuedemo0': md2vuedemo0,
   'md2vuedemo1': md2vuedemo1,
-  'md2vuedemo2': md2vuedemo2
+  'md2vuedemo2': md2vuedemo2,
+  'shadow-demo': {
+    props: { name: String, index: Number },
+    render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },
+    mounted: function () {
+      var name = this.name;
+      var index = this.index;
+      var style = ___styles[index]
+
+      var objectProto = ({}).__proto__;
+      var vueProto = this.__proto__;
+      while (vueProto) {
+        if (vueProto.__proto__ === objectProto) {
+          break
+        }
+        vueProto = vueProto.__proto__
+      }
+      var Vue = vueProto.constructor
+      var shadowRoot = this.$el.createShadowRoot();
+
+      var styleElem = document.createElement('style')
+      styleElem.setAttribute('type', 'text/css')
+      style = unescape(style)
+      if ('textContent' in styleElem) {
+        styleElem.textContent = style
+      } else {
+        styleElem.styleSheet.cssText = style
+      }
+      shadowRoot.appendChild(styleElem);
+
+      var div = document.createElement('div');
+      shadowRoot.appendChild(div);
+
+      new Vue({
+        components: {
+        'md2vuedemo0': md2vuedemo0,
+        'md2vuedemo1': md2vuedemo1,
+        'md2vuedemo2': md2vuedemo2
+        }, 
+        render (h) {
+          return h(name)
+        }
+      }).$mount(div)
+    }
+  }
+
 }
 module.exports = __exports;
 </script>
