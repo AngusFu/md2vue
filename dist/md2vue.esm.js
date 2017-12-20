@@ -104,7 +104,7 @@ var wrapScript = function (ref) {
     .map(function (style) { return ("unescape(\"" + (escape(style.replace(/\n/g, ' '))) + "\")"); })
     .join('\n, ');
 
-  var shadowComponent = !shadow ? '' : (",\n  'shadow-demo': {\n    props: { name: String, index: Number },\n    render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },\n    mounted: function () {\n      var name = this.name;\n      var index = this.index;\n      var style = ___styles[index]\n\n      var objectProto = ({}).__proto__;\n      var vueProto = this.__proto__;\n      while (vueProto) {\n        if (vueProto.__proto__ === objectProto) {\n          break\n        }\n        vueProto = vueProto.__proto__\n      }\n      var Vue = vueProto.constructor\n      var shadowRoot = this.$el.createShadowRoot();\n\n      var styleElem = document.createElement('style')\n      styleElem.setAttribute('type', 'text/css')\n      style = unescape(style)\n      if ('textContent' in styleElem) {\n        styleElem.textContent = style\n      } else {\n        styleElem.styleSheet.cssText = style\n      }\n      shadowRoot.appendChild(styleElem);\n\n      var div = document.createElement('div');\n      shadowRoot.appendChild(div);\n\n      new Vue({\n        components: {\n" + (indent(names, 8)) + "\n        }, \n        render (h) {\n          return h(name)\n        }\n      }).$mount(div)\n    }\n  }\n");
+  var shadowComponent = !shadow ? '' : (",\n  'shadow-demo': {\n    props: { name: String, index: Number },\n    render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },\n    mounted: function () {\n      var name = this.name;\n      var index = this.index;\n      var style = ___styles[index]\n\n      var objectProto = ({}).__proto__;\n      var vueProto = this.__proto__;\n      while (vueProto) {\n        if (vueProto.__proto__ === objectProto) {\n          break\n        }\n        vueProto = vueProto.__proto__;\n      }\n      var Vue = vueProto.constructor;\n      var shadowRoot = this.$el.attachShadow({mode: 'closed'});\n\n      var styleElem = document.createElement('style');\n      styleElem.setAttribute('type', 'text/css');\n      style = unescape(style);\n      if ('textContent' in styleElem) {\n        styleElem.textContent = style;\n      } else {\n        styleElem.styleSheet.cssText = style;\n      }\n      shadowRoot.appendChild(styleElem);\n\n      var div = document.createElement('div');\n      shadowRoot.appendChild(div);\n\n      new Vue({\n        components: {\n" + (indent(names, 8)) + "\n        }, \n        render (h) {\n          return h(name)\n        }\n      }).$mount(div)\n    }\n  }\n");
   return ("\n<script lang=\"buble\">\nvar ___styles = [\n" + styles + "\n];\n" + code + "\nvar __exports = " + (toJSON(documentInfo)) + ";\n__exports.components = {\n" + (indent(names, 2)) + shadowComponent + "\n}\nmodule.exports = __exports;\n</script>")
 };
 
@@ -159,10 +159,20 @@ function toJSON (obj) {
   return JSON.stringify(obj)
 }
 
+/**
+ * SEE https://github.com/PrismJS/prism
+ * @param {String} code
+ * @param {String} lang
+ */
 var highlightJs = function (code, lang) {
   return hljs.highlight(lang, code).value
 };
 
+/**
+ * SEE https://github.com/PrismJS/prism
+ * @param {String} code
+ * @param {String} lang
+ */
 var prismJs = function (code, lang) {
   if ( lang === void 0 ) lang = 'autoit';
 

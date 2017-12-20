@@ -112,17 +112,17 @@ var moduleExports = (function (module) {
           if (vueProto.__proto__ === objectProto) {
             break
           }
-          vueProto = vueProto.__proto__
+          vueProto = vueProto.__proto__;
         }
-        var Vue = vueProto.constructor
-        var shadowRoot = this.$el.createShadowRoot();
-        var styleElem = document.createElement('style')
-        styleElem.setAttribute('type', 'text/css')
-        style = unescape(style)
+        var Vue = vueProto.constructor;
+        var shadowRoot = this.$el.attachShadow({mode: 'closed'});
+        var styleElem = document.createElement('style');
+        styleElem.setAttribute('type', 'text/css');
+        style = unescape(style);
         if ('textContent' in styleElem) {
-          styleElem.textContent = style
+          styleElem.textContent = style;
         } else {
-          styleElem.styleSheet.cssText = style
+          styleElem.styleSheet.cssText = style;
         }
         shadowRoot.appendChild(styleElem);
         var div = document.createElement('div');
