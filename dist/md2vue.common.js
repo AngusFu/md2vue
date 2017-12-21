@@ -256,7 +256,7 @@ var transform = function (source, config) {
     var demoApp = "<" + tag + " />";
 
     if (shadow === true) {
-      demoApp = "<shadow-demo name=\"" + tag + "\" :index=\"" + id + "\"/>";
+      demoApp = "<shadow-demo name=\"" + tag + "\" :index=\"" + id + "\"></shadow-demo>";
     }
 
     id += 1;

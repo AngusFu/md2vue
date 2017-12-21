@@ -55,7 +55,7 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 <p>The following code in vue can be rendered into an real tiny vue app:</p>
 
 <div class="vue-demo-block">
-<shadow-demo name="md2vuedemo0" :index="0"/>
+<shadow-demo name="md2vuedemo0" :index="0"></shadow-demo>
 <input id="vue-demo-1333" type="checkbox" /><label for="vue-demo-1333"></label>
 <pre v-pre class="lang-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
   <span class="token selector">.wrapper input</span> <span class="token punctuation">{</span>
@@ -90,7 +90,7 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 <p>You can also leave out <code>&lt;template&gt;</code> tags, just like this:</p>
 
 <div class="vue-demo-block">
-<shadow-demo name="md2vuedemo1" :index="1"/>
+<shadow-demo name="md2vuedemo1" :index="1"></shadow-demo>
 <input id="vue-demo-1334" type="checkbox" /><label for="vue-demo-1334"></label>
 <pre v-pre class="lang-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
   <span class="token selector">button</span> <span class="token punctuation">{</span>
@@ -132,13 +132,13 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre><p>Noticed the difference? Hmm, just wrap your template, append a <code>demo-only</code> attribute to it. So let&#39;s take a look:</p>
 
 <div class="vue-demo-block vue-demo-block-demo-only">
-<shadow-demo name="md2vuedemo2" :index="2"/>
+<shadow-demo name="md2vuedemo2" :index="2"></shadow-demo>
 
 
 </div>
 <h2>Test</h2>
 <div class="vue-demo-block">
-<shadow-demo name="md2vuedemo3" :index="3"/>
+<shadow-demo name="md2vuedemo3" :index="3"></shadow-demo>
 <input id="vue-demo-1336" type="checkbox" /><label for="vue-demo-1336"></label>
 <pre v-pre class="lang-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>lorem
