@@ -1,6 +1,5 @@
 import transform from './transform'
 import vueCompiler from './compiler'
-import StyleBundler from './StyleBundler'
 
 import {
   camelCase,
@@ -28,35 +27,47 @@ export default function (source, opts = {}) {
   } = config
 
   const { markup, demos } = transform(source, config)
-  const bundler = StyleBundler.from(vueCompiler)
-  const tasks = demos.map(({ tag, raw, vue, shadowCss }, index) =>
-    vueCompiler
-      .compilePromise(vue, tag)
-      .then(compiled => wrapVueCompiled({
-        tagName: tag,
-        shadowCss,
-        compiled
-      }))
-      .then(compiled => ({ compiled, shadowCss }))
-  )
+  const tasks = demos.reduce((promise, { tag, raw, vue, shadowCss }, index) => {
+    return promise.then((arr) => {
+      return vueCompiler.compilePromise(vue, tag)
+        .then(({
+          script,
+          insertCSS
+        }) => {
+          return {
+            script: wrapVueCompiled({
+              tagName: tag,
+              shadowCss,
+              compiled: script
+            }),
+            insertCSS
+          }
+        })
+        .then(({ script, insertCSS }) => {
+          arr.push({ script, shadowCss, insertCSS })
+          return arr
+        })
+    })
+  }, Promise.resolve([]))
 
-  return Promise.all(tasks)
+  return tasks
     .then(rets => {
-      const code = rets.map(item => item.compiled).join('\n')
+      const code = rets.map(item => item.script).join('\n')
       const styles = rets.map(item => item.shadowCss)
-
+      const insertStyles = rets.map(item => item.insertCSS).join('\n')
       return {
         styles,
-        code: addESLint(code)
+        code: addESLint(code),
+        insertStyles
       }
     })
-    .then(({ code, styles }) => {
+    .then(({ code, styles, insertStyles }) => {
       const names = demos.map(({ tag }) => {
         return `'${tag}': ${camelCase(tag)}`
       }).join(',\n')
       return Promise.all([
         Promise.resolve({ code, styles, names, documentInfo, shadow }),
-        bundler.pipe()
+        Promise.resolve(insertStyles)
       ])
     })
     .then(([obj, css]) => {
@@ -76,10 +87,10 @@ export default function (source, opts = {}) {
 
       return vueCompiler
         .compilePromise(content, componentName)
-        .then(compiled => wrapModule({
+        .then(({ script, insertCSS }) => wrapModule({
           componentName,
-          compiled,
-          css
+          compiled: script,
+          css: insertCSS
         }))
     })
 }

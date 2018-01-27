@@ -23,9 +23,9 @@ export const addESLint = (code) => `/* eslint-disable */
 ${code}
 `
 
-export const wrapCSSText = (css) => css ? `
+export const wrapCSSText = (css) => css.trim() ? `
 <style>
-${css}
+${css.trim()}
 </style>
 ` : ''
 
@@ -152,11 +152,11 @@ export const wrapModule = ({ componentName, compiled, css }) => {
   exports.created = function () {
     var css = "${css}"
     if (css) {
-      this.____ = insert(css)
+      this._insertcss = insert(css)
     }
   }
   exports.destroyed = function () {
-    this.____ && this.____()
+    this._insertcss && this._insertcss()
   }
 `
 

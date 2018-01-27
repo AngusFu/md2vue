@@ -89,7 +89,7 @@ function pascalCase (name) {
 
 var addESLint = function (code) { return ("/* eslint-disable */\n" + code + "\n"); };
 
-var wrapCSSText = function (css) { return css ? ("\n<style>\n" + css + "\n</style>\n") : ''; };
+var wrapCSSText = function (css) { return css.trim() ? ("\n<style>\n" + (css.trim()) + "\n</style>\n") : ''; };
 
 var wrapScript = function (ref) {
   var code = ref.code; if ( code === void 0 ) code = '';
@@ -130,7 +130,7 @@ var wrapModule = function (ref) {
 
   componentName = kebabCase(componentName);
   css = encodeURIComponent(css.replace(/\n/g, ' '));
-  var cssCode = css.trim() === '' ? '' : ("\n  var insert = function (css) {\n    if (typeof window === 'undefined' || typeof document === 'undefined') return;\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n    elem.innerHTML = decodeURIComponent(css)\n\n    var head = document.getElementsByTagName('head')[0]\n    head.appendChild(elem)\n    return function () {\n      head.removeChild(elem)\n    }\n  }\n  exports.created = function () {\n    var css = \"" + css + "\"\n    if (css) {\n      this.____ = insert(css)\n    }\n  }\n  exports.destroyed = function () {\n    this.____ && this.____()\n  }\n");
+  var cssCode = css.trim() === '' ? '' : ("\n  var insert = function (css) {\n    if (typeof window === 'undefined' || typeof document === 'undefined') return;\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n    elem.innerHTML = decodeURIComponent(css)\n\n    var head = document.getElementsByTagName('head')[0]\n    head.appendChild(elem)\n    return function () {\n      head.removeChild(elem)\n    }\n  }\n  exports.created = function () {\n    var css = \"" + css + "\"\n    if (css) {\n      this._insertcss = insert(css)\n    }\n  }\n  exports.destroyed = function () {\n    this._insertcss && this._insertcss()\n  }\n");
 
   return ("/* eslint-disable */\nvar moduleExports = (function (module) {\n  'use strict';\n" + (indent(compiled.replace(/(\/\/\n\s*)+/g, ''), '  ')) + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n" + cssCode + "\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n\n  return module.exports;\n})({});\ntypeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);\ntypeof window !== void 0 && window.Vue && Vue.use(moduleExports);\nthis[\"" + (pascalCase(componentName)) + "\"] = moduleExports;\n")
 };
@@ -265,37 +265,6 @@ var transform = function (source, config) {
   }
 };
 
-vueify.compiler.applyConfig({
-  extractCSS: true,
-  customCompilers: {
-    buble: function buble (content, cb) {
-      var ref = require('buble').transform(content);
-      var code = ref.code;
-      var ret = code
-        .replace(/\n{2,}/g, '\n')
-        .replace(/^\s+/, '  ')
-        .replace(/\s+$/, '');
-
-      cb(null, ret);
-    }
-  }
-});
-
-vueify.compiler.compilePromise = function (content, filePath) {
-  if ( content === void 0 ) content = '';
-  if ( filePath === void 0 ) filePath = '';
-
-  return new Promise(function (resolve, reject) {
-    vueify.compiler.compile(content, filePath, function (err, result) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  })
-};
-
 var TYPE = 'style';
 
 var StyleBundler = function StyleBundler () {
@@ -330,7 +299,7 @@ StyleBundler.prototype.pipe = function pipe (fn) {
     fn(css);
   }
   this._remove();
-  return Promise.resolve(css)
+  return css
 };
 
 StyleBundler.from = function (emitter) {
@@ -338,6 +307,71 @@ StyleBundler.from = function (emitter) {
   bundler.from(emitter, TYPE);
   return bundler
 };
+
+vueify.compiler.applyConfig({
+  extractCSS: true,
+  customCompilers: {
+    buble: function buble (content, cb) {
+      var ref = require('buble').transform(content);
+      var code = ref.code;
+      var ret = code
+        .replace(/\n{2,}/g, '\n')
+        .replace(/^\s+/, '  ')
+        .replace(/\s+$/, '');
+
+      cb(null, ret);
+    }
+  }
+});
+
+var queue = [];
+var currentTask = null;
+
+vueify.compiler.compilePromise = function (content, filePath) {
+  if ( content === void 0 ) content = '';
+  if ( filePath === void 0 ) filePath = '';
+
+  var deferred = defer();
+  var task = function () {
+    currentTask = deferred.promise;
+
+    var bundler = StyleBundler.from(vueify.compiler);
+    vueify.compiler.compile(content, filePath, function (err, result) {
+      if (err) {
+        deferred.reject(err);
+      } else {
+        deferred.resolve({
+          script: result,
+          insertCSS: bundler.pipe()
+        });
+      }
+      process.nextTick(function () {
+        currentTask = null;
+        if (queue.length) {
+          queue.shift()();
+        }
+      });
+    });
+  };
+
+  if (currentTask) {
+    queue.push(task);
+  } else {
+    task();
+  }
+
+  return deferred.promise
+};
+
+function defer () {
+  var deferred = {};
+  var promise = new Promise(function (resolve, reject) {
+    deferred.resolve = resolve;
+    deferred.reject = reject;
+  });
+  deferred.promise = promise;
+  return deferred
+}
 
 var defaults = {
   shadow: false,
@@ -357,37 +391,52 @@ var index = function (source, opts) {
   var ref = transform(source, config);
   var markup = ref.markup;
   var demos = ref.demos;
-  var bundler = StyleBundler.from(vueify.compiler);
-  var tasks = demos.map(function (ref, index) {
-      var tag = ref.tag;
-      var raw = ref.raw;
-      var vue = ref.vue;
-      var shadowCss = ref.shadowCss;
+  var tasks = demos.reduce(function (promise, ref, index) {
+    var tag = ref.tag;
+    var raw = ref.raw;
+    var vue = ref.vue;
+    var shadowCss = ref.shadowCss;
 
-      return vueify.compiler
-      .compilePromise(vue, tag)
-      .then(function (compiled) { return wrapVueCompiled({
-        tagName: tag,
-        shadowCss: shadowCss,
-        compiled: compiled
-      }); })
-      .then(function (compiled) { return ({ compiled: compiled, shadowCss: shadowCss }); });
-  }
-  );
+    return promise.then(function (arr) {
+      return vueify.compiler.compilePromise(vue, tag)
+        .then(function (ref) {
+          var script = ref.script;
+          var insertCSS = ref.insertCSS;
 
-  return Promise.all(tasks)
+          return {
+            script: wrapVueCompiled({
+              tagName: tag,
+              shadowCss: shadowCss,
+              compiled: script
+            }),
+            insertCSS: insertCSS
+          }
+        })
+        .then(function (ref) {
+          var script = ref.script;
+          var insertCSS = ref.insertCSS;
+
+          arr.push({ script: script, shadowCss: shadowCss, insertCSS: insertCSS });
+          return arr
+        })
+    })
+  }, Promise.resolve([]));
+
+  return tasks
     .then(function (rets) {
-      var code = rets.map(function (item) { return item.compiled; }).join('\n');
+      var code = rets.map(function (item) { return item.script; }).join('\n');
       var styles = rets.map(function (item) { return item.shadowCss; });
-
+      var insertStyles = rets.map(function (item) { return item.insertCSS; }).join('\n');
       return {
         styles: styles,
-        code: addESLint(code)
+        code: addESLint(code),
+        insertStyles: insertStyles
       }
     })
     .then(function (ref) {
       var code = ref.code;
       var styles = ref.styles;
+      var insertStyles = ref.insertStyles;
 
       var names = demos.map(function (ref) {
         var tag = ref.tag;
@@ -396,7 +445,7 @@ var index = function (source, opts) {
       }).join(',\n');
       return Promise.all([
         Promise.resolve({ code: code, styles: styles, names: names, documentInfo: documentInfo, shadow: shadow }),
-        bundler.pipe()
+        Promise.resolve(insertStyles)
       ])
     })
     .then(function (ref) {
@@ -419,11 +468,16 @@ var index = function (source, opts) {
 
       return vueify.compiler
         .compilePromise(content, componentName)
-        .then(function (compiled) { return wrapModule({
+        .then(function (ref) {
+          var script = ref.script;
+          var insertCSS = ref.insertCSS;
+
+          return wrapModule({
           componentName: componentName,
-          compiled: compiled,
-          css: css
-        }); })
+          compiled: script,
+          css: insertCSS
+        });
+      })
     })
 };
 

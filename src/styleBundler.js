@@ -29,7 +29,7 @@ class StyleBundler {
       fn(css)
     }
     this._remove()
-    return Promise.resolve(css)
+    return css
   }
 }
 
