@@ -183,7 +183,7 @@ export const wrapHljsCode = (code, lang) => `<pre v-pre class="lang-${lang}"><co
 
 function toJSON (obj) {
   if (typeof obj === 'function') {
-    obj = obj.toString().replace(/\n\s*/g, ';')
+    // obj = obj.toString().replace(/\n\s*/g, ';')
     // short style: `a(){}`
     if (/^function /.test(obj) === false) {
       obj = 'function ' + obj
