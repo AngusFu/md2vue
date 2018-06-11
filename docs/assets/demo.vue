@@ -288,7 +288,11 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 })({});
 
 
-var __exports = {"head": function anonymous() {;return { title: 'foo' };},"layout": "component","directives": {"effect-only": {"inserted": function inserted(el) {;console.log(el);}}}};
+var __exports = {"head": function anonymous() {
+return { title: 'foo' }
+},"layout": "component","directives": {"effect-only": {"inserted": function inserted(el) {
+        console.log(el)
+      }}}};
 __exports.components = {
   'md2vuedemo0': md2vuedemo0,
   'md2vuedemo1': md2vuedemo1,
