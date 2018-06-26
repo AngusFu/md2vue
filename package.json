@@ -1,6 +1,6 @@
 {
   "name": "md2vue",
-  "version": "4.0.0",
+  "version": "4.0.0-alpha.0",
   "main": "./dist/md2vue.common.js",
   "module": "dist/md2vue.esm.js",
   "repository": {
