@@ -1,14 +1,14 @@
 import { kebabCase, pascalCase } from './util'
 
-export default function ({ componentName, script, style }) {
-  componentName = kebabCase(componentName)
+export default function ({ name, script, style }) {
+  const componentName = kebabCase(name)
 
   const injectCSS = style && `
   var insert = function (css) {
     if (typeof window === 'undefined' || typeof document === 'undefined') return;
     var elem = document.createElement('style')
     elem.setAttribute('type', 'text/css')
-    elem.innerHTML = decodeURIComponent(css)
+    elem.innerHTML = css
 
     var head = document.getElementsByTagName('head')[0]
     head.appendChild(elem)
@@ -17,7 +17,7 @@ export default function ({ componentName, script, style }) {
     }
   }
   exports.created = function () {
-    var css = '${style}'
+    var css = '${JSON.stringify(style)}'
     this.__clean = insert(css)
   }
   exports.destroyed = function () {

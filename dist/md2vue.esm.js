@@ -1843,12 +1843,12 @@ function toJSON(obj) {
 }
 
 var doc2js = function (ref) {
-    var componentName = ref.componentName;
+    var name = ref.name;
     var script = ref.script;
     var style = ref.style;
 
-    componentName = kebabCase(componentName);
-    var injectCSS = style && ("\n  var insert = function (css) {\n    if (typeof window === 'undefined' || typeof document === 'undefined') return;\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n    elem.innerHTML = decodeURIComponent(css)\n\n    var head = document.getElementsByTagName('head')[0]\n    head.appendChild(elem)\n    return function () {\n      head.removeChild(elem)\n    }\n  }\n  exports.created = function () {\n    var css = '" + style + "'\n    this.__clean = insert(css)\n  }\n  exports.destroyed = function () {\n    this.__clean()\n  }\n");
+    var componentName = kebabCase(name);
+    var injectCSS = style && ("\n  var insert = function (css) {\n    if (typeof window === 'undefined' || typeof document === 'undefined') return;\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n    elem.innerHTML = css\n\n    var head = document.getElementsByTagName('head')[0]\n    head.appendChild(elem)\n    return function () {\n      head.removeChild(elem)\n    }\n  }\n  exports.created = function () {\n    var css = '" + (JSON.stringify(style)) + "'\n    this.__clean = insert(css)\n  }\n  exports.destroyed = function () {\n    this.__clean()\n  }\n");
     return ("/* eslint-disable */\nvar moduleExports = (function (module) {\n  'use strict';\n" + script + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n" + (injectCSS || '') + "\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n  return module.exports;\n})({});\ntypeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);\ntypeof window !== void 0 && window.Vue && Vue.use(moduleExports);\nthis[\"" + (pascalCase(componentName)) + "\"] = moduleExports;\n");
 };
 

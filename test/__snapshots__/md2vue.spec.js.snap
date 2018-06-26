@@ -386,13 +386,13 @@ if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
   }
 })()}
   var exports = module.exports
-  exports.name = \\"\\"
+  exports.name = \\"my-comp\\"
 
   var insert = function (css) {
     if (typeof window === 'undefined' || typeof document === 'undefined') return;
     var elem = document.createElement('style')
     elem.setAttribute('type', 'text/css')
-    elem.innerHTML = decodeURIComponent(css)
+    elem.innerHTML = css
 
     var head = document.getElementsByTagName('head')[0]
     head.appendChild(elem)
@@ -401,16 +401,7 @@ if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
     }
   }
   exports.created = function () {
-    var css = '.wrapper input[data-v-029571ac] {
-    width: 50px;
-    text-align: center;
-  }
-button[data-v-029571ad] {
-    font-size: 14px;
-  }
-button[data-v-029571ae] {
-    font-size: 14px;
-  }'
+    var css = '\\".wrapper input[data-v-029571ac] {\\\\n    width: 50px;\\\\n    text-align: center;\\\\n  }\\\\nbutton[data-v-029571ad] {\\\\n    font-size: 14px;\\\\n  }\\\\nbutton[data-v-029571ae] {\\\\n    font-size: 14px;\\\\n  }\\"'
     this.__clean = insert(css)
   }
   exports.destroyed = function () {
@@ -424,6 +415,6 @@ button[data-v-029571ae] {
 })({});
 typeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);
 typeof window !== void 0 && window.Vue && Vue.use(moduleExports);
-this[\\"\\"] = moduleExports;
+this[\\"MyComp\\"] = moduleExports;
 "
 `;
