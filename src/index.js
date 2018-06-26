@@ -1,96 +1,87 @@
+import nodent from 'nodent'
+import map from 'lodash-es/map'
+
+import doc2js from './doc2js'
+import doc2sfc from './doc2sfc'
 import transform from './transform'
 import vueCompiler from './compiler'
 
-import {
-  camelCase,
-  addESLint,
-  wrapCSSText,
-  wrapScript,
-  wrapMarkup,
-  wrapVueCompiled,
-  wrapModule
-} from './util'
+// inject nodent support
+nodent()
 
 const defaults = {
-  shadow: false,
   target: 'vue',
   highlight: 'highlight.js'
 }
 
-export default function (source, opts = {}) {
-  const config = Object.assign({}, defaults, opts)
-  const {
-    target,
-    shadow,
-    documentInfo,
-    componentName
-  } = config
+export default async function (source, config = {}) {
+  config.name = config.name || config.componentName
+  config.extend = config.extend || config.documentInfo
+  config.inject = config.inject || config.customMarkups
 
+  if (config.componentName) {
+    console.warn('`componentName` is deprecated, use `name` instead.')
+  }
+
+  if (config.documentInfo) {
+    console.warn('`documentInfo` is deprecated, use `extend` instead.')
+  }
+
+  if (config.customMarkups) {
+    console.warn('`customMarkups` is deprecated, use `inject` instead.')
+  }
+
+  config = Object.assign({}, defaults, config)
+  const { name, target, extend } = config
   const { markup, demos } = transform(source, config)
-  const tasks = demos.reduce((promise, { tag, raw, vue, shadowCss }, index) => {
-    return promise.then((arr) => {
-      return vueCompiler.compilePromise(vue, tag)
-        .then(({
-          script,
-          insertCSS
-        }) => {
-          return {
-            script: wrapVueCompiled({
-              tagName: tag,
-              shadowCss,
-              compiled: script
-            }),
-            insertCSS
-          }
-        })
-        .then(({ script, insertCSS }) => {
-          arr.push({ script, shadowCss, insertCSS })
-          return arr
-        })
-    })
-  }, Promise.resolve([]))
 
-  return tasks
-    .then(rets => {
-      const code = rets.map(item => item.script).join('\n')
-      const styles = rets.map(item => item.shadowCss)
-      const insertStyles = rets.map(item => item.insertCSS).join('\n')
-      return {
-        styles,
-        code: addESLint(code),
-        insertStyles
-      }
-    })
-    .then(({ code, styles, insertStyles }) => {
-      const names = demos.map(({ tag }) => {
-        return `'${tag}': ${camelCase(tag)}`
-      }).join(',\n')
-      return Promise.all([
-        Promise.resolve({ code, styles, names, documentInfo, shadow }),
-        Promise.resolve(insertStyles)
-      ])
-    })
-    .then(([obj, css]) => {
-      const content = [
-        wrapCSSText(css),
-        wrapMarkup(markup),
-        wrapScript(obj)
-      ].join('\n')
+  const demoApps = []
+  for (let demo of demos) {
+    const { vue, tag } = demo
+    const { script, style } = await compileVue(vue, tag)
 
-      if (!target || target === 'vue') {
-        return content
-      }
-
-      if (!componentName) {
-        throw new Error('[Error] `componentName` must be specified!')
-      }
-
-      return vueCompiler
-        .compilePromise(content, componentName)
-        .then(({ script, insertCSS }) => wrapModule({
-          componentName,
-          compiled: script,
-          css: insertCSS
-        }))
+    demoApps.push({
+      style,
+      script: wrapVueCompiled({
+        tagName: tag,
+        compiled: script
+      })
     })
+  }
+  
+  const content = doc2sfc({
+    docInfo: extend,
+    html: markup,
+    style: map(demoApps, 'style').join('\n'),
+    script: map(demoApps, 'script').join('\n'),
+    components: map(demos, ({tag}) => `'${tag}': ${tag}`).join(',\n')
+  })
+
+  if (!target || target === 'vue') {
+    return content
+  }
+
+  if (!name) {
+    throw new Error('[Error] `name` must be specified!')
+  }
+
+  const { script, style } = await compileVue(content, name)
+  return doc2js({
+    script,
+    style,
+    name
+  })
 }
+
+function compileVue (content, path) {
+  return vueCompiler.compilePromise(content, path)
+}
+
+function wrapVueCompiled ({ tagName, compiled }) {
+  return `var ${tagName} = (function (module) {
+${compiled}
+return module.exports;
+})({});
+`
+}
+

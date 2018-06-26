@@ -1,15 +1,14 @@
 import marked from 'marked'
 import indent from 'indent'
-import extractMdCode from './extract'
+import extractSFC from './extract-sfc'
 import getRenderer from './renderer'
-import { wrapHljsCode } from './util'
 
 import highlightJs from './highlight/hljs'
-import prismJs from './highlight/prism'
+import prism from './highlight/prism'
 
 const highlightMap = {
-  'highlight.js': highlightJs,
-  prism: prismJs
+  prism,
+  'highlight.js': highlightJs
 }
 
 const renderer = getRenderer()
@@ -21,12 +20,11 @@ export default (source, config) => {
   let id = 0
   const demos = []
   renderer.code = code
-
   const markup = marked(source, { renderer })
   return { demos, markup }
 
   function code (raw, language) {
-    const { highlight, shadow } = config
+    const { highlight } = config
 
     let fn = null
 
@@ -46,50 +44,52 @@ export default (source, config) => {
       return wrapHljsCode(fix(markup), lang)
     }
 
-    const tag = `md2vuedemo${id.toString(36)}`
-    const { style, script, template, effectOnly } = extractMdCode(raw)
+    const tag = `md2vuedemo${(id++).toString(36)}`
+    const { style, script, template, demoOnly } = extractSFC(raw)
 
     let vue = `<template lang="html">
   <div class="vue-demo">
-${indent(template, '    ')}
+${indent(template, )}
   </div>
 </template>
+
 <script lang="buble">
 ${script}
 </script>`
 
-    let shadowCss = ''
     if (style !== '') {
-      if (shadow === false) {
-        vue = `<style scoped>${style}</style>\n` + vue
-      } else {
-        shadowCss = style
+      vue = `<style scoped>${style}</style>\n` + vue
+    }
+
+    demos.push({ tag, raw, vue })
+
+    const { inject } = config
+    let injection = ''
+    let sourceCode = ''
+
+    if (!demoOnly) {
+      if (typeof inject === 'function') {
+        injection = inject()
+      } else if (typeof inject === 'string') {
+        injection = inject
       }
+
+      sourceCode = wrapHljsCode(fix(markup), lang)
     }
 
-    demos.push({ tag, raw, vue, shadowCss })
-
-    let customMarkups = ''
-    if (typeof config.customMarkups === 'function') {
-      customMarkups = config.customMarkups() || ''
-    } else if (config.customMarkups === 'string') {
-      customMarkups = config.customMarkups || ''
-    }
-
-    let demoApp = `<${tag} />`
-
-    if (shadow === true) {
-      demoApp = `<shadow-demo name="${tag}" :index="${id}"></shadow-demo>`
-    }
-
-    id += 1
+    const demoApp = `<${tag}></${tag}>`
+    const klass = demoOnly ? 'vue-demo-block vue-demo-block-demo-only' : 'vue-demo-block'
 
     return `
-<div class="vue-demo-block${effectOnly ? ' vue-demo-block-demo-only' : ''}">
+<div class="${klass}">
 ${demoApp}
-${effectOnly ? '' : customMarkups}
-${effectOnly ? '' : wrapHljsCode(fix(markup), lang)}
+${injection}
+${sourceCode}
 </div>
 `
   }
+}
+
+function wrapHljsCode (code, lang) {
+  return `<pre v-pre class="lang-${lang}"><code>${code}</code></pre>`
 }

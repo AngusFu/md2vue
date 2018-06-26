@@ -1,7 +1,5 @@
-import {
-  compiler as vueCompiler
-} from 'vueify'
-import StyleBundler from './styleBundler'
+import { compiler as vueCompiler } from 'vueify'
+import StyleBundler from './style-bundler'
 
 vueCompiler.applyConfig({
   extractCSS: true,
@@ -23,19 +21,21 @@ let currentTask = null
 
 vueCompiler.compilePromise = (content = '', filePath = '') => {
   const deferred = defer()
+
   const task = function () {
+    const bundler = StyleBundler.from(vueCompiler)
     currentTask = deferred.promise
 
-    const bundler = StyleBundler.from(vueCompiler)
-    vueCompiler.compile(content, filePath, function (err, result) {
+    vueCompiler.compile(content, filePath, (err, result) => {
       if (err) {
         deferred.reject(err)
       } else {
         deferred.resolve({
           script: result,
-          insertCSS: bundler.pipe()
+          style: bundler.readOnce()
         })
       }
+
       process.nextTick(() => {
         currentTask = null
         if (queue.length) {
@@ -58,7 +58,7 @@ export default vueCompiler
 
 function defer () {
   const deferred = {}
-  const promise = new Promise(function (resolve, reject) {
+  const promise = new Promise((resolve, reject) => {
     deferred.resolve = resolve
     deferred.reject = reject
   })

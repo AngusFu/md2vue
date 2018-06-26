@@ -6,12 +6,12 @@ const md2vue = require('../')
 let id = 1333
 let title = 'foo'
 
-const customMarkups = () => {
+const inject = () => {
   const uid = `vue-demo-${id++}`
   return `<input id="${uid}" type="checkbox" /><label for="${uid}"></label>`
 }
 
-const documentInfo = {
+const extend = {
   // eslint-disable-next-line
   head: new Function(`return { title: '${title}' }`),
   layout: 'component',
@@ -28,41 +28,19 @@ it('transforms markdown file correctly', async () => {
   const vue = await md2vue(source, {
     target: 'vue',
     highlight: 'prism',
-    customMarkups,
-    documentInfo
+    inject,
+    extend
   })
 
   const js = await md2vue(source, {
     target: 'js',
-    componentName: 'common-comp',
+    name: 'my-comp',
     highlight: 'prism',
-    customMarkups,
-    documentInfo
+    inject,
+    extend
   })
 
   expect(vue).toMatchSnapshot()
   expect(js).toMatchSnapshot()
 })
 
-
-it('transforms markdown file with shadow demo apps correctly', async () => {
-  const vue = await md2vue(source, {
-    target: 'vue',
-    shadow: true,
-    highlight: 'prism',
-    customMarkups,
-    documentInfo
-  })
-
-  const js = await md2vue(source, {
-    target: 'js',
-    shadow: true,
-    componentName: 'common-comp',
-    highlight: 'prism',
-    customMarkups,
-    documentInfo
-  })
-
-  expect(vue).toMatchSnapshot()
-  expect(js).toMatchSnapshot()
-})

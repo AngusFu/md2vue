@@ -13,25 +13,24 @@
     "buble": "^0.15.2",
     "highlight.js": "^9.12.0",
     "indent": "0.0.2",
+    "inspect-f": "^1.2.2",
+    "lodash-es": "^4.17.10",
     "marked": "^0.3.6",
+    "nodent": "^3.2.6",
     "prismjs": "^1.8.4",
     "vueify": "^9.4.1"
   },
   "devDependencies": {
     "jest": "^21.2.1",
-    "live-server": "^1.2.0",
-    "npm-run-all": "^4.1.2",
     "rollup": "^0.47.4",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^8.1.0",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-nodent": "^0.2.2"
   },
   "scripts": {
-    "start": "run-s build build-doc && run-p watch-build preview",
     "watch-build": "rollup -c rollup.config.js -w",
     "build": "rollup -c rollup.config.js",
-    "build-doc": "node build-doc",
-    "preview": "live-server ./docs",
-    "test": "jest"
+    "test": "jest --coverage"
   }
 }

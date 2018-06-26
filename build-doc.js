@@ -7,12 +7,12 @@ const dest = './docs'
 let id = 1333
 let title = 'foo'
 
-const customMarkups = () => {
+const inject = () => {
   const uid = `vue-demo-${id++}`
   return `<input id="${uid}" type="checkbox" /><label for="${uid}"></label>`
 }
 
-const documentInfo = {
+const extend = {
   // eslint-disable-next-line
   head: new Function(`return { title: '${title}' }`),
   layout: 'component',
@@ -32,21 +32,19 @@ const documentInfo = {
   const vue = await md2vue(source, {
     target: 'vue',
     highlight: 'prism',
-    shadow: true,
-    customMarkups,
-    documentInfo
+    extend,
+    inject
   })
 
   /**
    * transform to js file
    */
   const js = await md2vue(source, {
+    name: 'my-comp',
     target: 'js',
-    componentName: 'common-comp',
     highlight: 'prism',
-    shadow: true,
-    customMarkups,
-    documentInfo
+    extend,
+    inject
   })
 
   if (dest) {

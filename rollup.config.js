@@ -1,6 +1,7 @@
 import buble from 'rollup-plugin-buble'
-import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
+import resolve from 'rollup-plugin-node-resolve'
+import nodent from 'rollup-plugin-nodent'
 
 const pkg = require('./package.json')
 const external = Object.keys(pkg.dependencies)
@@ -16,6 +17,7 @@ export default {
   plugins: [
     resolve(),
     commonjs(),
+    nodent(),
     buble()
   ],
   external: [...external, 'fs']

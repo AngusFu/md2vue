@@ -7,12 +7,12 @@ export default (code) => {
   const scriptMatch = reScript.exec(code)
   const templateMatch = reTemplate.exec(code)
 
-  let style = styleMatch ? styleMatch[1].trim() : ''
+  const style = styleMatch ? styleMatch[1].trim() : ''
   let script = scriptMatch ? scriptMatch[1].trim() : ''
   let template = templateMatch ? templateMatch[2].trim() : ''
-  let templateAttr = templateMatch ? templateMatch[1].trim() : ''
+  const templateAttr = templateMatch ? templateMatch[1].trim() : ''
 
-  // case where `<template>` absent
+  // if `<template>` absent
   if (template === '') {
     template = code.replace(reStyle, '').replace(reScript, '')
   }
@@ -27,6 +27,6 @@ export default (code) => {
     style,
     script,
     template,
-    effectOnly: templateAttr.indexOf('demo-only') > -1
+    demoOnly: templateAttr.indexOf('demo-only') > -1
   }
 }

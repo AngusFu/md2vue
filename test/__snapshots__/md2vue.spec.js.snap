@@ -2,27 +2,13 @@
 
 exports[`transforms markdown file correctly 1`] = `
 "
-<style>
-.wrapper input[data-v-029571ac] {
-    width: 50px;
-    text-align: center;
-  }
-button[data-v-029571ad] {
-    font-size: 14px;
-  }
-button[data-v-029571ae] {
-    font-size: 14px;
-  }
-</style>
-
 <template>
-<article class=\\"markdown-body\\">
-<h1>Introduction to md2vue</h1><p>You can get raw text of this document <strong><a href=\\"/AngusFu/md2vue/blob/master/test/common.md\\">here</a></strong>.</p>
-<blockquote>
+  <article class=\\"markdown-body\\">
+<h1>简介</h1><blockquote>
 <p>Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— <a href=\\"https://en.wikipedia.org/wiki/Markdown\\" target=\\"_blank\\">wikipedia</a></p>
 </blockquote>
-<h2>Inspiration</h2><p>Inspired by <a href=\\"https://nuxtjs.org\\">nuxt</a>, <a href=\\"https://github.com/AngusFu/md2vue\\" target=\\"_blank\\">md2vue</a> was initially aimed at transforming markdown texts in our Vue project, which were used both for documentation and demostration.</p>
-<h2>Dev Dependencies</h2><ul>
+<h2>说明</h2><p>灵感来自  <a href=\\"https://nuxtjs.org\\">nuxt</a>。</p>
+<h2>devDependencies</h2><ul>
 <li><a href=\\"/chjj/marked\\">marked</a>: A markdown parser and compiler. Built for speed.</li>
 <li><a href=\\"https://github.com/isagalaev/highlight.js\\" target=\\"_blank\\">highlight.js</a>: Javascript syntax highlighter.</li>
 <li><a href=\\"https://github.com/PrismJS/prism\\" target=\\"_blank\\">prism</a>: Javascript syntax highlighter.</li>
@@ -35,43 +21,45 @@ button[data-v-029571ae] {
 <li><a href=\\"https://github.com/isagalaev/highlight.js\\" target=\\"_blank\\">highlight.js</a>: Code highlighting.</li>
 <li><a href=\\"https://github.com/PrismJS/prism\\" target=\\"_blank\\">prism</a>: Code highlighting.</li>
 </ul>
-<h2>How to use</h2><p>API is simple, so just see the code below: </p>
-<pre v-pre class=\\"lang-js\\"><code><span class=\\"token keyword\\">import</span> md2vue <span class=\\"token keyword\\">from</span> <span class=\\"token string\\">'md2vue'</span>
+<h2>使用</h2><p>API 相当简单。直接看代码即可：</p>
+<pre v-pre class=\\"lang-javascript\\"><code><span class=\\"token keyword\\">import</span> md2vue <span class=\\"token keyword\\">from</span> <span class=\\"token string\\">'md2vue'</span>
 
-<span class=\\"token comment\\">// your markdown text</span>
-<span class=\\"token keyword\\">const</span> sourceCode <span class=\\"token operator\\">=</span> <span class=\\"token template-string\\"><span class=\\"token string\\">\`...\`</span></span>
+<span class=\\"token comment\\">// markdown 文本</span>
+<span class=\\"token keyword\\">const</span> markdownText <span class=\\"token operator\\">=</span> <span class=\\"token template-string\\"><span class=\\"token string\\">\`...\`</span></span>
 
-<span class=\\"token comment\\">// configuration object</span>
+<span class=\\"token comment\\">// 配置</span>
 <span class=\\"token keyword\\">const</span> config <span class=\\"token operator\\">=</span> <span class=\\"token punctuation\\">{</span>
   target<span class=\\"token punctuation\\">:</span> <span class=\\"token string\\">'js'</span><span class=\\"token punctuation\\">,</span>
-  componentName<span class=\\"token punctuation\\">:</span> <span class=\\"token string\\">'common-comp'</span><span class=\\"token punctuation\\">,</span>
+  name<span class=\\"token punctuation\\">:</span> <span class=\\"token string\\">'common-comp'</span><span class=\\"token punctuation\\">,</span>
   highlight<span class=\\"token punctuation\\">:</span> <span class=\\"token string\\">'prism'</span><span class=\\"token punctuation\\">,</span>
-  customMarkups<span class=\\"token punctuation\\">,</span>
-  documentInfo
+  tool<span class=\\"token punctuation\\">,</span>
+  extend
 <span class=\\"token punctuation\\">}</span>
 
-<span class=\\"token comment\\">// returns a promise</span>
-<span class=\\"token comment\\">// the resolved value would be a string</span>
-<span class=\\"token keyword\\">const</span> content <span class=\\"token operator\\">=</span> <span class=\\"token keyword\\">await</span> <span class=\\"token function\\">md2vue</span><span class=\\"token punctuation\\">(</span>sourceCode<span class=\\"token punctuation\\">,</span> config<span class=\\"token punctuation\\">)</span></code></pre><h2>Explaination on config object</h2><p>Referring to <a href=\\"./build-doc.js\\">build-doc.js</a> or <a href=\\"./test/md2vue.spec.js\\">spec file</a> is suggested.</p>
-<h3><code>.target</code>: String</h3><p>Unless you specify this property to <code>js</code>, any other value will be treated as <code>vue</code>.</p>
-<p>With this property beening <code>vue</code>, it means you will get .vue styled result. You can write the result to a single file with &quot;.vue&quot; extension for later use.</p>
-<p>With this property beening <code>js</code>, you&#39;ll get a precompiled JavaScript result. You can write it to a &quot;.js&quot; file, and then do something like this:</p>
-<pre v-pre class=\\"lang-js\\"><code><span class=\\"token keyword\\">const</span> MyComponent <span class=\\"token operator\\">=</span> <span class=\\"token function\\">require</span><span class=\\"token punctuation\\">(</span><span class=\\"token string\\">'common-comp.js'</span><span class=\\"token punctuation\\">)</span>
+<span class=\\"token comment\\">// 返回 promise</span>
+<span class=\\"token keyword\\">const</span> content <span class=\\"token operator\\">=</span> <span class=\\"token keyword\\">await</span> <span class=\\"token function\\">md2vue</span><span class=\\"token punctuation\\">(</span>markdownText<span class=\\"token punctuation\\">,</span> config<span class=\\"token punctuation\\">)</span></code></pre><h2>配置字段</h2><h3>target</h3><p>字符串。可选址值为 <code>vue</code> <code>js</code>。默认为 <code>vue</code>。</p>
+<p>使用 <code>vue</code> 时，生成结果是一个 SFC（single file component）。这种情况下，你可以将内容写入到一个 <code>.vue</code> 文件中。</p>
+<p>使用 <code>js</code> 时，则会进一步将 SFC 编译为 JavaScript。你可以将结果写到一个 <code>.js</code> 文件中，并像下面这样引用：</p>
+<pre v-pre class=\\"lang-javascript\\"><code><span class=\\"token keyword\\">const</span> MyComponent <span class=\\"token operator\\">=</span> <span class=\\"token function\\">require</span><span class=\\"token punctuation\\">(</span><span class=\\"token string\\">'my-component.js'</span><span class=\\"token punctuation\\">)</span>
+
 Vue<span class=\\"token punctuation\\">.</span><span class=\\"token function\\">use</span><span class=\\"token punctuation\\">(</span>MyComponent<span class=\\"token punctuation\\">)</span>
+
 <span class=\\"token keyword\\">new</span> <span class=\\"token class-name\\">Vue</span><span class=\\"token punctuation\\">(</span><span class=\\"token punctuation\\">{</span>
   el<span class=\\"token punctuation\\">:</span> <span class=\\"token string\\">'#app'</span><span class=\\"token punctuation\\">,</span>
   template<span class=\\"token punctuation\\">:</span> <span class=\\"token string\\">'&lt;common-comp />'</span>
-<span class=\\"token punctuation\\">}</span><span class=\\"token punctuation\\">)</span></code></pre><h3><code>.componentName</code>: String</h3><p>This property is required when the target is &quot;js&quot;.</p>
-<h3><code>.highlight</code>: String | Function</h3><p>You can specify this property to &#39;highlight.js&#39; or &#39;prism&#39;.</p>
-<p>A function which accepts 2 arguments <code>code</code> and <code>language</code> is also accepted.</p>
-<h3><code>.customMarkups</code>: String | Function</h3><p>Some custom markups you want to inject between the App block and source code block.</p>
-<h3><code>.documentInfo</code>: Object</h3><p>Any stuff you want to provide for your vue component.</p>
-<h2>Demo</h2><p>All code blocks with language specified to <code>html</code> or <code>vue</code> are treated as Vue apps.</p>
-<p>But What if you want to demonstrate that code block just for its sake? Simply specify the language to <code>xml</code>.</p>
+<span class=\\"token punctuation\\">}</span><span class=\\"token punctuation\\">)</span></code></pre><h3>name</h3><p>字符串类型。注意，当 target 字段为 <code>js</code> 时，必须配置此字段。</p>
+<h3>highlight</h3><p>使用何种工具进行代码高亮处理。</p>
+<p>可选值 <code>highlight.js</code> <code>prism</code>。默认为 <code>highlight.js</code>。</p>
+<p>当然，也可以传入一个函数，该函数接收两个参数：<code>code</code>, <code>language</code></p>
+<h3>inject</h3><p>字符串或函数。将会插入到文档的 demo 与源码之间。</p>
+<h3>extend</h3><p>其他可以提供给 Vue 组件的内容，请传入 Plain Object。</p>
+<h2>Demo</h2><p>所有语言类型设置为 <code>html</code> 和 <code>vue</code> 的代码块，就被视作 Vue app。</p>
+<p>如果你真的只是需要展示代码，请将语言设置为 <code>xml</code>。</p>
 <p>The following code in vue can be rendered into an real tiny vue app:</p>
+<p>下面的代码将会渲染出真实效果：</p>
 
 <div class=\\"vue-demo-block\\">
-<md2vuedemo0 />
+<md2vuedemo0></md2vuedemo0>
 <input id=\\"vue-demo-1333\\" type=\\"checkbox\\" /><label for=\\"vue-demo-1333\\"></label>
 <pre v-pre class=\\"lang-html\\"><code><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>style</span><span class=\\"token punctuation\\">></span></span><span class=\\"token style language-css\\">
   <span class=\\"token selector\\">.wrapper input</span> <span class=\\"token punctuation\\">{</span>
@@ -103,10 +91,10 @@ Vue<span class=\\"token punctuation\\">.</span><span class=\\"token function\\">
   <span class=\\"token punctuation\\">}</span>
 </span><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>script</span><span class=\\"token punctuation\\">></span></span></code></pre>
 </div>
-<p>You can also leave out <code>&lt;template&gt;</code> tags, just like this:</p>
+<p>其实也可以偷懒，不写 <code>&lt;template&gt;</code> 也是可以的。（这时候，template 的内容就是去掉 style 和 script 两部分之后剩余的内容。）示例如下：</p>
 
 <div class=\\"vue-demo-block\\">
-<md2vuedemo1 />
+<md2vuedemo1></md2vuedemo1>
 <input id=\\"vue-demo-1334\\" type=\\"checkbox\\" /><label for=\\"vue-demo-1334\\"></label>
 <pre v-pre class=\\"lang-html\\"><code><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>style</span><span class=\\"token punctuation\\">></span></span><span class=\\"token style language-css\\">
   <span class=\\"token selector\\">button</span> <span class=\\"token punctuation\\">{</span>
@@ -126,7 +114,8 @@ Vue<span class=\\"token punctuation\\">.</span><span class=\\"token function\\">
   <span class=\\"token punctuation\\">}</span>
 </span><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>script</span><span class=\\"token punctuation\\">></span></span></code></pre>
 </div>
-<p>What if you only want the app without source code? Follow the code:</p>
+<p>问题来了，假如我真的只是想在页面中插入一个可交互的 tiny app，而不想展示源码，该怎么办？</p>
+<p>这时候，可以像下面一样，为 <code>&lt;template&gt;</code> 添加一个 <code>demo-only</code> 属性。</p>
 <pre v-pre class=\\"lang-xml\\"><code><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>style</span><span class=\\"token punctuation\\">></span></span><span class=\\"token style language-css\\">
   <span class=\\"token selector\\">button</span> <span class=\\"token punctuation\\">{</span>
     <span class=\\"token property\\">font-size</span><span class=\\"token punctuation\\">:</span> 14px<span class=\\"token punctuation\\">;</span>
@@ -145,24 +134,18 @@ Vue<span class=\\"token punctuation\\">.</span><span class=\\"token function\\">
       <span class=\\"token punctuation\\">}</span>
     <span class=\\"token punctuation\\">}</span>
   <span class=\\"token punctuation\\">}</span>
-</span><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>script</span><span class=\\"token punctuation\\">></span></span></code></pre><p>Noticed the difference? Hmm, just wrap your template, append a <code>demo-only</code> attribute to it. So let&#39;s take a look:</p>
+</span><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>script</span><span class=\\"token punctuation\\">></span></span></code></pre><p>效果如下：</p>
 
 <div class=\\"vue-demo-block vue-demo-block-demo-only\\">
-<md2vuedemo2 />
+<md2vuedemo2></md2vuedemo2>
 
 
 </div>
 
-</article >
+  </article >
 </template>
 
 <script lang=\\"buble\\">
-var ___styles = [
-unescape(\\"\\")
-, unescape(\\"\\")
-, unescape(\\"\\")
-];
-/* eslint-disable */
 var md2vuedemo0 = (function (module) {
 ;(function(){
   module.exports = {
@@ -194,7 +177,7 @@ if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
     hotAPI.reload(\\"data-v-029571ac\\", __vue__options__)
   }
 })()}
-  return module.exports;
+return module.exports;
 })({});
 
 var md2vuedemo1 = (function (module) {
@@ -223,7 +206,7 @@ if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
     hotAPI.reload(\\"data-v-029571ad\\", __vue__options__)
   }
 })()}
-  return module.exports;
+return module.exports;
 })({});
 
 var md2vuedemo2 = (function (module) {
@@ -252,336 +235,42 @@ if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
     hotAPI.reload(\\"data-v-029571ae\\", __vue__options__)
   }
 })()}
-  return module.exports;
+return module.exports;
 })({});
 
-
-var __exports = {\\"head\\": function anonymous() {;return { title: 'foo' };},\\"layout\\": \\"component\\",\\"directives\\": {\\"effect-only\\": {\\"inserted\\": function inserted(el) {;console.log(el);;}}}};
-__exports.components = {
+module.exports = {\\"head\\": function anonymous() {
+return { title: 'foo' }
+},\\"layout\\": \\"component\\",\\"directives\\": {\\"effect-only\\": {\\"inserted\\": function inserted(el) {
+        console.log(el);
+      }}}};
+module.exports.components = {
   'md2vuedemo0': md2vuedemo0,
   'md2vuedemo1': md2vuedemo1,
   'md2vuedemo2': md2vuedemo2
 }
-module.exports = __exports;
-</script>"
+</script>
+
+<style>
+.wrapper input[data-v-029571ac] {
+    width: 50px;
+    text-align: center;
+  }
+button[data-v-029571ad] {
+    font-size: 14px;
+  }
+button[data-v-029571ae] {
+    font-size: 14px;
+  }
+</style>
+"
 `;
 
 exports[`transforms markdown file correctly 2`] = `
 "/* eslint-disable */
 var moduleExports = (function (module) {
   'use strict';
-  ;(function(){
-    var ___styles = [
-  unescape(\\"\\")
-  , unescape(\\"\\")
-  , unescape(\\"\\")
-  ];
-  /* eslint-disable */
+;(function(){
   var md2vuedemo0 = (function (module) {
-  ;(function(){
-    module.exports = {
-      data: function data() {
-        return {
-          count: 0
-        }
-      },
-      methods: {
-        incr: function incr(delta) {
-          this.count += delta
-        }
-      }
-    }
-  })()
-  if (module.exports.__esModule) { module.exports = module.exports.default }
-  var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
-  if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
-  __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:\\"vue-demo\\"},[_c('div',{staticClass:\\"wrapper\\"},[_c('button',{on:{\\"click\\":function($event){_vm.incr(-1)}}},[_vm._v(\\"-\\")]),_vm._v(\\" \\"),_c('input',{attrs:{\\"type\\":\\"text\\",\\"readonly\\":\\"\\"},domProps:{\\"value\\":_vm.count}}),_vm._v(\\" \\"),_c('button',{on:{\\"click\\":function($event){_vm.incr(+1)}}},[_vm._v(\\"+\\")])])])}
-  __vue__options__.staticRenderFns = []
-  __vue__options__._scopeId = \\"data-v-029571ac\\"
-  if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
-    hotAPI.install(require(\\"vue\\"), true)
-    if (!hotAPI.compatible) { return }
-    module.hot.accept()
-    if (!module.hot.data) {
-      hotAPI.createRecord(\\"data-v-029571ac\\", __vue__options__)
-    } else {
-      hotAPI.rerender(\\"data-v-029571ac\\", __vue__options__)
-    }
-  })()}
-    return module.exports;
-  })({});
-  var md2vuedemo1 = (function (module) {
-  ;(function(){
-    module.exports = {
-      methods: {
-        click: function click() {
-          alert('clicked!')
-        }
-      }
-    }
-  })()
-  if (module.exports.__esModule) { module.exports = module.exports.default }
-  var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
-  if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
-  __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:\\"vue-demo\\"},[_c('button',{on:{\\"click\\":_vm.click}},[_vm._v(\\"click me!\\")])])}
-  __vue__options__.staticRenderFns = []
-  __vue__options__._scopeId = \\"data-v-029571ad\\"
-  if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
-    hotAPI.install(require(\\"vue\\"), true)
-    if (!hotAPI.compatible) { return }
-    module.hot.accept()
-    if (!module.hot.data) {
-      hotAPI.createRecord(\\"data-v-029571ad\\", __vue__options__)
-    } else {
-      hotAPI.rerender(\\"data-v-029571ad\\", __vue__options__)
-    }
-  })()}
-    return module.exports;
-  })({});
-  var md2vuedemo2 = (function (module) {
-  ;(function(){
-    module.exports = {
-      methods: {
-        click: function click() {
-          alert('clicked!')
-        }
-      }
-    }
-  })()
-  if (module.exports.__esModule) { module.exports = module.exports.default }
-  var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
-  if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
-  __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:\\"vue-demo\\"},[_c('button',{on:{\\"click\\":_vm.click}},[_vm._v(\\"click me!\\")])])}
-  __vue__options__.staticRenderFns = []
-  __vue__options__._scopeId = \\"data-v-029571ae\\"
-  if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
-    hotAPI.install(require(\\"vue\\"), true)
-    if (!hotAPI.compatible) { return }
-    module.hot.accept()
-    if (!module.hot.data) {
-      hotAPI.createRecord(\\"data-v-029571ae\\", __vue__options__)
-    } else {
-      hotAPI.rerender(\\"data-v-029571ae\\", __vue__options__)
-    }
-  })()}
-    return module.exports;
-  })({});
-  var __exports = {\\"head\\": function anonymous() {;return { title: 'foo' };},\\"layout\\": \\"component\\",\\"directives\\": {\\"effect-only\\": {\\"inserted\\": function inserted(el) {;console.log(el);;}}}};
-  __exports.components = {
-    'md2vuedemo0': md2vuedemo0,
-    'md2vuedemo1': md2vuedemo1,
-    'md2vuedemo2': md2vuedemo2
-  }
-  module.exports = __exports;
-  })()
-  if (module.exports.__esModule) module.exports = module.exports.default
-  var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
-  if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
-  __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:\\"markdown-body\\"},[_c('h1',[_vm._v(\\"Introduction to md2vue\\")]),_vm._m(0),_vm._v(\\" \\"),_vm._m(1),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"Inspiration\\")]),_vm._m(2),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"Dev Dependencies\\")]),_vm._m(3),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"Typography & UI\\")]),_vm._m(4),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"How to use\\")]),_c('p',[_vm._v(\\"API is simple, so just see the code below: \\")]),_vm._v(\\" \\"),_vm._m(5),_c('h2',[_vm._v(\\"Explaination on config object\\")]),_vm._m(6),_vm._v(\\" \\"),_vm._m(7),_vm._m(8),_vm._v(\\" \\"),_vm._m(9),_vm._v(\\" \\"),_vm._m(10),_vm._v(\\" \\"),_vm._m(11),_vm._m(12),_c('p',[_vm._v(\\"This property is required when the target is \\\\\\"js\\\\\\".\\")]),_vm._v(\\" \\"),_vm._m(13),_c('p',[_vm._v(\\"You can specify this property to 'highlight.js' or 'prism'.\\")]),_vm._v(\\" \\"),_vm._m(14),_vm._v(\\" \\"),_vm._m(15),_c('p',[_vm._v(\\"Some custom markups you want to inject between the App block and source code block.\\")]),_vm._v(\\" \\"),_vm._m(16),_c('p',[_vm._v(\\"Any stuff you want to provide for your vue component.\\")]),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"Demo\\")]),_vm._m(17),_vm._v(\\" \\"),_vm._m(18),_vm._v(\\" \\"),_c('p',[_vm._v(\\"The following code in vue can be rendered into an real tiny vue app:\\")]),_vm._v(\\" \\"),_c('div',{staticClass:\\"vue-demo-block\\"},[_c('md2vuedemo0'),_vm._v(\\" \\"),_c('input',{attrs:{\\"id\\":\\"vue-demo-1336\\",\\"type\\":\\"checkbox\\"}}),_c('label',{attrs:{\\"for\\":\\"vue-demo-1336\\"}}),_vm._v(\\" \\"),_vm._m(19)],1),_vm._v(\\" \\"),_vm._m(20),_vm._v(\\" \\"),_c('div',{staticClass:\\"vue-demo-block\\"},[_c('md2vuedemo1'),_vm._v(\\" \\"),_c('input',{attrs:{\\"id\\":\\"vue-demo-1337\\",\\"type\\":\\"checkbox\\"}}),_c('label',{attrs:{\\"for\\":\\"vue-demo-1337\\"}}),_vm._v(\\" \\"),_vm._m(21)],1),_vm._v(\\" \\"),_c('p',[_vm._v(\\"What if you only want the app without source code? Follow the code:\\")]),_vm._v(\\" \\"),_vm._m(22),_vm._m(23),_vm._v(\\" \\"),_c('div',{staticClass:\\"vue-demo-block vue-demo-block-demo-only\\"},[_c('md2vuedemo2')],1)])}
-  __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"You can get raw text of this document \\"),_c('strong',[_c('a',{attrs:{\\"href\\":\\"/AngusFu/md2vue/blob/master/test/common.md\\"}},[_vm._v(\\"here\\")])]),_vm._v(\\".\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('blockquote',[_c('p',[_vm._v(\\"Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— \\"),_c('a',{attrs:{\\"href\\":\\"https://en.wikipedia.org/wiki/Markdown\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"wikipedia\\")])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"Inspired by \\"),_c('a',{attrs:{\\"href\\":\\"https://nuxtjs.org\\"}},[_vm._v(\\"nuxt\\")]),_vm._v(\\", \\"),_c('a',{attrs:{\\"href\\":\\"https://github.com/AngusFu/md2vue\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"md2vue\\")]),_vm._v(\\" was initially aimed at transforming markdown texts in our Vue project, which were used both for documentation and demostration.\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ul',[_c('li',[_c('a',{attrs:{\\"href\\":\\"/chjj/marked\\"}},[_vm._v(\\"marked\\")]),_vm._v(\\": A markdown parser and compiler. Built for speed.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/isagalaev/highlight.js\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"highlight.js\\")]),_vm._v(\\": Javascript syntax highlighter.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/PrismJS/prism\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"prism\\")]),_vm._v(\\": Javascript syntax highlighter.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/vuejs/vueify\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"vueify\\")]),_vm._v(\\": Browserify transform for single-file Vue components\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/rollup/rollup\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"rollup\\")]),_vm._v(\\": Next-generation ES6 module bundler.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://buble.surge.sh/\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"buble\\")]),_vm._v(\\": The blazing fast, batteries-included ES2015 compiler.\\")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ul',[_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/sindresorhus/github-markdown-css\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"github-markdown-css\\")]),_vm._v(\\": The minimal amount of CSS to replicate the GitHub Markdown style.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/isagalaev/highlight.js\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"highlight.js\\")]),_vm._v(\\": Code highlighting.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/PrismJS/prism\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"prism\\")]),_vm._v(\\": Code highlighting.\\")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-js\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"import\\")]),_vm._v(\\" md2vue \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"from\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'md2vue'\\")]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token comment\\"}},[_vm._v(\\"// your markdown text\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" sourceCode \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token template-string\\"}},[_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"\`...\`\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token comment\\"}},[_vm._v(\\"// configuration object\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" config \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n  target\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'js'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  componentName\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'common-comp'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  highlight\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'prism'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  customMarkups\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  documentInfo\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token comment\\"}},[_vm._v(\\"// returns a promise\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token comment\\"}},[_vm._v(\\"// the resolved value would be a string\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" content \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"await\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"md2vue\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_vm._v(\\"sourceCode\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\" config\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"Referring to \\"),_c('a',{attrs:{\\"href\\":\\"./build-doc.js\\"}},[_vm._v(\\"build-doc.js\\")]),_vm._v(\\" or \\"),_c('a',{attrs:{\\"href\\":\\"./test/md2vue.spec.js\\"}},[_vm._v(\\"spec file\\")]),_vm._v(\\" is suggested.\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h3',[_c('code',[_vm._v(\\".target\\")]),_vm._v(\\": String\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"Unless you specify this property to \\"),_c('code',[_vm._v(\\"js\\")]),_vm._v(\\", any other value will be treated as \\"),_c('code',[_vm._v(\\"vue\\")]),_vm._v(\\".\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"With this property beening \\"),_c('code',[_vm._v(\\"vue\\")]),_vm._v(\\", it means you will get .vue styled result. You can write the result to a single file with \\\\\\".vue\\\\\\" extension for later use.\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"With this property beening \\"),_c('code',[_vm._v(\\"js\\")]),_vm._v(\\", you'll get a precompiled JavaScript result. You can write it to a \\\\\\".js\\\\\\" file, and then do something like this:\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-js\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" MyComponent \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"require\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'common-comp.js'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\nVue\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\".\\")]),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"use\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_vm._v(\\"MyComponent\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"new\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token class-name\\"}},[_vm._v(\\"Vue\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n  el\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'#app'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  template\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'<common-comp />'\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h3',[_c('code',[_vm._v(\\".componentName\\")]),_vm._v(\\": String\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h3',[_c('code',[_vm._v(\\".highlight\\")]),_vm._v(\\": String | Function\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"A function which accepts 2 arguments \\"),_c('code',[_vm._v(\\"code\\")]),_vm._v(\\" and \\"),_c('code',[_vm._v(\\"language\\")]),_vm._v(\\" is also accepted.\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h3',[_c('code',[_vm._v(\\".customMarkups\\")]),_vm._v(\\": String | Function\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h3',[_c('code',[_vm._v(\\".documentInfo\\")]),_vm._v(\\": Object\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"All code blocks with language specified to \\"),_c('code',[_vm._v(\\"html\\")]),_vm._v(\\" or \\"),_c('code',[_vm._v(\\"vue\\")]),_vm._v(\\" are treated as Vue apps.\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"But What if you want to demonstrate that code block just for its sake? Simply specify the language to \\"),_c('code',[_vm._v(\\"xml\\")]),_vm._v(\\".\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-html\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token style language-css\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token selector\\"}},[_vm._v(\\".wrapper input\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"width\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" 50px\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"text-align\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" center\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"template\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"div\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"class\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"wrapper\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"incr(-1)\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"-\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"input\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"type\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"text\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"readonly\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\":value\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"count\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"incr(+1)\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"+\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"div\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"template\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token script language-javascript\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"export\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"default\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"data\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"return\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        count\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token number\\"}},[_vm._v(\\"0\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n    methods\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"incr\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_vm._v(\\"delta\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"this\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\".\\")]),_vm._v(\\"count \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"+=\\")]),_vm._v(\\" delta\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"You can also leave out \\"),_c('code',[_vm._v(\\"<template>\\")]),_vm._v(\\" tags, just like this:\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-html\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token style language-css\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token selector\\"}},[_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"font-size\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" 14px\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"click\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"click me!\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token script language-javascript\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"export\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"default\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    methods\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"click\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"alert\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'clicked!'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-xml\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token style language-css\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token selector\\"}},[_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"font-size\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" 14px\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"template\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"demo-only\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"click\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"click me!\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"template\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token script language-javascript\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"export\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"default\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    methods\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"click\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"alert\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'clicked!'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"Noticed the difference? Hmm, just wrap your template, append a \\"),_c('code',[_vm._v(\\"demo-only\\")]),_vm._v(\\" attribute to it. So let's take a look:\\")])}]
-  if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
-    hotAPI.install(require(\\"vue\\"), true)
-    if (!hotAPI.compatible) return
-    module.hot.accept()
-    if (!module.hot.data) {
-      hotAPI.createRecord(\\"data-v-04979ffb\\", __vue__options__)
-    } else {
-      hotAPI.reload(\\"data-v-04979ffb\\", __vue__options__)
-    }
-  })()}
-  var exports = module.exports
-  exports.name = \\"common-comp\\"
-
-  var insert = function (css) {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return;
-    var elem = document.createElement('style')
-    elem.setAttribute('type', 'text/css')
-    css = unescape(css)
-    if ('textContent' in elem) {
-      elem.textContent = css
-    } else {
-      elem.styleSheet.cssText = css
-    }
-
-    var head = document.getElementsByTagName('head')[0]
-    head.appendChild(elem)
-    return function () {
-      head.removeChild(elem)
-    }
-  }
-  exports.created = function () {
-    var css = \\".wrapper input[data-v-029571ac] {     width: 50px;     text-align: center;   } button[data-v-029571ad] {     font-size: 14px;   } button[data-v-029571ae] {     font-size: 14px;   }\\"
-    if (css) {
-      this.____ = insert(css)
-    }
-  }
-  exports.destroyed = function () {
-    this.____ && this.____()
-  }
-
-  module.exports.install = function (Vue) {
-    Vue.component(exports.name, exports)
-  }
-
-  return module.exports;
-})({});
-typeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);
-typeof window !== void 0 && window.Vue && Vue.use(moduleExports);
-this[\\"CommonComp\\"] = moduleExports;
-"
-`;
-
-exports[`transforms markdown file with shadow demo apps correctly 1`] = `
-"
-<template>
-<article class=\\"markdown-body\\">
-<h1>Introduction to md2vue</h1><p>You can get raw text of this document <strong><a href=\\"/AngusFu/md2vue/blob/master/test/common.md\\">here</a></strong>.</p>
-<blockquote>
-<p>Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— <a href=\\"https://en.wikipedia.org/wiki/Markdown\\" target=\\"_blank\\">wikipedia</a></p>
-</blockquote>
-<h2>Inspiration</h2><p>Inspired by <a href=\\"https://nuxtjs.org\\">nuxt</a>, <a href=\\"https://github.com/AngusFu/md2vue\\" target=\\"_blank\\">md2vue</a> was initially aimed at transforming markdown texts in our Vue project, which were used both for documentation and demostration.</p>
-<h2>Dev Dependencies</h2><ul>
-<li><a href=\\"/chjj/marked\\">marked</a>: A markdown parser and compiler. Built for speed.</li>
-<li><a href=\\"https://github.com/isagalaev/highlight.js\\" target=\\"_blank\\">highlight.js</a>: Javascript syntax highlighter.</li>
-<li><a href=\\"https://github.com/PrismJS/prism\\" target=\\"_blank\\">prism</a>: Javascript syntax highlighter.</li>
-<li><a href=\\"https://github.com/vuejs/vueify\\" target=\\"_blank\\">vueify</a>: Browserify transform for single-file Vue components</li>
-<li><a href=\\"https://github.com/rollup/rollup\\" target=\\"_blank\\">rollup</a>: Next-generation ES6 module bundler.</li>
-<li><a href=\\"https://buble.surge.sh/\\" target=\\"_blank\\">buble</a>: The blazing fast, batteries-included ES2015 compiler.</li>
-</ul>
-<h2>Typography &amp; UI</h2><ul>
-<li><a href=\\"https://github.com/sindresorhus/github-markdown-css\\" target=\\"_blank\\">github-markdown-css</a>: The minimal amount of CSS to replicate the GitHub Markdown style.</li>
-<li><a href=\\"https://github.com/isagalaev/highlight.js\\" target=\\"_blank\\">highlight.js</a>: Code highlighting.</li>
-<li><a href=\\"https://github.com/PrismJS/prism\\" target=\\"_blank\\">prism</a>: Code highlighting.</li>
-</ul>
-<h2>How to use</h2><p>API is simple, so just see the code below: </p>
-<pre v-pre class=\\"lang-js\\"><code><span class=\\"token keyword\\">import</span> md2vue <span class=\\"token keyword\\">from</span> <span class=\\"token string\\">'md2vue'</span>
-
-<span class=\\"token comment\\">// your markdown text</span>
-<span class=\\"token keyword\\">const</span> sourceCode <span class=\\"token operator\\">=</span> <span class=\\"token template-string\\"><span class=\\"token string\\">\`...\`</span></span>
-
-<span class=\\"token comment\\">// configuration object</span>
-<span class=\\"token keyword\\">const</span> config <span class=\\"token operator\\">=</span> <span class=\\"token punctuation\\">{</span>
-  target<span class=\\"token punctuation\\">:</span> <span class=\\"token string\\">'js'</span><span class=\\"token punctuation\\">,</span>
-  componentName<span class=\\"token punctuation\\">:</span> <span class=\\"token string\\">'common-comp'</span><span class=\\"token punctuation\\">,</span>
-  highlight<span class=\\"token punctuation\\">:</span> <span class=\\"token string\\">'prism'</span><span class=\\"token punctuation\\">,</span>
-  customMarkups<span class=\\"token punctuation\\">,</span>
-  documentInfo
-<span class=\\"token punctuation\\">}</span>
-
-<span class=\\"token comment\\">// returns a promise</span>
-<span class=\\"token comment\\">// the resolved value would be a string</span>
-<span class=\\"token keyword\\">const</span> content <span class=\\"token operator\\">=</span> <span class=\\"token keyword\\">await</span> <span class=\\"token function\\">md2vue</span><span class=\\"token punctuation\\">(</span>sourceCode<span class=\\"token punctuation\\">,</span> config<span class=\\"token punctuation\\">)</span></code></pre><h2>Explaination on config object</h2><p>Referring to <a href=\\"./build-doc.js\\">build-doc.js</a> or <a href=\\"./test/md2vue.spec.js\\">spec file</a> is suggested.</p>
-<h3><code>.target</code>: String</h3><p>Unless you specify this property to <code>js</code>, any other value will be treated as <code>vue</code>.</p>
-<p>With this property beening <code>vue</code>, it means you will get .vue styled result. You can write the result to a single file with &quot;.vue&quot; extension for later use.</p>
-<p>With this property beening <code>js</code>, you&#39;ll get a precompiled JavaScript result. You can write it to a &quot;.js&quot; file, and then do something like this:</p>
-<pre v-pre class=\\"lang-js\\"><code><span class=\\"token keyword\\">const</span> MyComponent <span class=\\"token operator\\">=</span> <span class=\\"token function\\">require</span><span class=\\"token punctuation\\">(</span><span class=\\"token string\\">'common-comp.js'</span><span class=\\"token punctuation\\">)</span>
-Vue<span class=\\"token punctuation\\">.</span><span class=\\"token function\\">use</span><span class=\\"token punctuation\\">(</span>MyComponent<span class=\\"token punctuation\\">)</span>
-<span class=\\"token keyword\\">new</span> <span class=\\"token class-name\\">Vue</span><span class=\\"token punctuation\\">(</span><span class=\\"token punctuation\\">{</span>
-  el<span class=\\"token punctuation\\">:</span> <span class=\\"token string\\">'#app'</span><span class=\\"token punctuation\\">,</span>
-  template<span class=\\"token punctuation\\">:</span> <span class=\\"token string\\">'&lt;common-comp />'</span>
-<span class=\\"token punctuation\\">}</span><span class=\\"token punctuation\\">)</span></code></pre><h3><code>.componentName</code>: String</h3><p>This property is required when the target is &quot;js&quot;.</p>
-<h3><code>.highlight</code>: String | Function</h3><p>You can specify this property to &#39;highlight.js&#39; or &#39;prism&#39;.</p>
-<p>A function which accepts 2 arguments <code>code</code> and <code>language</code> is also accepted.</p>
-<h3><code>.customMarkups</code>: String | Function</h3><p>Some custom markups you want to inject between the App block and source code block.</p>
-<h3><code>.documentInfo</code>: Object</h3><p>Any stuff you want to provide for your vue component.</p>
-<h2>Demo</h2><p>All code blocks with language specified to <code>html</code> or <code>vue</code> are treated as Vue apps.</p>
-<p>But What if you want to demonstrate that code block just for its sake? Simply specify the language to <code>xml</code>.</p>
-<p>The following code in vue can be rendered into an real tiny vue app:</p>
-
-<div class=\\"vue-demo-block\\">
-<shadow-demo name=\\"md2vuedemo0\\" :index=\\"0\\"/>
-<input id=\\"vue-demo-1339\\" type=\\"checkbox\\" /><label for=\\"vue-demo-1339\\"></label>
-<pre v-pre class=\\"lang-html\\"><code><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>style</span><span class=\\"token punctuation\\">></span></span><span class=\\"token style language-css\\">
-  <span class=\\"token selector\\">.wrapper input</span> <span class=\\"token punctuation\\">{</span>
-    <span class=\\"token property\\">width</span><span class=\\"token punctuation\\">:</span> 50px<span class=\\"token punctuation\\">;</span>
-    <span class=\\"token property\\">text-align</span><span class=\\"token punctuation\\">:</span> center<span class=\\"token punctuation\\">;</span>
-  <span class=\\"token punctuation\\">}</span>
-</span><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>style</span><span class=\\"token punctuation\\">></span></span>
-
-<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>template</span><span class=\\"token punctuation\\">></span></span>
-  <span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>div</span> <span class=\\"token attr-name\\">class</span><span class=\\"token attr-value\\"><span class=\\"token punctuation\\">=</span><span class=\\"token punctuation\\">\\"</span>wrapper<span class=\\"token punctuation\\">\\"</span></span><span class=\\"token punctuation\\">></span></span>
-    <span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>button</span> <span class=\\"token attr-name\\">@click</span><span class=\\"token attr-value\\"><span class=\\"token punctuation\\">=</span><span class=\\"token punctuation\\">\\"</span>incr(-1)<span class=\\"token punctuation\\">\\"</span></span><span class=\\"token punctuation\\">></span></span>-<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>button</span><span class=\\"token punctuation\\">></span></span>
-    <span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>input</span> <span class=\\"token attr-name\\">type</span><span class=\\"token attr-value\\"><span class=\\"token punctuation\\">=</span><span class=\\"token punctuation\\">\\"</span>text<span class=\\"token punctuation\\">\\"</span></span> <span class=\\"token attr-name\\">readonly</span> <span class=\\"token attr-name\\">:value</span><span class=\\"token attr-value\\"><span class=\\"token punctuation\\">=</span><span class=\\"token punctuation\\">\\"</span>count<span class=\\"token punctuation\\">\\"</span></span><span class=\\"token punctuation\\">></span></span>
-    <span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>button</span> <span class=\\"token attr-name\\">@click</span><span class=\\"token attr-value\\"><span class=\\"token punctuation\\">=</span><span class=\\"token punctuation\\">\\"</span>incr(+1)<span class=\\"token punctuation\\">\\"</span></span><span class=\\"token punctuation\\">></span></span>+<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>button</span><span class=\\"token punctuation\\">></span></span>
-  <span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>div</span><span class=\\"token punctuation\\">></span></span>
-<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>template</span><span class=\\"token punctuation\\">></span></span>
-
-<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>script</span><span class=\\"token punctuation\\">></span></span><span class=\\"token script language-javascript\\">
-  <span class=\\"token keyword\\">export</span> <span class=\\"token keyword\\">default</span> <span class=\\"token punctuation\\">{</span>
-    <span class=\\"token function\\">data</span><span class=\\"token punctuation\\">(</span><span class=\\"token punctuation\\">)</span> <span class=\\"token punctuation\\">{</span>
-      <span class=\\"token keyword\\">return</span> <span class=\\"token punctuation\\">{</span>
-        count<span class=\\"token punctuation\\">:</span> <span class=\\"token number\\">0</span>
-      <span class=\\"token punctuation\\">}</span>
-    <span class=\\"token punctuation\\">}</span><span class=\\"token punctuation\\">,</span>
-    methods<span class=\\"token punctuation\\">:</span> <span class=\\"token punctuation\\">{</span>
-      <span class=\\"token function\\">incr</span><span class=\\"token punctuation\\">(</span>delta<span class=\\"token punctuation\\">)</span> <span class=\\"token punctuation\\">{</span>
-        <span class=\\"token keyword\\">this</span><span class=\\"token punctuation\\">.</span>count <span class=\\"token operator\\">+=</span> delta
-      <span class=\\"token punctuation\\">}</span>
-    <span class=\\"token punctuation\\">}</span>
-  <span class=\\"token punctuation\\">}</span>
-</span><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>script</span><span class=\\"token punctuation\\">></span></span></code></pre>
-</div>
-<p>You can also leave out <code>&lt;template&gt;</code> tags, just like this:</p>
-
-<div class=\\"vue-demo-block\\">
-<shadow-demo name=\\"md2vuedemo1\\" :index=\\"1\\"/>
-<input id=\\"vue-demo-1340\\" type=\\"checkbox\\" /><label for=\\"vue-demo-1340\\"></label>
-<pre v-pre class=\\"lang-html\\"><code><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>style</span><span class=\\"token punctuation\\">></span></span><span class=\\"token style language-css\\">
-  <span class=\\"token selector\\">button</span> <span class=\\"token punctuation\\">{</span>
-    <span class=\\"token property\\">font-size</span><span class=\\"token punctuation\\">:</span> 14px<span class=\\"token punctuation\\">;</span>
-  <span class=\\"token punctuation\\">}</span>
-</span><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>style</span><span class=\\"token punctuation\\">></span></span>
-
-<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>button</span> <span class=\\"token attr-name\\">@click</span><span class=\\"token attr-value\\"><span class=\\"token punctuation\\">=</span><span class=\\"token punctuation\\">\\"</span>click<span class=\\"token punctuation\\">\\"</span></span><span class=\\"token punctuation\\">></span></span>click me!<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>button</span><span class=\\"token punctuation\\">></span></span>
-
-<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>script</span><span class=\\"token punctuation\\">></span></span><span class=\\"token script language-javascript\\">
-  <span class=\\"token keyword\\">export</span> <span class=\\"token keyword\\">default</span> <span class=\\"token punctuation\\">{</span>
-    methods<span class=\\"token punctuation\\">:</span> <span class=\\"token punctuation\\">{</span>
-      <span class=\\"token function\\">click</span><span class=\\"token punctuation\\">(</span><span class=\\"token punctuation\\">)</span> <span class=\\"token punctuation\\">{</span>
-        <span class=\\"token function\\">alert</span><span class=\\"token punctuation\\">(</span><span class=\\"token string\\">'clicked!'</span><span class=\\"token punctuation\\">)</span>
-      <span class=\\"token punctuation\\">}</span>
-    <span class=\\"token punctuation\\">}</span>
-  <span class=\\"token punctuation\\">}</span>
-</span><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>script</span><span class=\\"token punctuation\\">></span></span></code></pre>
-</div>
-<p>What if you only want the app without source code? Follow the code:</p>
-<pre v-pre class=\\"lang-xml\\"><code><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>style</span><span class=\\"token punctuation\\">></span></span><span class=\\"token style language-css\\">
-  <span class=\\"token selector\\">button</span> <span class=\\"token punctuation\\">{</span>
-    <span class=\\"token property\\">font-size</span><span class=\\"token punctuation\\">:</span> 14px<span class=\\"token punctuation\\">;</span>
-  <span class=\\"token punctuation\\">}</span>
-</span><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>style</span><span class=\\"token punctuation\\">></span></span>
-
-<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>template</span> <span class=\\"token attr-name\\">demo-only</span><span class=\\"token punctuation\\">></span></span>
-  <span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>button</span> <span class=\\"token attr-name\\">@click</span><span class=\\"token attr-value\\"><span class=\\"token punctuation\\">=</span><span class=\\"token punctuation\\">\\"</span>click<span class=\\"token punctuation\\">\\"</span></span><span class=\\"token punctuation\\">></span></span>click me!<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>button</span><span class=\\"token punctuation\\">></span></span>
-<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>template</span><span class=\\"token punctuation\\">></span></span>
-
-<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>script</span><span class=\\"token punctuation\\">></span></span><span class=\\"token script language-javascript\\">
-  <span class=\\"token keyword\\">export</span> <span class=\\"token keyword\\">default</span> <span class=\\"token punctuation\\">{</span>
-    methods<span class=\\"token punctuation\\">:</span> <span class=\\"token punctuation\\">{</span>
-      <span class=\\"token function\\">click</span><span class=\\"token punctuation\\">(</span><span class=\\"token punctuation\\">)</span> <span class=\\"token punctuation\\">{</span>
-        <span class=\\"token function\\">alert</span><span class=\\"token punctuation\\">(</span><span class=\\"token string\\">'clicked!'</span><span class=\\"token punctuation\\">)</span>
-      <span class=\\"token punctuation\\">}</span>
-    <span class=\\"token punctuation\\">}</span>
-  <span class=\\"token punctuation\\">}</span>
-</span><span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>script</span><span class=\\"token punctuation\\">></span></span></code></pre><p>Noticed the difference? Hmm, just wrap your template, append a <code>demo-only</code> attribute to it. So let&#39;s take a look:</p>
-
-<div class=\\"vue-demo-block vue-demo-block-demo-only\\">
-<shadow-demo name=\\"md2vuedemo2\\" :index=\\"2\\"/>
-
-
-</div>
-
-</article >
-</template>
-
-<script lang=\\"buble\\">
-var ___styles = [
-unescape(\\".wrapper input {     width: 50px;     text-align: center;   }\\")
-, unescape(\\"button {     font-size: 14px;   }\\")
-, unescape(\\"button {     font-size: 14px;   }\\")
-];
-/* eslint-disable */
-var md2vuedemo0 = (function (module) {
 ;(function(){
   module.exports = {
     data: function data() {
@@ -596,14 +285,15 @@ var md2vuedemo0 = (function (module) {
     }
   }
 })()
-if (module.exports.__esModule) module.exports = module.exports.default
+if (module.exports.__esModule) { module.exports = module.exports.default }
 var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:\\"vue-demo\\"},[_c('div',{staticClass:\\"wrapper\\"},[_c('button',{on:{\\"click\\":function($event){_vm.incr(-1)}}},[_vm._v(\\"-\\")]),_vm._v(\\" \\"),_c('input',{attrs:{\\"type\\":\\"text\\",\\"readonly\\":\\"\\"},domProps:{\\"value\\":_vm.count}}),_vm._v(\\" \\"),_c('button',{on:{\\"click\\":function($event){_vm.incr(+1)}}},[_vm._v(\\"+\\")])])])}
 __vue__options__.staticRenderFns = []
+__vue__options__._scopeId = \\"data-v-029571ac\\"
 if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
   hotAPI.install(require(\\"vue\\"), true)
-  if (!hotAPI.compatible) return
+  if (!hotAPI.compatible) { return }
   module.hot.accept()
   if (!module.hot.data) {
     hotAPI.createRecord(\\"data-v-029571ac\\", __vue__options__)
@@ -611,9 +301,8 @@ if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
     hotAPI.rerender(\\"data-v-029571ac\\", __vue__options__)
   }
 })()}
-  return module.exports;
+return module.exports;
 })({});
-
 var md2vuedemo1 = (function (module) {
 ;(function(){
   module.exports = {
@@ -624,14 +313,15 @@ var md2vuedemo1 = (function (module) {
     }
   }
 })()
-if (module.exports.__esModule) module.exports = module.exports.default
+if (module.exports.__esModule) { module.exports = module.exports.default }
 var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:\\"vue-demo\\"},[_c('button',{on:{\\"click\\":_vm.click}},[_vm._v(\\"click me!\\")])])}
 __vue__options__.staticRenderFns = []
+__vue__options__._scopeId = \\"data-v-029571ad\\"
 if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
   hotAPI.install(require(\\"vue\\"), true)
-  if (!hotAPI.compatible) return
+  if (!hotAPI.compatible) { return }
   module.hot.accept()
   if (!module.hot.data) {
     hotAPI.createRecord(\\"data-v-029571ad\\", __vue__options__)
@@ -639,9 +329,8 @@ if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
     hotAPI.rerender(\\"data-v-029571ad\\", __vue__options__)
   }
 })()}
-  return module.exports;
+return module.exports;
 })({});
-
 var md2vuedemo2 = (function (module) {
 ;(function(){
   module.exports = {
@@ -652,14 +341,15 @@ var md2vuedemo2 = (function (module) {
     }
   }
 })()
-if (module.exports.__esModule) module.exports = module.exports.default
+if (module.exports.__esModule) { module.exports = module.exports.default }
 var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:\\"vue-demo\\"},[_c('button',{on:{\\"click\\":_vm.click}},[_vm._v(\\"click me!\\")])])}
 __vue__options__.staticRenderFns = []
+__vue__options__._scopeId = \\"data-v-029571ae\\"
 if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
   hotAPI.install(require(\\"vue\\"), true)
-  if (!hotAPI.compatible) return
+  if (!hotAPI.compatible) { return }
   module.hot.accept()
   if (!module.hot.data) {
     hotAPI.createRecord(\\"data-v-029571ae\\", __vue__options__)
@@ -667,236 +357,73 @@ if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
     hotAPI.rerender(\\"data-v-029571ae\\", __vue__options__)
   }
 })()}
-  return module.exports;
+return module.exports;
 })({});
-
-
-var __exports = {\\"head\\": function anonymous() {;return { title: 'foo' };},\\"layout\\": \\"component\\",\\"directives\\": {\\"effect-only\\": {\\"inserted\\": function inserted(el) {;console.log(el);;}}}};
-__exports.components = {
+module.exports = {\\"head\\": function anonymous() {
+return { title: 'foo' }
+},\\"layout\\": \\"component\\",\\"directives\\": {\\"effect-only\\": {\\"inserted\\": function inserted(el) {
+        console.log(el);
+      }}}};
+module.exports.components = {
   'md2vuedemo0': md2vuedemo0,
   'md2vuedemo1': md2vuedemo1,
-  'md2vuedemo2': md2vuedemo2,
-  'shadow-demo': {
-    props: { name: String, index: Number },
-    render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },
-    mounted: function () {
-      var name = this.name;
-      var index = this.index;
-      var style = ___styles[index]
-
-      var objectProto = ({}).__proto__;
-      var vueProto = this.__proto__;
-      while (vueProto) {
-        if (vueProto.__proto__ === objectProto) {
-          break
-        }
-        vueProto = vueProto.__proto__
-      }
-      var Vue = vueProto.constructor
-      var shadowRoot = this.$el.createShadowRoot();
-
-      var styleElem = document.createElement('style')
-      styleElem.setAttribute('type', 'text/css')
-      style = unescape(style)
-      if ('textContent' in styleElem) {
-        styleElem.textContent = style
-      } else {
-        styleElem.styleSheet.cssText = style
-      }
-      shadowRoot.appendChild(styleElem);
-
-      var div = document.createElement('div');
-      shadowRoot.appendChild(div);
-
-      new Vue({
-        components: {
-        'md2vuedemo0': md2vuedemo0,
-        'md2vuedemo1': md2vuedemo1,
-        'md2vuedemo2': md2vuedemo2
-        }, 
-        render (h) {
-          return h(name)
-        }
-      }).$mount(div)
-    }
-  }
-
+  'md2vuedemo2': md2vuedemo2
 }
-module.exports = __exports;
-</script>"
-`;
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:\\"markdown-body\\"},[_c('h1',[_vm._v(\\"简介\\")]),_vm._m(0),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"说明\\")]),_vm._m(1),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"devDependencies\\")]),_vm._m(2),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"Typography & UI\\")]),_vm._m(3),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"使用\\")]),_c('p',[_vm._v(\\"API 相当简单。直接看代码即可：\\")]),_vm._v(\\" \\"),_vm._m(4),_c('h2',[_vm._v(\\"配置字段\\")]),_c('h3',[_vm._v(\\"target\\")]),_vm._m(5),_vm._v(\\" \\"),_vm._m(6),_vm._v(\\" \\"),_vm._m(7),_vm._v(\\" \\"),_vm._m(8),_c('h3',[_vm._v(\\"name\\")]),_vm._m(9),_vm._v(\\" \\"),_c('h3',[_vm._v(\\"highlight\\")]),_c('p',[_vm._v(\\"使用何种工具进行代码高亮处理。\\")]),_vm._v(\\" \\"),_vm._m(10),_vm._v(\\" \\"),_vm._m(11),_vm._v(\\" \\"),_c('h3',[_vm._v(\\"inject\\")]),_c('p',[_vm._v(\\"字符串或函数。将会插入到文档的 demo 与源码之间。\\")]),_vm._v(\\" \\"),_c('h3',[_vm._v(\\"extend\\")]),_c('p',[_vm._v(\\"其他可以提供给 Vue 组件的内容，请传入 Plain Object。\\")]),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"Demo\\")]),_vm._m(12),_vm._v(\\" \\"),_vm._m(13),_vm._v(\\" \\"),_c('p',[_vm._v(\\"The following code in vue can be rendered into an real tiny vue app:\\")]),_vm._v(\\" \\"),_c('p',[_vm._v(\\"下面的代码将会渲染出真实效果：\\")]),_vm._v(\\" \\"),_c('div',{staticClass:\\"vue-demo-block\\"},[_c('md2vuedemo0'),_vm._v(\\" \\"),_c('input',{attrs:{\\"id\\":\\"vue-demo-1335\\",\\"type\\":\\"checkbox\\"}}),_c('label',{attrs:{\\"for\\":\\"vue-demo-1335\\"}}),_vm._v(\\" \\"),_vm._m(14)],1),_vm._v(\\" \\"),_vm._m(15),_vm._v(\\" \\"),_c('div',{staticClass:\\"vue-demo-block\\"},[_c('md2vuedemo1'),_vm._v(\\" \\"),_c('input',{attrs:{\\"id\\":\\"vue-demo-1336\\",\\"type\\":\\"checkbox\\"}}),_c('label',{attrs:{\\"for\\":\\"vue-demo-1336\\"}}),_vm._v(\\" \\"),_vm._m(16)],1),_vm._v(\\" \\"),_c('p',[_vm._v(\\"问题来了，假如我真的只是想在页面中插入一个可交互的 tiny app，而不想展示源码，该怎么办？\\")]),_vm._v(\\" \\"),_vm._m(17),_vm._v(\\" \\"),_vm._m(18),_c('p',[_vm._v(\\"效果如下：\\")]),_vm._v(\\" \\"),_c('div',{staticClass:\\"vue-demo-block vue-demo-block-demo-only\\"},[_c('md2vuedemo2')],1)])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('blockquote',[_c('p',[_vm._v(\\"Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— \\"),_c('a',{attrs:{\\"href\\":\\"https://en.wikipedia.org/wiki/Markdown\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"wikipedia\\")])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"灵感来自  \\"),_c('a',{attrs:{\\"href\\":\\"https://nuxtjs.org\\"}},[_vm._v(\\"nuxt\\")]),_vm._v(\\"。\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ul',[_c('li',[_c('a',{attrs:{\\"href\\":\\"/chjj/marked\\"}},[_vm._v(\\"marked\\")]),_vm._v(\\": A markdown parser and compiler. Built for speed.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/isagalaev/highlight.js\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"highlight.js\\")]),_vm._v(\\": Javascript syntax highlighter.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/PrismJS/prism\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"prism\\")]),_vm._v(\\": Javascript syntax highlighter.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/vuejs/vueify\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"vueify\\")]),_vm._v(\\": Browserify transform for single-file Vue components\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/rollup/rollup\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"rollup\\")]),_vm._v(\\": Next-generation ES6 module bundler.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://buble.surge.sh/\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"buble\\")]),_vm._v(\\": The blazing fast, batteries-included ES2015 compiler.\\")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ul',[_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/sindresorhus/github-markdown-css\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"github-markdown-css\\")]),_vm._v(\\": The minimal amount of CSS to replicate the GitHub Markdown style.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/isagalaev/highlight.js\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"highlight.js\\")]),_vm._v(\\": Code highlighting.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/PrismJS/prism\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"prism\\")]),_vm._v(\\": Code highlighting.\\")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-javascript\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"import\\")]),_vm._v(\\" md2vue \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"from\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'md2vue'\\")]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token comment\\"}},[_vm._v(\\"// markdown 文本\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" markdownText \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token template-string\\"}},[_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"\`...\`\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token comment\\"}},[_vm._v(\\"// 配置\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" config \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n  target\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'js'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  name\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'common-comp'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  highlight\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'prism'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  tool\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  extend\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token comment\\"}},[_vm._v(\\"// 返回 promise\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" content \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"await\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"md2vue\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_vm._v(\\"markdownText\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\" config\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"字符串。可选址值为 \\"),_c('code',[_vm._v(\\"vue\\")]),_vm._v(\\" \\"),_c('code',[_vm._v(\\"js\\")]),_vm._v(\\"。默认为 \\"),_c('code',[_vm._v(\\"vue\\")]),_vm._v(\\"。\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"使用 \\"),_c('code',[_vm._v(\\"vue\\")]),_vm._v(\\" 时，生成结果是一个 SFC（single file component）。这种情况下，你可以将内容写入到一个 \\"),_c('code',[_vm._v(\\".vue\\")]),_vm._v(\\" 文件中。\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"使用 \\"),_c('code',[_vm._v(\\"js\\")]),_vm._v(\\" 时，则会进一步将 SFC 编译为 JavaScript。你可以将结果写到一个 \\"),_c('code',[_vm._v(\\".js\\")]),_vm._v(\\" 文件中，并像下面这样引用：\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-javascript\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" MyComponent \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"require\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'my-component.js'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\n\\\\nVue\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\".\\")]),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"use\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_vm._v(\\"MyComponent\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"new\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token class-name\\"}},[_vm._v(\\"Vue\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n  el\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'#app'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  template\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'<common-comp />'\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"字符串类型。注意，当 target 字段为 \\"),_c('code',[_vm._v(\\"js\\")]),_vm._v(\\" 时，必须配置此字段。\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"可选值 \\"),_c('code',[_vm._v(\\"highlight.js\\")]),_vm._v(\\" \\"),_c('code',[_vm._v(\\"prism\\")]),_vm._v(\\"。默认为 \\"),_c('code',[_vm._v(\\"highlight.js\\")]),_vm._v(\\"。\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"当然，也可以传入一个函数，该函数接收两个参数：\\"),_c('code',[_vm._v(\\"code\\")]),_vm._v(\\", \\"),_c('code',[_vm._v(\\"language\\")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"所有语言类型设置为 \\"),_c('code',[_vm._v(\\"html\\")]),_vm._v(\\" 和 \\"),_c('code',[_vm._v(\\"vue\\")]),_vm._v(\\" 的代码块，就被视作 Vue app。\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"如果你真的只是需要展示代码，请将语言设置为 \\"),_c('code',[_vm._v(\\"xml\\")]),_vm._v(\\"。\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-html\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token style language-css\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token selector\\"}},[_vm._v(\\".wrapper input\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"width\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" 50px\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"text-align\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" center\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"template\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"div\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"class\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"wrapper\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"incr(-1)\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"-\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"input\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"type\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"text\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"readonly\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\":value\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"count\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"incr(+1)\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"+\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"div\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"template\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token script language-javascript\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"export\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"default\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"data\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"return\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        count\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token number\\"}},[_vm._v(\\"0\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n    methods\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"incr\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_vm._v(\\"delta\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"this\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\".\\")]),_vm._v(\\"count \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"+=\\")]),_vm._v(\\" delta\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"其实也可以偷懒，不写 \\"),_c('code',[_vm._v(\\"<template>\\")]),_vm._v(\\" 也是可以的。（这时候，template 的内容就是去掉 style 和 script 两部分之后剩余的内容。）示例如下：\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-html\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token style language-css\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token selector\\"}},[_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"font-size\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" 14px\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"click\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"click me!\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token script language-javascript\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"export\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"default\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    methods\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"click\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"alert\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'clicked!'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"这时候，可以像下面一样，为 \\"),_c('code',[_vm._v(\\"<template>\\")]),_vm._v(\\" 添加一个 \\"),_c('code',[_vm._v(\\"demo-only\\")]),_vm._v(\\" 属性。\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-xml\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token style language-css\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token selector\\"}},[_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"font-size\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" 14px\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"template\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"demo-only\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"click\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"click me!\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"template\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token script language-javascript\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"export\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"default\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    methods\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"click\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"alert\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'clicked!'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])])])])}]
+if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
+  hotAPI.install(require(\\"vue\\"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord(\\"data-v-6a82a1da\\", __vue__options__)
+  } else {
+    hotAPI.reload(\\"data-v-6a82a1da\\", __vue__options__)
+  }
+})()}
+  var exports = module.exports
+  exports.name = \\"\\"
 
-exports[`transforms markdown file with shadow demo apps correctly 2`] = `
-"/* eslint-disable */
-var moduleExports = (function (module) {
-  'use strict';
-  ;(function(){
-    var ___styles = [
-  unescape(\\".wrapper input {     width: 50px;     text-align: center;   }\\")
-  , unescape(\\"button {     font-size: 14px;   }\\")
-  , unescape(\\"button {     font-size: 14px;   }\\")
-  ];
-  /* eslint-disable */
-  var md2vuedemo0 = (function (module) {
-  ;(function(){
-    module.exports = {
-      data: function data() {
-        return {
-          count: 0
-        }
-      },
-      methods: {
-        incr: function incr(delta) {
-          this.count += delta
-        }
-      }
-    }
-  })()
-  if (module.exports.__esModule) { module.exports = module.exports.default }
-  var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
-  if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
-  __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:\\"vue-demo\\"},[_c('div',{staticClass:\\"wrapper\\"},[_c('button',{on:{\\"click\\":function($event){_vm.incr(-1)}}},[_vm._v(\\"-\\")]),_vm._v(\\" \\"),_c('input',{attrs:{\\"type\\":\\"text\\",\\"readonly\\":\\"\\"},domProps:{\\"value\\":_vm.count}}),_vm._v(\\" \\"),_c('button',{on:{\\"click\\":function($event){_vm.incr(+1)}}},[_vm._v(\\"+\\")])])])}
-  __vue__options__.staticRenderFns = []
-  if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
-    hotAPI.install(require(\\"vue\\"), true)
-    if (!hotAPI.compatible) { return }
-    module.hot.accept()
-    if (!module.hot.data) {
-      hotAPI.createRecord(\\"data-v-029571ac\\", __vue__options__)
-    } else {
-      hotAPI.rerender(\\"data-v-029571ac\\", __vue__options__)
-    }
-  })()}
-    return module.exports;
-  })({});
-  var md2vuedemo1 = (function (module) {
-  ;(function(){
-    module.exports = {
-      methods: {
-        click: function click() {
-          alert('clicked!')
-        }
-      }
-    }
-  })()
-  if (module.exports.__esModule) { module.exports = module.exports.default }
-  var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
-  if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
-  __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:\\"vue-demo\\"},[_c('button',{on:{\\"click\\":_vm.click}},[_vm._v(\\"click me!\\")])])}
-  __vue__options__.staticRenderFns = []
-  if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
-    hotAPI.install(require(\\"vue\\"), true)
-    if (!hotAPI.compatible) { return }
-    module.hot.accept()
-    if (!module.hot.data) {
-      hotAPI.createRecord(\\"data-v-029571ad\\", __vue__options__)
-    } else {
-      hotAPI.rerender(\\"data-v-029571ad\\", __vue__options__)
-    }
-  })()}
-    return module.exports;
-  })({});
-  var md2vuedemo2 = (function (module) {
-  ;(function(){
-    module.exports = {
-      methods: {
-        click: function click() {
-          alert('clicked!')
-        }
-      }
-    }
-  })()
-  if (module.exports.__esModule) { module.exports = module.exports.default }
-  var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
-  if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
-  __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:\\"vue-demo\\"},[_c('button',{on:{\\"click\\":_vm.click}},[_vm._v(\\"click me!\\")])])}
-  __vue__options__.staticRenderFns = []
-  if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
-    hotAPI.install(require(\\"vue\\"), true)
-    if (!hotAPI.compatible) { return }
-    module.hot.accept()
-    if (!module.hot.data) {
-      hotAPI.createRecord(\\"data-v-029571ae\\", __vue__options__)
-    } else {
-      hotAPI.rerender(\\"data-v-029571ae\\", __vue__options__)
-    }
-  })()}
-    return module.exports;
-  })({});
-  var __exports = {\\"head\\": function anonymous() {;return { title: 'foo' };},\\"layout\\": \\"component\\",\\"directives\\": {\\"effect-only\\": {\\"inserted\\": function inserted(el) {;console.log(el);;}}}};
-  __exports.components = {
-    'md2vuedemo0': md2vuedemo0,
-    'md2vuedemo1': md2vuedemo1,
-    'md2vuedemo2': md2vuedemo2,
-    'shadow-demo': {
-      props: { name: String, index: Number },
-      render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },
-      mounted: function () {
-        var name = this.name;
-        var index = this.index;
-        var style = ___styles[index]
-        var objectProto = ({}).__proto__;
-        var vueProto = this.__proto__;
-        while (vueProto) {
-          if (vueProto.__proto__ === objectProto) {
-            break
-          }
-          vueProto = vueProto.__proto__
-        }
-        var Vue = vueProto.constructor
-        var shadowRoot = this.$el.createShadowRoot();
-        var styleElem = document.createElement('style')
-        styleElem.setAttribute('type', 'text/css')
-        style = unescape(style)
-        if ('textContent' in styleElem) {
-          styleElem.textContent = style
-        } else {
-          styleElem.styleSheet.cssText = style
-        }
-        shadowRoot.appendChild(styleElem);
-        var div = document.createElement('div');
-        shadowRoot.appendChild(div);
-        new Vue({
-          components: {
-          'md2vuedemo0': md2vuedemo0,
-          'md2vuedemo1': md2vuedemo1,
-          'md2vuedemo2': md2vuedemo2
-          }, 
-          render: function render (h) {
-            return h(name)
-          }
-        }).$mount(div)
-      }
+  var insert = function (css) {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+    var elem = document.createElement('style')
+    elem.setAttribute('type', 'text/css')
+    elem.innerHTML = decodeURIComponent(css)
+
+    var head = document.getElementsByTagName('head')[0]
+    head.appendChild(elem)
+    return function () {
+      head.removeChild(elem)
     }
   }
-  module.exports = __exports;
-  })()
-  if (module.exports.__esModule) module.exports = module.exports.default
-  var __vue__options__ = (typeof module.exports === \\"function\\"? module.exports.options: module.exports)
-  if (__vue__options__.functional) {console.error(\\"[vueify] functional components are not supported and should be defined in plain js files using render functions.\\")}
-  __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:\\"markdown-body\\"},[_c('h1',[_vm._v(\\"Introduction to md2vue\\")]),_vm._m(0),_vm._v(\\" \\"),_vm._m(1),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"Inspiration\\")]),_vm._m(2),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"Dev Dependencies\\")]),_vm._m(3),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"Typography & UI\\")]),_vm._m(4),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"How to use\\")]),_c('p',[_vm._v(\\"API is simple, so just see the code below: \\")]),_vm._v(\\" \\"),_vm._m(5),_c('h2',[_vm._v(\\"Explaination on config object\\")]),_vm._m(6),_vm._v(\\" \\"),_vm._m(7),_vm._m(8),_vm._v(\\" \\"),_vm._m(9),_vm._v(\\" \\"),_vm._m(10),_vm._v(\\" \\"),_vm._m(11),_vm._m(12),_c('p',[_vm._v(\\"This property is required when the target is \\\\\\"js\\\\\\".\\")]),_vm._v(\\" \\"),_vm._m(13),_c('p',[_vm._v(\\"You can specify this property to 'highlight.js' or 'prism'.\\")]),_vm._v(\\" \\"),_vm._m(14),_vm._v(\\" \\"),_vm._m(15),_c('p',[_vm._v(\\"Some custom markups you want to inject between the App block and source code block.\\")]),_vm._v(\\" \\"),_vm._m(16),_c('p',[_vm._v(\\"Any stuff you want to provide for your vue component.\\")]),_vm._v(\\" \\"),_c('h2',[_vm._v(\\"Demo\\")]),_vm._m(17),_vm._v(\\" \\"),_vm._m(18),_vm._v(\\" \\"),_c('p',[_vm._v(\\"The following code in vue can be rendered into an real tiny vue app:\\")]),_vm._v(\\" \\"),_c('div',{staticClass:\\"vue-demo-block\\"},[_c('shadow-demo',{attrs:{\\"name\\":\\"md2vuedemo0\\",\\"index\\":0}}),_vm._v(\\" \\"),_c('input',{attrs:{\\"id\\":\\"vue-demo-1342\\",\\"type\\":\\"checkbox\\"}}),_c('label',{attrs:{\\"for\\":\\"vue-demo-1342\\"}}),_vm._v(\\" \\"),_vm._m(19)],1),_vm._v(\\" \\"),_vm._m(20),_vm._v(\\" \\"),_c('div',{staticClass:\\"vue-demo-block\\"},[_c('shadow-demo',{attrs:{\\"name\\":\\"md2vuedemo1\\",\\"index\\":1}}),_vm._v(\\" \\"),_c('input',{attrs:{\\"id\\":\\"vue-demo-1343\\",\\"type\\":\\"checkbox\\"}}),_c('label',{attrs:{\\"for\\":\\"vue-demo-1343\\"}}),_vm._v(\\" \\"),_vm._m(21)],1),_vm._v(\\" \\"),_c('p',[_vm._v(\\"What if you only want the app without source code? Follow the code:\\")]),_vm._v(\\" \\"),_vm._m(22),_vm._m(23),_vm._v(\\" \\"),_c('div',{staticClass:\\"vue-demo-block vue-demo-block-demo-only\\"},[_c('shadow-demo',{attrs:{\\"name\\":\\"md2vuedemo2\\",\\"index\\":2}})],1)])}
-  __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"You can get raw text of this document \\"),_c('strong',[_c('a',{attrs:{\\"href\\":\\"/AngusFu/md2vue/blob/master/test/common.md\\"}},[_vm._v(\\"here\\")])]),_vm._v(\\".\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('blockquote',[_c('p',[_vm._v(\\"Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— \\"),_c('a',{attrs:{\\"href\\":\\"https://en.wikipedia.org/wiki/Markdown\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"wikipedia\\")])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"Inspired by \\"),_c('a',{attrs:{\\"href\\":\\"https://nuxtjs.org\\"}},[_vm._v(\\"nuxt\\")]),_vm._v(\\", \\"),_c('a',{attrs:{\\"href\\":\\"https://github.com/AngusFu/md2vue\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"md2vue\\")]),_vm._v(\\" was initially aimed at transforming markdown texts in our Vue project, which were used both for documentation and demostration.\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ul',[_c('li',[_c('a',{attrs:{\\"href\\":\\"/chjj/marked\\"}},[_vm._v(\\"marked\\")]),_vm._v(\\": A markdown parser and compiler. Built for speed.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/isagalaev/highlight.js\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"highlight.js\\")]),_vm._v(\\": Javascript syntax highlighter.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/PrismJS/prism\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"prism\\")]),_vm._v(\\": Javascript syntax highlighter.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/vuejs/vueify\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"vueify\\")]),_vm._v(\\": Browserify transform for single-file Vue components\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/rollup/rollup\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"rollup\\")]),_vm._v(\\": Next-generation ES6 module bundler.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://buble.surge.sh/\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"buble\\")]),_vm._v(\\": The blazing fast, batteries-included ES2015 compiler.\\")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ul',[_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/sindresorhus/github-markdown-css\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"github-markdown-css\\")]),_vm._v(\\": The minimal amount of CSS to replicate the GitHub Markdown style.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/isagalaev/highlight.js\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"highlight.js\\")]),_vm._v(\\": Code highlighting.\\")]),_vm._v(\\" \\"),_c('li',[_c('a',{attrs:{\\"href\\":\\"https://github.com/PrismJS/prism\\",\\"target\\":\\"_blank\\"}},[_vm._v(\\"prism\\")]),_vm._v(\\": Code highlighting.\\")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-js\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"import\\")]),_vm._v(\\" md2vue \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"from\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'md2vue'\\")]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token comment\\"}},[_vm._v(\\"// your markdown text\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" sourceCode \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token template-string\\"}},[_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"\`...\`\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token comment\\"}},[_vm._v(\\"// configuration object\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" config \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n  target\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'js'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  componentName\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'common-comp'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  highlight\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'prism'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  customMarkups\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  documentInfo\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token comment\\"}},[_vm._v(\\"// returns a promise\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token comment\\"}},[_vm._v(\\"// the resolved value would be a string\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" content \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"await\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"md2vue\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_vm._v(\\"sourceCode\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\" config\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"Referring to \\"),_c('a',{attrs:{\\"href\\":\\"./build-doc.js\\"}},[_vm._v(\\"build-doc.js\\")]),_vm._v(\\" or \\"),_c('a',{attrs:{\\"href\\":\\"./test/md2vue.spec.js\\"}},[_vm._v(\\"spec file\\")]),_vm._v(\\" is suggested.\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h3',[_c('code',[_vm._v(\\".target\\")]),_vm._v(\\": String\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"Unless you specify this property to \\"),_c('code',[_vm._v(\\"js\\")]),_vm._v(\\", any other value will be treated as \\"),_c('code',[_vm._v(\\"vue\\")]),_vm._v(\\".\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"With this property beening \\"),_c('code',[_vm._v(\\"vue\\")]),_vm._v(\\", it means you will get .vue styled result. You can write the result to a single file with \\\\\\".vue\\\\\\" extension for later use.\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"With this property beening \\"),_c('code',[_vm._v(\\"js\\")]),_vm._v(\\", you'll get a precompiled JavaScript result. You can write it to a \\\\\\".js\\\\\\" file, and then do something like this:\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-js\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"const\\")]),_vm._v(\\" MyComponent \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"=\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"require\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'common-comp.js'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\nVue\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\".\\")]),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"use\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_vm._v(\\"MyComponent\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"new\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token class-name\\"}},[_vm._v(\\"Vue\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n  el\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'#app'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n  template\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'<common-comp />'\\")]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h3',[_c('code',[_vm._v(\\".componentName\\")]),_vm._v(\\": String\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h3',[_c('code',[_vm._v(\\".highlight\\")]),_vm._v(\\": String | Function\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"A function which accepts 2 arguments \\"),_c('code',[_vm._v(\\"code\\")]),_vm._v(\\" and \\"),_c('code',[_vm._v(\\"language\\")]),_vm._v(\\" is also accepted.\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h3',[_c('code',[_vm._v(\\".customMarkups\\")]),_vm._v(\\": String | Function\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h3',[_c('code',[_vm._v(\\".documentInfo\\")]),_vm._v(\\": Object\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"All code blocks with language specified to \\"),_c('code',[_vm._v(\\"html\\")]),_vm._v(\\" or \\"),_c('code',[_vm._v(\\"vue\\")]),_vm._v(\\" are treated as Vue apps.\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"But What if you want to demonstrate that code block just for its sake? Simply specify the language to \\"),_c('code',[_vm._v(\\"xml\\")]),_vm._v(\\".\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-html\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token style language-css\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token selector\\"}},[_vm._v(\\".wrapper input\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"width\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" 50px\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"text-align\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" center\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"template\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"div\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"class\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"wrapper\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"incr(-1)\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"-\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"input\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"type\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"text\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"readonly\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\":value\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"count\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"incr(+1)\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"+\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"div\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"template\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token script language-javascript\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"export\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"default\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"data\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"return\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        count\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token number\\"}},[_vm._v(\\"0\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\",\\")]),_vm._v(\\"\\\\n    methods\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"incr\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_vm._v(\\"delta\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"this\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\".\\")]),_vm._v(\\"count \\"),_c('span',{attrs:{\\"class\\":\\"token operator\\"}},[_vm._v(\\"+=\\")]),_vm._v(\\" delta\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"You can also leave out \\"),_c('code',[_vm._v(\\"<template>\\")]),_vm._v(\\" tags, just like this:\\")])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-html\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token style language-css\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token selector\\"}},[_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"font-size\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" 14px\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"click\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"click me!\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token script language-javascript\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"export\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"default\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    methods\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"click\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"alert\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'clicked!'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('pre',{pre:true,attrs:{\\"class\\":\\"lang-xml\\"}},[_c('code',[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token style language-css\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token selector\\"}},[_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token property\\"}},[_vm._v(\\"font-size\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" 14px\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\";\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"style\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"template\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"demo-only\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"button\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token attr-name\\"}},[_vm._v(\\"@click\\")]),_c('span',{attrs:{\\"class\\":\\"token attr-value\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"=\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")]),_vm._v(\\"click\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"\\\\\\"\\")])]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"click me!\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"button\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"template\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_vm._v(\\"\\\\n\\\\n\\"),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"<\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])]),_c('span',{attrs:{\\"class\\":\\"token script language-javascript\\"}},[_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"export\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token keyword\\"}},[_vm._v(\\"default\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n    methods\\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\":\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"click\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\" \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"{\\")]),_vm._v(\\"\\\\n        \\"),_c('span',{attrs:{\\"class\\":\\"token function\\"}},[_vm._v(\\"alert\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"(\\")]),_c('span',{attrs:{\\"class\\":\\"token string\\"}},[_vm._v(\\"'clicked!'\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\")\\")]),_vm._v(\\"\\\\n      \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n    \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n  \\"),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"}\\")]),_vm._v(\\"\\\\n\\")]),_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token tag\\"}},[_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\"</\\")]),_vm._v(\\"script\\")]),_c('span',{attrs:{\\"class\\":\\"token punctuation\\"}},[_vm._v(\\">\\")])])])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_vm._v(\\"Noticed the difference? Hmm, just wrap your template, append a \\"),_c('code',[_vm._v(\\"demo-only\\")]),_vm._v(\\" attribute to it. So let's take a look:\\")])}]
-  if (module.hot) {(function () {  var hotAPI = require(\\"vue-hot-reload-api\\")
-    hotAPI.install(require(\\"vue\\"), true)
-    if (!hotAPI.compatible) return
-    module.hot.accept()
-    if (!module.hot.data) {
-      hotAPI.createRecord(\\"data-v-04979ffb\\", __vue__options__)
-    } else {
-      hotAPI.reload(\\"data-v-04979ffb\\", __vue__options__)
-    }
-  })()}
-  var exports = module.exports
-  exports.name = \\"common-comp\\"
+  exports.created = function () {
+    var css = '.wrapper input[data-v-029571ac] {
+    width: 50px;
+    text-align: center;
+  }
+button[data-v-029571ad] {
+    font-size: 14px;
+  }
+button[data-v-029571ae] {
+    font-size: 14px;
+  }'
+    this.__clean = insert(css)
+  }
+  exports.destroyed = function () {
+    this.__clean()
+  }
 
   module.exports.install = function (Vue) {
     Vue.component(exports.name, exports)
   }
-
   return module.exports;
 })({});
 typeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);
 typeof window !== void 0 && window.Vue && Vue.use(moduleExports);
-this[\\"CommonComp\\"] = moduleExports;
+this[\\"\\"] = moduleExports;
 "
 `;

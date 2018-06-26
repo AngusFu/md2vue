@@ -1,12 +1,11 @@
 
 <template>
-<article class="markdown-body">
-<h1>Introduction to md2vue</h1><p>You can get raw text of this document <strong><a href="/AngusFu/md2vue/blob/master/test/common.md">here</a></strong>.</p>
-<blockquote>
+  <article class="markdown-body">
+<h1>简介</h1><blockquote>
 <p>Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank">wikipedia</a></p>
 </blockquote>
-<h2>Inspiration</h2><p>Inspired by <a href="https://nuxtjs.org">nuxt</a>, <a href="https://github.com/AngusFu/md2vue" target="_blank">md2vue</a> was initially aimed at transforming markdown texts in our Vue project, which were used both for documentation and demostration.</p>
-<h2>Dev Dependencies</h2><ul>
+<h2>说明</h2><p>灵感来自  <a href="https://nuxtjs.org">nuxt</a>。</p>
+<h2>devDependencies</h2><ul>
 <li><a href="/chjj/marked">marked</a>: A markdown parser and compiler. Built for speed.</li>
 <li><a href="https://github.com/isagalaev/highlight.js" target="_blank">highlight.js</a>: Javascript syntax highlighter.</li>
 <li><a href="https://github.com/PrismJS/prism" target="_blank">prism</a>: Javascript syntax highlighter.</li>
@@ -19,43 +18,45 @@
 <li><a href="https://github.com/isagalaev/highlight.js" target="_blank">highlight.js</a>: Code highlighting.</li>
 <li><a href="https://github.com/PrismJS/prism" target="_blank">prism</a>: Code highlighting.</li>
 </ul>
-<h2>How to use</h2><p>API is simple, so just see the code below: </p>
-<pre v-pre class="lang-js"><code><span class="token keyword">import</span> md2vue <span class="token keyword">from</span> <span class="token string">'md2vue'</span>
+<h2>使用</h2><p>API 相当简单。直接看代码即可：</p>
+<pre v-pre class="lang-javascript"><code><span class="token keyword">import</span> md2vue <span class="token keyword">from</span> <span class="token string">'md2vue'</span>
 
-<span class="token comment">// your markdown text</span>
-<span class="token keyword">const</span> sourceCode <span class="token operator">=</span> <span class="token template-string"><span class="token string">`...`</span></span>
+<span class="token comment">// markdown 文本</span>
+<span class="token keyword">const</span> markdownText <span class="token operator">=</span> <span class="token template-string"><span class="token string">`...`</span></span>
 
-<span class="token comment">// configuration object</span>
+<span class="token comment">// 配置</span>
 <span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
   target<span class="token punctuation">:</span> <span class="token string">'js'</span><span class="token punctuation">,</span>
-  componentName<span class="token punctuation">:</span> <span class="token string">'common-comp'</span><span class="token punctuation">,</span>
+  name<span class="token punctuation">:</span> <span class="token string">'common-comp'</span><span class="token punctuation">,</span>
   highlight<span class="token punctuation">:</span> <span class="token string">'prism'</span><span class="token punctuation">,</span>
-  customMarkups<span class="token punctuation">,</span>
-  documentInfo
+  tool<span class="token punctuation">,</span>
+  extend
 <span class="token punctuation">}</span>
 
-<span class="token comment">// returns a promise</span>
-<span class="token comment">// the resolved value would be a string</span>
-<span class="token keyword">const</span> content <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">md2vue</span><span class="token punctuation">(</span>sourceCode<span class="token punctuation">,</span> config<span class="token punctuation">)</span></code></pre><h2>Explaination on config object</h2><p>Referring to <a href="./build-doc.js">build-doc.js</a> or <a href="./test/md2vue.spec.js">spec file</a> is suggested.</p>
-<h3><code>.target</code>: String</h3><p>Unless you specify this property to <code>js</code>, any other value will be treated as <code>vue</code>.</p>
-<p>With this property beening <code>vue</code>, it means you will get .vue styled result. You can write the result to a single file with &quot;.vue&quot; extension for later use.</p>
-<p>With this property beening <code>js</code>, you&#39;ll get a precompiled JavaScript result. You can write it to a &quot;.js&quot; file, and then do something like this:</p>
-<pre v-pre class="lang-js"><code><span class="token keyword">const</span> MyComponent <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'common-comp.js'</span><span class="token punctuation">)</span>
+<span class="token comment">// 返回 promise</span>
+<span class="token keyword">const</span> content <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">md2vue</span><span class="token punctuation">(</span>markdownText<span class="token punctuation">,</span> config<span class="token punctuation">)</span></code></pre><h2>配置字段</h2><h3>target</h3><p>字符串。可选址值为 <code>vue</code> <code>js</code>。默认为 <code>vue</code>。</p>
+<p>使用 <code>vue</code> 时，生成结果是一个 SFC（single file component）。这种情况下，你可以将内容写入到一个 <code>.vue</code> 文件中。</p>
+<p>使用 <code>js</code> 时，则会进一步将 SFC 编译为 JavaScript。你可以将结果写到一个 <code>.js</code> 文件中，并像下面这样引用：</p>
+<pre v-pre class="lang-js"><code><span class="token keyword">const</span> MyComponent <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'my-component.js'</span><span class="token punctuation">)</span>
+
 Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>MyComponent<span class="token punctuation">)</span>
+
 <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   el<span class="token punctuation">:</span> <span class="token string">'#app'</span><span class="token punctuation">,</span>
   template<span class="token punctuation">:</span> <span class="token string">'&lt;common-comp />'</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre><h3><code>.componentName</code>: String</h3><p>This property is required when the target is &quot;js&quot;.</p>
-<h3><code>.highlight</code>: String | Function</h3><p>You can specify this property to &#39;highlight.js&#39; or &#39;prism&#39;.</p>
-<p>A function which accepts 2 arguments <code>code</code> and <code>language</code> is also accepted.</p>
-<h3><code>.customMarkups</code>: String | Function</h3><p>Some custom markups you want to inject between the App block and source code block.</p>
-<h3><code>.documentInfo</code>: Object</h3><p>Any stuff you want to provide for your vue component.</p>
-<h2>Demo</h2><p>All code blocks with language specified to <code>html</code> or <code>vue</code> are treated as Vue apps.</p>
-<p>But What if you want to demonstrate that code block just for its sake? Simply specify the language to <code>xml</code>.</p>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre><h3>name</h3><p>字符串类型。注意，当 target 字段为 <code>js</code> 时，必须配置此字段。</p>
+<h3>highlight</h3><p>使用何种工具进行代码高亮处理。</p>
+<p>可选值 <code>highlight.js</code> <code>prism</code>。默认为 <code>highlight.js</code>。</p>
+<p>当然，也可以传入一个函数，该函数接收两个参数：<code>code</code>, <code>language</code></p>
+<h3>inject</h3><p>字符串或函数。将会插入到文档的 demo 与源码之间。</p>
+<h3>extend</h3><p>其他可以提供给 Vue 组件的内容，请传入 Plain Object。</p>
+<h2>Demo</h2><p>所有语言类型设置为 <code>html</code> 和 <code>vue</code> 的代码块，就被视作 Vue app。</p>
+<p>如果你真的只是需要展示代码，请将语言设置为 <code>xml</code>。</p>
 <p>The following code in vue can be rendered into an real tiny vue app:</p>
+<p>下面的代码将会渲染出真实效果：</p>
 
 <div class="vue-demo-block">
-<shadow-demo name="md2vuedemo0" :index="0"></shadow-demo>
+<md2vuedemo0></md2vuedemo0>
 <input id="vue-demo-1333" type="checkbox" /><label for="vue-demo-1333"></label>
 <pre v-pre class="lang-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
   <span class="token selector">.wrapper input</span> <span class="token punctuation">{</span>
@@ -87,10 +88,10 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
   <span class="token punctuation">}</span>
 </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre>
 </div>
-<p>You can also leave out <code>&lt;template&gt;</code> tags, just like this:</p>
+<p>其实也可以偷懒，不写 <code>&lt;template&gt;</code> 也是可以的。（这时候，template 的内容就是去掉 style 和 script 两部分之后剩余的内容。）示例如下：</p>
 
 <div class="vue-demo-block">
-<shadow-demo name="md2vuedemo1" :index="1"></shadow-demo>
+<md2vuedemo1></md2vuedemo1>
 <input id="vue-demo-1334" type="checkbox" /><label for="vue-demo-1334"></label>
 <pre v-pre class="lang-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
   <span class="token selector">button</span> <span class="token punctuation">{</span>
@@ -110,7 +111,8 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
   <span class="token punctuation">}</span>
 </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre>
 </div>
-<p>What if you only want the app without source code? Follow the code:</p>
+<p>问题来了，假如我真的只是想在页面中插入一个可交互的 tiny app，而不想展示源码，该怎么办？</p>
+<p>这时候，可以像下面一样，为 <code>&lt;template&gt;</code> 添加一个 <code>demo-only</code> 属性。</p>
 <pre v-pre class="lang-xml"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
   <span class="token selector">button</span> <span class="token punctuation">{</span>
     <span class="token property">font-size</span><span class="token punctuation">:</span> 14px<span class="token punctuation">;</span>
@@ -129,47 +131,18 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre><p>Noticed the difference? Hmm, just wrap your template, append a <code>demo-only</code> attribute to it. So let&#39;s take a look:</p>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre><p>效果如下：</p>
 
 <div class="vue-demo-block vue-demo-block-demo-only">
-<shadow-demo name="md2vuedemo2" :index="2"></shadow-demo>
+<md2vuedemo2></md2vuedemo2>
 
 
 </div>
-<h2>Test</h2>
-<div class="vue-demo-block">
-<shadow-demo name="md2vuedemo3" :index="3"></shadow-demo>
-<input id="vue-demo-1336" type="checkbox" /><label for="vue-demo-1336"></label>
-<pre v-pre class="lang-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>lorem
-    xxxxx
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>22222<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
-  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
-    methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'clicked!'</span><span class="token punctuation">)</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre>
-</div>
-
-</article >
+  </article >
 </template>
 
 <script lang="buble">
-var ___styles = [
-decodeURIComponent(".wrapper%20input%20%7B%20%20%20%20%20width%3A%2050px%3B%20%20%20%20%20text-align%3A%20center%3B%20%20%20%7D")
-, decodeURIComponent("button%20%7B%20%20%20%20%20font-size%3A%2014px%3B%20%20%20%7D")
-, decodeURIComponent("button%20%7B%20%20%20%20%20font-size%3A%2014px%3B%20%20%20%7D")
-, decodeURIComponent("")
-];
-var cssReset = ".vue-demo {color: initial;margin: initial;padding: initial;box-sizing: initial;border: initial;background: initial;font: initial;word-wrap: initial;word-spacing: initial;word-break: initial;white-space: initial;text-align: initial;text-indent: inherit;}";
-/* eslint-disable */
 var md2vuedemo0 = (function (module) {
 ;(function(){
   module.exports = {
@@ -190,6 +163,7 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('div',{staticClass:"wrapper"},[_c('button',{on:{"click":function($event){_vm.incr(-1)}}},[_vm._v("-")]),_vm._v(" "),_c('input',{attrs:{"type":"text","readonly":""},domProps:{"value":_vm.count}}),_vm._v(" "),_c('button',{on:{"click":function($event){_vm.incr(+1)}}},[_vm._v("+")])])])}
 __vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-029571ac"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -200,7 +174,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-029571ac", __vue__options__)
   }
 })()}
-  return module.exports;
+return module.exports;
 })({});
 
 var md2vuedemo1 = (function (module) {
@@ -218,6 +192,7 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('button',{on:{"click":_vm.click}},[_vm._v("click me!")])])}
 __vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-029571ad"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -228,7 +203,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-029571ad", __vue__options__)
   }
 })()}
-  return module.exports;
+return module.exports;
 })({});
 
 var md2vuedemo2 = (function (module) {
@@ -246,6 +221,7 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('button',{on:{"click":_vm.click}},[_vm._v("click me!")])])}
 __vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-029571ae"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -256,92 +232,30 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-029571ae", __vue__options__)
   }
 })()}
-  return module.exports;
+return module.exports;
 })({});
 
-var md2vuedemo3 = (function (module) {
-;(function(){
-  module.exports = {
-    methods: {
-      click: function click() {
-        alert('clicked!')
-      }
-    }
-  }
-})()
-if (module.exports.__esModule) module.exports = module.exports.default
-var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
-if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vue-demo"},[_c('p',[_vm._v("lorem\n      xxxxx\n    ")]),_vm._v(" "),_c('input',{attrs:{"value":"22222"}})])}]
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-029571af", __vue__options__)
-  } else {
-    hotAPI.reload("data-v-029571af", __vue__options__)
-  }
-})()}
-  return module.exports;
-})({});
-
-
-var __exports = {"head": function anonymous() {
+module.exports = {"head": function anonymous() {
 return { title: 'foo' }
 },"layout": "component","directives": {"effect-only": {"inserted": function inserted(el) {
         console.log(el)
       }}}};
-__exports.components = {
+module.exports.components = {
   'md2vuedemo0': md2vuedemo0,
   'md2vuedemo1': md2vuedemo1,
-  'md2vuedemo2': md2vuedemo2,
-  'md2vuedemo3': md2vuedemo3,
-  'shadow-demo': {
-    props: { name: String, index: Number },
-    render: function (h) { return h('div', { class: 'vue-shadow-demo' }); },
-    mounted: function () {
-      var el = this.$el
-      var name = this.name;
-      var index = this.index;
-      var style = ___styles[index]
-
-      var objectProto = ({}).__proto__;
-      var vueProto = this.__proto__;
-      while (vueProto) {
-        if (vueProto.__proto__ === objectProto) {
-          break
-        }
-        vueProto = vueProto.__proto__;
-      }
-      var Vue = vueProto.constructor;
-      var shadowRoot = el.attachShadow
-        ? el.attachShadow({ mode: 'closed' })
-        : el.createShadowRoot()
-      var styleElem = document.createElement('style');
-      styleElem.setAttribute('type', 'text/css');
-      styleElem.innerHTML = cssReset + style
-
-      shadowRoot.appendChild(styleElem);
-
-      var div = document.createElement('div');
-      shadowRoot.appendChild(div);
-
-      new Vue({
-        components: {
-        'md2vuedemo0': md2vuedemo0,
-        'md2vuedemo1': md2vuedemo1,
-        'md2vuedemo2': md2vuedemo2,
-        'md2vuedemo3': md2vuedemo3
-        }, 
-        render (h) {
-          return h(name)
-        }
-      }).$mount(div)
-    }
-  }
-
+  'md2vuedemo2': md2vuedemo2
 }
-module.exports = __exports;
 </script>
+
+<style>
+.wrapper input[data-v-029571ac] {
+    width: 50px;
+    text-align: center;
+  }
+button[data-v-029571ad] {
+    font-size: 14px;
+  }
+button[data-v-029571ae] {
+    font-size: 14px;
+  }
+</style>

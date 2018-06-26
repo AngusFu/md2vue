@@ -1,14 +1,13 @@
-# Introduction to md2vue
-
-You can get raw text of this document **[here](/AngusFu/md2vue/blob/master/test/common.md)**.
+# 简介
 
 > Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— [wikipedia](https://en.wikipedia.org/wiki/Markdown)
 
-## Inspiration
+## 说明
 
-Inspired by <a href="https://nuxtjs.org">nuxt</a>, [md2vue](https://github.com/AngusFu/md2vue) was initially aimed at transforming markdown texts in our Vue project, which were used both for documentation and demostration.
+灵感来自  <a href="https://nuxtjs.org">nuxt</a>。
 
-## Dev Dependencies
+
+## devDependencies
 
 - [marked](/chjj/marked): A markdown parser and compiler. Built for speed.
 - [highlight.js](https://github.com/isagalaev/highlight.js): Javascript syntax highlighter.
@@ -23,79 +22,85 @@ Inspired by <a href="https://nuxtjs.org">nuxt</a>, [md2vue](https://github.com/A
 - [highlight.js](https://github.com/isagalaev/highlight.js): Code highlighting.
 - [prism](https://github.com/PrismJS/prism): Code highlighting.
 
-## How to use
+## 使用
 
-API is simple, so just see the code below: 
+API 相当简单。直接看代码即可：
 
-```js
+```javascript
 import md2vue from 'md2vue'
 
-// your markdown text
-const sourceCode = `...`
+// markdown 文本
+const markdownText = `...`
 
-// configuration object
+// 配置
 const config = {
   target: 'js',
-  componentName: 'common-comp',
+  name: 'common-comp',
   highlight: 'prism',
-  customMarkups,
-  documentInfo
+  tool,
+  extend
 }
 
-// returns a promise
-// the resolved value would be a string
-const content = await md2vue(sourceCode, config)
+// 返回 promise
+const content = await md2vue(markdownText, config)
 ```
 
 
-## Explaination on config object
+## 配置字段
 
-Referring to [build-doc.js](./build-doc.js) or [spec file](./test/md2vue.spec.js) is suggested.
+### target
 
-### `.target`: String
+字符串。可选址值为 `vue` `js`。默认为 `vue`。
 
-Unless you specify this property to `js`, any other value will be treated as `vue`.
+使用 `vue` 时，生成结果是一个 SFC（single file component）。这种情况下，你可以将内容写入到一个 `.vue` 文件中。
 
-With this property beening `vue`, it means you will get .vue styled result. You can write the result to a single file with ".vue" extension for later use.
+使用 `js` 时，则会进一步将 SFC 编译为 JavaScript。你可以将结果写到一个 `.js` 文件中，并像下面这样引用：
 
-With this property beening `js`, you'll get a precompiled JavaScript result. You can write it to a ".js" file, and then do something like this:
+```javascript
+const MyComponent = require('my-component.js')
 
-```js
-const MyComponent = require('common-comp.js')
 Vue.use(MyComponent)
+
 new Vue({
   el: '#app',
   template: '<common-comp />'
 })
 ```
 
-### `.componentName`: String
 
-This property is required when the target is "js".
+### name
 
-### `.highlight`: String | Function
+字符串类型。注意，当 target 字段为 `js` 时，必须配置此字段。
 
-You can specify this property to 'highlight.js' or 'prism'.
 
-A function which accepts 2 arguments `code` and `language` is also accepted.
+### highlight
 
-### `.customMarkups`: String | Function
+使用何种工具进行代码高亮处理。
 
-Some custom markups you want to inject between the App block and source code block.
+可选值 `highlight.js` `prism`。默认为 `highlight.js`。
 
-### `.documentInfo`: Object
+当然，也可以传入一个函数，该函数接收两个参数：`code`, `language`
 
-Any stuff you want to provide for your vue component.
 
+### inject
+
+字符串或函数。将会插入到文档的 demo 与源码之间。
+
+
+### extend
+
+其他可以提供给 Vue 组件的内容，请传入 Plain Object。
 
 
 ## Demo
 
-All code blocks with language specified to `html` or `vue` are treated as Vue apps.
+所有语言类型设置为 `html` 和 `vue` 的代码块，就被视作 Vue app。
 
-But What if you want to demonstrate that code block just for its sake? Simply specify the language to `xml`.
+如果你真的只是需要展示代码，请将语言设置为 `xml`。
 
 The following code in vue can be rendered into an real tiny vue app:
+
+下面的代码将会渲染出真实效果：
 
 ```html
 <style>
@@ -129,7 +134,7 @@ The following code in vue can be rendered into an real tiny vue app:
 </script>
 ```
 
-You can also leave out `<template>` tags, just like this:
+其实也可以偷懒，不写 `<template>` 也是可以的。（这时候，template 的内容就是去掉 style 和 script 两部分之后剩余的内容。）示例如下：
 
 ```html
 <style>
@@ -151,7 +156,9 @@ You can also leave out `<template>` tags, just like this:
 </script>
 ```
 
-What if you only want the app without source code? Follow the code:
+问题来了，假如我真的只是想在页面中插入一个可交互的 tiny app，而不想展示源码，该怎么办？
+
+这时候，可以像下面一样，为 `<template>` 添加一个 `demo-only` 属性。
 
 ```xml
 <style>
@@ -175,8 +182,7 @@ What if you only want the app without source code? Follow the code:
 </script>
 ```
 
-Noticed the difference? Hmm, just wrap your template, append a `demo-only` attribute to it. So let's take a look:
-
+效果如下：
 
 ```html
 <style>
@@ -187,27 +193,6 @@ Noticed the difference? Hmm, just wrap your template, append a `demo-only` attri
 
 <template demo-only>
   <button @click="click">click me!</button>
-</template>
-
-<script>
-  export default {
-    methods: {
-      click() {
-        alert('clicked!')
-      }
-    }
-  }
-</script>
-```
-
-## Test
-
-```html
-<template>
-  <p>lorem
-    xxxxx
-  </p>
-  <input value="22222">
 </template>
 
 <script>
