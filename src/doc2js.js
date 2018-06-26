@@ -17,7 +17,7 @@ export default function ({ name, script, style }) {
     }
   }
   exports.created = function () {
-    var css = '${JSON.stringify(style)}'
+    var css = ${JSON.stringify(style)}
     this.__clean = insert(css)
   }
   exports.destroyed = function () {

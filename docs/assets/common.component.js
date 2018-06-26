@@ -133,7 +133,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     }
   }
   exports.created = function () {
-    var css = '".wrapper input[data-v-029571ac] {\n    width: 50px;\n    text-align: center;\n  }\nbutton[data-v-029571ad] {\n    font-size: 14px;\n  }\nbutton[data-v-029571ae] {\n    font-size: 14px;\n  }"'
+    var css = ".wrapper input[data-v-029571ac] {\n    width: 50px;\n    text-align: center;\n  }\nbutton[data-v-029571ad] {\n    font-size: 14px;\n  }\nbutton[data-v-029571ae] {\n    font-size: 14px;\n  }"
     this.__clean = insert(css)
   }
   exports.destroyed = function () {
