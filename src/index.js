@@ -48,7 +48,7 @@ export default async function (source, config = {}) {
       })
     })
   }
-  
+
   const content = doc2sfc({
     docInfo: extend,
     html: markup,
@@ -84,4 +84,3 @@ return module.exports;
 })({});
 `
 }
-

@@ -49,7 +49,7 @@ export default (source, config) => {
 
     let vue = `<template lang="html">
   <div class="vue-demo">
-${indent(template, )}
+${indent(template)}
   </div>
 </template>
 
