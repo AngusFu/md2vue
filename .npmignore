@@ -3,3 +3,4 @@ test/
 .vscode/
 rollup.config.js
 demo/
+docs/

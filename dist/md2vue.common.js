@@ -3,8 +3,8 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var nodent = _interopDefault(require('nodent'));
-var indent = _interopDefault(require('indent'));
 var inspectf = _interopDefault(require('inspect-f'));
+var indent = _interopDefault(require('indent'));
 var marked = _interopDefault(require('marked'));
 var hljs = _interopDefault(require('highlight.js'));
 var Prism = _interopDefault(require('prismjs'));
@@ -1846,14 +1846,40 @@ function toJSON(obj) {
     return JSON.stringify(obj);
 }
 
+var Module = require('module');
+var gunzipSync = require('zlib').gunzipSync;
+var join = require('path').join;
+var readFileSync = require('fs').readFileSync;
+var filename = join(__dirname, '../assets/prepack.min.js.gz');
+var content = gunzipSync(readFileSync(filename)).toString();
+var code = "\n" + content + "\nmodule.exports = Prepack\n";
+var mod = new Module(filename, module.parent);
+mod._compile(code, filename);
+var Prepack = mod.exports;
+
+var prepackSources = Prepack.prepackSources;
+var suffix = "\ntypeof exports === 'object' && typeof module !== 'undefined' && (module.exports = component);\ntypeof window !== void 0 && window.Vue && Vue.use(component);\n";
 var doc2js = function (ref) {
     var name = ref.name;
     var script = ref.script;
     var style = ref.style;
 
     var componentName = kebabCase(name);
-    var injectCSS = style && ("\n  var insert = function (css) {\n    if (typeof window === 'undefined' || typeof document === 'undefined') return;\n    var elem = document.createElement('style')\n    elem.setAttribute('type', 'text/css')\n    elem.innerHTML = css\n\n    var head = document.getElementsByTagName('head')[0]\n    head.appendChild(elem)\n    return function () {\n      head.removeChild(elem)\n    }\n  }\n  exports.created = function () {\n    var css = " + (JSON.stringify(style)) + "\n    this.__clean = insert(css)\n  }\n  exports.destroyed = function () {\n    this.__clean()\n  }\n");
-    return ("/* eslint-disable */\nvar moduleExports = (function (module) {\n  'use strict';\n" + script + "\n  var exports = module.exports\n  exports.name = \"" + componentName + "\"\n" + (injectCSS || '') + "\n  module.exports.install = function (Vue) {\n    Vue.component(exports.name, exports)\n  }\n  return module.exports;\n})({});\ntypeof exports === 'object' && typeof module !== 'undefined' && (module.exports = moduleExports);\ntypeof window !== void 0 && window.Vue && Vue.use(moduleExports);\nthis[\"" + (pascalCase(componentName)) + "\"] = moduleExports;\n");
+    var injectCSS = style && ("\nvar insert = function (css) {\n  if (typeof window === 'undefined' || typeof document === 'undefined') return;\n  var elem = document.createElement('style')\n  elem.setAttribute('type', 'text/css')\n  elem.innerHTML = css\n\n  var head = document.getElementsByTagName('head')[0]\n  head.appendChild(elem)\n  return function () {\n    head.removeChild(elem)\n  }\n}\nexports.created = function () {\n  var css = " + (JSON.stringify(style)) + "\n  this.__clean = insert(css)\n}\nexports.destroyed = function () {\n  this.__clean()\n}\n");
+    var varName = pascalCase(componentName);
+    var raw = "\n" + varName + " = (function (module) {\n" + script + "\nvar exports = module.exports\nexports.name = \"" + componentName + "\"\n" + (injectCSS || '') + "\nmodule.exports.install = function (Vue) {\n  Vue.component(exports.name, exports)\n}\nreturn module.exports;\n})({});\n";
+    var sources = [{
+        filePath: '',
+        sourceMapContents: '',
+        fileContents: raw
+    }];
+    var ref$1 = prepackSources(sources);
+    var code = ref$1.code;
+    var str = '}).call(this);';
+    var start = code.lastIndexOf('}).call(this);');
+    var end = start + str.length;
+    return ['var __proxy = {};\n',code.slice(0, start),'}).call(__proxy);',code.slice(end, -1),
+        ("var component = __proxy." + varName + ";"),suffix].join('\n');
 };
 
 var doc2sfc = function (arg) {
