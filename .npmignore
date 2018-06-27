@@ -5,4 +5,5 @@ rollup.config.js
 build-doc.js
 demo/
 docs/
-coverage
+coverage/
+.vscode/
