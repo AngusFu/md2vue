@@ -18,7 +18,7 @@ export function toJSON (obj) {
     let str = inspectf(2, obj)
 
     // prepend `function ` for short style like `a(){}`
-    if (/^function /.test(str) === false) {
+    if (!/\=\>/.test(str) && /^function /.test(str) === false) {
       str = 'function ' + str
     }
 
