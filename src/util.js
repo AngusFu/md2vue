@@ -1,9 +1,9 @@
 import inspectf from 'inspect-f'
 
-import kebabCase from 'lodash-es/kebabCase'
-import camelCase from 'lodash-es/camelCase'
-import upperFirst from 'lodash-es/upperFirst'
-import flowRight from 'lodash-es/flowRight'
+import kebabCase from 'lodash/kebabCase'
+import camelCase from 'lodash/camelCase'
+import upperFirst from 'lodash/upperFirst'
+import flowRight from 'lodash/flowRight'
 
 const pascalCase = flowRight(upperFirst, camelCase)
 

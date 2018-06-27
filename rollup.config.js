@@ -20,5 +20,10 @@ export default {
     nodent(),
     buble()
   ],
-  external: [...external, 'fs']
+  external (path) {
+    if (path.indexOf('lodash/') === 0) {
+      return true
+    }
+    return [...external, 'fs', 'path'].indexOf(path) > -1
+  }
 }

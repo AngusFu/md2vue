@@ -1,5 +1,5 @@
 import nodent from 'nodent'
-import map from 'lodash-es/map'
+import map from 'lodash/map'
 
 import doc2js from './doc2js'
 import doc2sfc from './doc2sfc'
