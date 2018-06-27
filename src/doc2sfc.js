@@ -1,5 +1,8 @@
 import indent from 'indent'
+import prettier from 'prettier'
+
 import { toJSON } from './util'
+
 export default function (arg) {
   const {
     html,
@@ -14,20 +17,28 @@ export default function (arg) {
 ${style}
 </style>` : ''
 
-  return `
-<template>
-  <article class="markdown-body">
+  const etended = prettify(`module.exports = ${toJSON(docInfo)};`)
+
+  return `<template>
+<article class="markdown-body">
 ${html}
-  </article >
+</article >
 </template>
 
 <script lang="buble">
 ${script}
-module.exports = ${toJSON(docInfo)};
+${etended}
 module.exports.components = {
 ${indent(components, 2)}
 }
 </script>
 ${stylePart}
 `
+}
+
+function prettify (code) {
+  return prettier.format(code, {
+    singleQuote: true,
+    parser: 'babylon'
+  })
 }

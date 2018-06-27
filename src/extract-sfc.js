@@ -1,5 +1,5 @@
-const reStyle = /<style>([\s\S]+)<\/style>/
-const reScript = /<script>([\s\S]+)<\/script>/
+const reStyle = /<style(|\s*[^>]+)>([\s\S]+)<\/style>/
+const reScript = /<script(|\s*[^>]+)>([\s\S]+)<\/script>/
 const reTemplate = /<template(|\s*[^>]+)>([\s\S]+)<\/template>/
 
 export default (code) => {
@@ -7,10 +7,14 @@ export default (code) => {
   const scriptMatch = reScript.exec(code)
   const templateMatch = reTemplate.exec(code)
 
-  const style = styleMatch ? styleMatch[1].trim() : ''
-  let script = scriptMatch ? scriptMatch[1].trim() : ''
+  const style = styleMatch ? styleMatch[2] : ''
+  const styleAttrs = styleMatch ? styleMatch[1].trim() : ''
+
+  let script = scriptMatch ? scriptMatch[2].trim() : ''
+  const scriptAttrs = scriptMatch ? scriptMatch[1].trim() : ''
+
   let template = templateMatch ? templateMatch[2].trim() : ''
-  const templateAttr = templateMatch ? templateMatch[1].trim() : ''
+  const templateAttrs = templateMatch ? templateMatch[1].trim() : ''
 
   // if `<template>` absent
   if (template === '') {
@@ -25,8 +29,13 @@ export default (code) => {
 
   return {
     style,
+    styleAttrs,
+
     script,
+    scriptAttrs,
+
     template,
-    demoOnly: templateAttr.indexOf('demo-only') > -1
+    templateAttrs,
+    demoOnly: templateAttrs.indexOf('demo-only') > -1
   }
 }

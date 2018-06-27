@@ -45,20 +45,32 @@ export default (source, config) => {
     }
 
     const tag = `md2vuedemo${(id++).toString(36)}`
-    const { style, script, template, demoOnly } = extractSFC(raw)
+    let {
+      style,
+      styleAttrs,
+      script,
+      scriptAttrs,
+      template,
+      templateAttrs,
+      demoOnly
+    } = extractSFC(raw)
 
-    let vue = `<template lang="html">
+    templateAttrs = templateAttrs || 'lang="html"'
+    scriptAttrs = scriptAttrs || 'lang="buble"'
+
+    let vue = `<template ${templateAttrs}>
   <div class="vue-demo">
 ${indent(template)}
   </div>
 </template>
 
-<script lang="buble">
+<script ${scriptAttrs}>
 ${script}
 </script>`
 
     if (style !== '') {
-      vue = `<style scoped>${style}</style>\n` + vue
+      styleAttrs = styleAttrs ? `${styleAttrs} ` : ''
+      vue = `<style ${styleAttrs}scoped>${style}</style>\n` + vue
     }
 
     demos.push({ tag, raw, vue })

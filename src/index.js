@@ -5,6 +5,7 @@ import doc2js from './doc2js'
 import doc2sfc from './doc2sfc'
 import transform from './transform'
 import vueCompiler from './compiler'
+import prepack from './prepack'
 
 // inject nodent support
 nodent()
@@ -78,9 +79,15 @@ function compileVue (content, path) {
 }
 
 function wrapVueCompiled ({ tagName, compiled }) {
-  return `var ${tagName} = (function (module) {
+  const code = `${tagName} = (function (module) {
 ${compiled}
-return module.exports;
+return module.exports
 })({});
 `
+  return prepack({
+    content: code,
+    prefix: `var ${tagName} = {};`,
+    suffix: `${tagName} = ${tagName}.${tagName};\n`,
+    globalName: tagName
+  })
 }

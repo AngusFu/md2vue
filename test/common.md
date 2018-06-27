@@ -98,39 +98,37 @@ new Vue({
 
 如果你真的只是需要展示代码，请将语言设置为 `xml`。
 
-The following code in vue can be rendered into an real tiny vue app:
-
-下面的代码将会渲染出真实效果：
+下面的代码将会渲染出可以运行的 demo：（当然，前提是你必须自行安装 stylus 和 pug 依赖）
 
 ```html
-<style>
-  .wrapper input {
+<style lang="stylus">
+.wrapper
+  input
     width: 50px;
     text-align: center;
-  }
 </style>
 
-<template>
-  <div class="wrapper">
-    <button @click="incr(-1)">-</button>
-    <input type="text" readonly :value="count">
-    <button @click="incr(+1)">+</button>
-  </div>
+<template lang="pug">
+.wrapper
+  button(@click="incr(-1)") -
+  input(type="text", readonly, :value="count")
+  button(@click="incr(+1)") +
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        count: 0
-      }
-    },
-    methods: {
-      incr(delta) {
-        this.count += delta
-      }
+<!--默认使用 buble 编译 JS-->
+<script lang="buble">
+export default {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  methods: {
+    incr(delta) {
+      this.count += delta
     }
   }
+}
 </script>
 ```
 

@@ -17,6 +17,7 @@
     "lodash-es": "^4.17.10",
     "marked": "^0.3.6",
     "nodent": "^3.2.6",
+    "prettier": "^1.13.6",
     "prismjs": "^1.8.4",
     "vueify": "^9.4.1"
   },
@@ -30,7 +31,13 @@
   },
   "scripts": {
     "watch-build": "rollup -c rollup.config.js -w",
-    "build": "rollup -c rollup.config.js",
+    "build": "rollup -c rollup.config.js && node ./build-doc.js",
     "test": "jest --coverage"
+  },
+  "optionalDependencies": {
+    "less": "^3.0.4",
+    "node-sass": "^4.9.0",
+    "pug": "^2.0.3",
+    "stylus": "^0.54.5"
   }
 }
