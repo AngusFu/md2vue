@@ -1,3 +1,7 @@
+/**
+ * markdown 转换成 vue sfc 之后
+ * 进一步将其编译为 JavaScript 代码
+ */
 import { kebabCase, pascalCase } from './util'
 import prepack from './prepack'
 

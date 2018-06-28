@@ -44,3 +44,16 @@ it('transforms markdown file correctly', async () => {
   expect(js).toMatchSnapshot()
 })
 
+it('uses remark plugins correctly', async () => {
+  const fn = jest.fn()
+
+  await md2vue(source, {
+    target: 'vue',
+    remarkPlugins: [
+      _ => fn,
+      [fn, {}]
+    ]
+  })
+
+  expect(fn.mock.calls.length).toBe(2)
+})

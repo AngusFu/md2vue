@@ -1,3 +1,6 @@
+/**
+ * 将 markdown 文本转换为 Vue SFC
+ */
 import indent from 'indent'
 import prettier from 'prettier'
 

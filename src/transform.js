@@ -1,67 +1,68 @@
-import marked from 'marked'
 import indent from 'indent'
+import isFunction from 'lodash/isFunction'
+
+import { defer } from './util'
 import extractSFC from './extract-sfc'
-import getRenderer from './renderer'
 
 import highlightJs from './highlight/hljs'
 import prism from './highlight/prism'
+
+const remark = require('remark')
+const html = require('remark-html')
+const visit = require('unist-util-visit')
 
 const highlightMap = {
   prism,
   'highlight.js': highlightJs
 }
 
-const renderer = getRenderer()
-const FIX_VUE = /<span class="hljs-tag">&lt;\/</g
-const FIXTURE = '<span class="hljs-tag"><span>&lt;</span>/<'
-const fix = code => code.replace(FIX_VUE, FIXTURE)
+const wrapCode = (code, lang) => {
+  return `<pre v-pre class="lang-${lang}"><code>${code}</code></pre>`
+}
+
+const highlight = hl => node => {
+  let fn = null
+  if (isFunction(hl)) {
+    fn = hl
+  } else if (highlightMap[hl]) {
+    fn = highlightMap[hl]
+  } else {
+    throw new Error('Invalid highlight option!')
+  }
+
+  return fn(node.value, node.lang)
+}
 
 export default (source, config) => {
   let id = 0
-  const demos = []
-  renderer.code = code
-  const markup = marked(source, { renderer })
-  return { demos, markup }
+  const appComponents = []
+  const hl = highlight(config.highlight)
+  const { inject, remarkPlugins } = config
 
-  function code (raw, language) {
-    const { highlight } = config
+  const codeVisitor = node => {
+    const { lang, value } = node
+    const highlighted = hl(node)
 
-    let fn = null
-
-    if (typeof highlight === 'function') {
-      fn = highlight
-    } else if (highlightMap[highlight]) {
-      fn = highlightMap[highlight]
-    } else {
-      throw new Error('Invalid highlight option!')
-    }
-
-    const lang = language === 'vue' ? 'html' : language
-    const markup = fn(raw, lang)
-
-    // TODO: 优化判断条件
     if (lang !== 'html') {
-      return wrapHljsCode(fix(markup), lang)
+      node.type = 'html'
+      node.value = wrapCode(highlighted, lang)
+      return
     }
 
-    const tag = `md2vuedemo${(id++).toString(36)}`
     let {
-      style,
-      styleAttrs,
-      script,
-      scriptAttrs,
-      template,
-      templateAttrs,
-      demoOnly
-    } = extractSFC(raw)
+      style, styleAttrs,
+      script, scriptAttrs,
+      template, templateAttrs, demoOnly
+    } = extractSFC(value)
 
-    templateAttrs = templateAttrs || 'lang="html"'
     scriptAttrs = scriptAttrs || 'lang="buble"'
+    templateAttrs = templateAttrs || 'lang="html"'
 
-    let vue = `<template ${templateAttrs}>
-  <div class="vue-demo">
+    let sfc = `
+<template ${templateAttrs}>
+<div class="vue-demo">
 ${indent(template)}
-  </div>
+</div>
 </template>
 
 <script ${scriptAttrs}>
@@ -70,38 +71,46 @@ ${script}
 
     if (style !== '') {
       styleAttrs = styleAttrs ? `${styleAttrs} ` : ''
-      vue = `<style ${styleAttrs}scoped>${style}</style>\n` + vue
+      sfc = `<style ${styleAttrs}scoped>${style}</style>\n` + sfc
     }
 
-    demos.push({ tag, raw, vue })
+    const tag = `md2vuedemo${(id++).toString(36)}`
+    let className = 'vue-demo-block'
 
-    const { inject } = config
-    let injection = ''
-    let sourceCode = ''
-
-    if (!demoOnly) {
-      if (typeof inject === 'function') {
-        injection = inject()
-      } else if (typeof inject === 'string') {
-        injection = inject
-      }
-
-      sourceCode = wrapHljsCode(fix(markup), lang)
+    if (demoOnly) {
+      className += ' vue-demo-block-demo-only'
     }
 
-    const demoApp = `<${tag}></${tag}>`
-    const klass = demoOnly ? 'vue-demo-block vue-demo-block-demo-only' : 'vue-demo-block'
-
-    return `
-<div class="${klass}">
-${demoApp}
-${injection}
-${sourceCode}
+    node.type = 'html'
+    node.value = `
+<div class="${className}">
+<${tag}></${tag}>
+${demoOnly ? '' : (isFunction(inject) ? inject() : inject)}
+${demoOnly ? '' : wrapCode(highlighted, lang)}
 </div>
 `
+    appComponents.push({
+      tag,
+      vue: sfc
+    })
   }
-}
 
-function wrapHljsCode (code, lang) {
-  return `<pre v-pre class="lang-${lang}"><code>${code}</code></pre>`
+  const deferred = defer()
+  let transform = remark()
+    .use(html)
+    .use(remarkPlugins)
+    .use(() => ast => visit(ast, 'code', codeVisitor))
+
+  transform.process(source, (err, file) => {
+    if (err) {
+      deferred.reject(err)
+    } else {
+      deferred.resolve({
+        appComponents,
+        html: String(file)
+      })
+    }
+  })
+
+  return deferred.promise
 }

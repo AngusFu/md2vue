@@ -4,12 +4,11 @@
 
 ## 说明
 
-灵感来自  <a href="https://nuxtjs.org">nuxt</a>。
-
+最初灵感来自 <a href="https://nuxtjs.org">nuxt</a>。
 
 ## devDependencies
 
-- [marked](/chjj/marked): A markdown parser and compiler. Built for speed.
+- [remark](/remarkjs/remark): Remark is an ecosystem of plugins for processing markdown.
 - [highlight.js](https://github.com/isagalaev/highlight.js): Javascript syntax highlighter.
 - [prism](https://github.com/PrismJS/prism): Javascript syntax highlighter.
 - [vueify](https://github.com/vuejs/vueify): Browserify transform for single-file Vue components
@@ -37,7 +36,7 @@ const config = {
   target: 'js',
   name: 'common-comp',
   highlight: 'prism',
-  tool,
+  inject,
   extend
 }
 
@@ -48,7 +47,7 @@ const content = await md2vue(markdownText, config)
 
 ## 配置字段
 
-### target
+#### `config.target`
 
 字符串。可选址值为 `vue` `js`。默认为 `vue`。
 
@@ -67,13 +66,11 @@ new Vue({
 })
 ```
 
+#### `config.name`
 
-### name
+字符串类型。注意，当 target 字段为 `js` 时，必须配置此字段，表示 Vue 组件名称。
 
-字符串类型。注意，当 target 字段为 `js` 时，必须配置此字段。
-
-
-### highlight
+#### `config.highlight`
 
 使用何种工具进行代码高亮处理。
 
@@ -81,22 +78,35 @@ new Vue({
 
 当然，也可以传入一个函数，该函数接收两个参数：`code`, `language`
 
+#### `config.inject`
 
-### inject
+字符串或函数。将会插入到文档的可运行 demo 与源码之间。
 
-字符串或函数。将会插入到文档的 demo 与源码之间。
+#### `config.extend`
 
+其他可以提供给 Vue 文档的内容，请传入 Plain Object。 下面的例子就插入了一个生命周期函数：
 
-### extend
+```javascript
+extend: {
+  created () {
+    console.log('created...')
+  }
+}
+```
 
-其他可以提供给 Vue 组件的内容，请传入 Plain Object。
+#### `config.remarkPlugins`
 
+从 v4.0 开始，md2vue 采用 remark 作为 markdown 转换工具。
 
-## Demo
+`config.remarkPlugins` 为数组，其中每个元素都是一个 remark 插件函数。
 
-所有语言类型设置为 `html` 和 `vue` 的代码块，就被视作 Vue app。
+## 说明
 
-如果你真的只是需要展示代码，请将语言设置为 `xml`。
+1. 所有语言类型设置为 `html` 的代码块将会被视为可运行的 Vue demo
+
+2. 如果你真的只是需要展示代码，请将语言设置为 `xml`
+
+## 演示
 
 下面的代码将会渲染出可以运行的 demo：（当然，前提是你必须自行安装 stylus 和 pug 依赖）
 

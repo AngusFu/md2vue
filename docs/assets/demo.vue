@@ -1,23 +1,28 @@
 <template>
 <article class="markdown-body">
-<h1>简介</h1><blockquote>
+<h1>简介</h1>
+<blockquote>
 <p>Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank">wikipedia</a></p>
 </blockquote>
-<h2>说明</h2><p>灵感来自  <a href="https://nuxtjs.org">nuxt</a>。</p>
-<h2>devDependencies</h2><ul>
-<li><a href="/chjj/marked">marked</a>: A markdown parser and compiler. Built for speed.</li>
+<h2>说明</h2>
+<p>最初灵感来自 <a href="https://nuxtjs.org">nuxt</a>。</p>
+<h2>devDependencies</h2>
+<ul>
+<li><a href="/remarkjs/remark">remark</a>: Remark is an ecosystem of plugins for processing markdown.</li>
 <li><a href="https://github.com/isagalaev/highlight.js" target="_blank">highlight.js</a>: Javascript syntax highlighter.</li>
 <li><a href="https://github.com/PrismJS/prism" target="_blank">prism</a>: Javascript syntax highlighter.</li>
 <li><a href="https://github.com/vuejs/vueify" target="_blank">vueify</a>: Browserify transform for single-file Vue components</li>
 <li><a href="https://github.com/rollup/rollup" target="_blank">rollup</a>: Next-generation ES6 module bundler.</li>
 <li><a href="https://buble.surge.sh/" target="_blank">buble</a>: The blazing fast, batteries-included ES2015 compiler.</li>
 </ul>
-<h2>Typography &amp; UI</h2><ul>
+<h2>Typography &#x26; UI</h2>
+<ul>
 <li><a href="https://github.com/sindresorhus/github-markdown-css" target="_blank">github-markdown-css</a>: The minimal amount of CSS to replicate the GitHub Markdown style.</li>
 <li><a href="https://github.com/isagalaev/highlight.js" target="_blank">highlight.js</a>: Code highlighting.</li>
 <li><a href="https://github.com/PrismJS/prism" target="_blank">prism</a>: Code highlighting.</li>
 </ul>
-<h2>使用</h2><p>API 相当简单。直接看代码即可：</p>
+<h2>使用</h2>
+<p>API 相当简单。直接看代码即可：</p>
 <pre v-pre class="lang-javascript"><code><span class="token keyword">import</span> md2vue <span class="token keyword">from</span> <span class="token string">'md2vue'</span>
 
 <span class="token comment">// markdown 文本</span>
@@ -28,12 +33,15 @@
   target<span class="token punctuation">:</span> <span class="token string">'js'</span><span class="token punctuation">,</span>
   name<span class="token punctuation">:</span> <span class="token string">'common-comp'</span><span class="token punctuation">,</span>
   highlight<span class="token punctuation">:</span> <span class="token string">'prism'</span><span class="token punctuation">,</span>
-  tool<span class="token punctuation">,</span>
+  inject<span class="token punctuation">,</span>
   extend
 <span class="token punctuation">}</span>
 
 <span class="token comment">// 返回 promise</span>
-<span class="token keyword">const</span> content <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">md2vue</span><span class="token punctuation">(</span>markdownText<span class="token punctuation">,</span> config<span class="token punctuation">)</span></code></pre><h2>配置字段</h2><h3>target</h3><p>字符串。可选址值为 <code>vue</code> <code>js</code>。默认为 <code>vue</code>。</p>
+<span class="token keyword">const</span> content <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">md2vue</span><span class="token punctuation">(</span>markdownText<span class="token punctuation">,</span> config<span class="token punctuation">)</span></code></pre>
+<h2>配置字段</h2>
+<h4><code>config.target</code></h4>
+<p>字符串。可选址值为 <code>vue</code> <code>js</code>。默认为 <code>vue</code>。</p>
 <p>使用 <code>vue</code> 时，生成结果是一个 SFC（single file component）。这种情况下，你可以将内容写入到一个 <code>.vue</code> 文件中。</p>
 <p>使用 <code>js</code> 时，则会进一步将 SFC 编译为 JavaScript。你可以将结果写到一个 <code>.js</code> 文件中，并像下面这样引用：</p>
 <pre v-pre class="lang-javascript"><code><span class="token keyword">const</span> MyComponent <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'my-component.js'</span><span class="token punctuation">)</span>
@@ -43,14 +51,35 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   el<span class="token punctuation">:</span> <span class="token string">'#app'</span><span class="token punctuation">,</span>
   template<span class="token punctuation">:</span> <span class="token string">'&lt;common-comp />'</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre><h3>name</h3><p>字符串类型。注意，当 target 字段为 <code>js</code> 时，必须配置此字段。</p>
-<h3>highlight</h3><p>使用何种工具进行代码高亮处理。</p>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+<h4><code>config.name</code></h4>
+<p>字符串类型。注意，当 target 字段为 <code>js</code> 时，必须配置此字段，表示 Vue 组件名称。</p>
+<h4><code>config.highlight</code></h4>
+<p>使用何种工具进行代码高亮处理。</p>
 <p>可选值 <code>highlight.js</code> <code>prism</code>。默认为 <code>highlight.js</code>。</p>
 <p>当然，也可以传入一个函数，该函数接收两个参数：<code>code</code>, <code>language</code></p>
-<h3>inject</h3><p>字符串或函数。将会插入到文档的 demo 与源码之间。</p>
-<h3>extend</h3><p>其他可以提供给 Vue 组件的内容，请传入 Plain Object。</p>
-<h2>Demo</h2><p>所有语言类型设置为 <code>html</code> 和 <code>vue</code> 的代码块，就被视作 Vue app。</p>
-<p>如果你真的只是需要展示代码，请将语言设置为 <code>xml</code>。</p>
+<h4><code>config.inject</code></h4>
+<p>字符串或函数。将会插入到文档的可运行 demo 与源码之间。</p>
+<h4><code>config.extend</code></h4>
+<p>其他可以提供给 Vue 文档的内容，请传入 Plain Object。 下面的例子就插入了一个生命周期函数：</p>
+<pre v-pre class="lang-javascript"><code>extend<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token function">created</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'created...'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h4><code>config.remarkPlugins</code></h4>
+<p>从 v4.0 开始，md2vue 采用 remark 作为 markdown 转换工具。</p>
+<p><code>config.remarkPlugins</code> 为数组，其中每个元素都是一个 remark 插件函数。</p>
+<h2>说明</h2>
+<ol>
+<li>
+<p>所有语言类型设置为 <code>html</code> 的代码块将会被视为可运行的 Vue demo</p>
+</li>
+<li>
+<p>如果你真的只是需要展示代码，请将语言设置为 <code>xml</code></p>
+</li>
+</ol>
+<h2>演示</h2>
 <p>下面的代码将会渲染出可以运行的 demo：（当然，前提是你必须自行安装 stylus 和 pug 依赖）</p>
 
 <div class="vue-demo-block">
@@ -86,7 +115,8 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
 <span class="token punctuation">}</span>
 </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre>
 </div>
-<p>其实也可以偷懒，不写 <code>&lt;template&gt;</code> 也是可以的。（这时候，template 的内容就是去掉 style 和 script 两部分之后剩余的内容。）示例如下：</p>
+
+<p>其实也可以偷懒，不写 <code>&#x3C;template></code> 也是可以的。（这时候，template 的内容就是去掉 style 和 script 两部分之后剩余的内容。）示例如下：</p>
 
 <div class="vue-demo-block">
 <md2vuedemo1></md2vuedemo1>
@@ -109,8 +139,9 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
   <span class="token punctuation">}</span>
 </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre>
 </div>
+
 <p>问题来了，假如我真的只是想在页面中插入一个可交互的 tiny app，而不想展示源码，该怎么办？</p>
-<p>这时候，可以像下面一样，为 <code>&lt;template&gt;</code> 添加一个 <code>demo-only</code> 属性。</p>
+<p>这时候，可以像下面一样，为 <code>&#x3C;template></code> 添加一个 <code>demo-only</code> 属性。</p>
 <pre v-pre class="lang-xml"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
   <span class="token selector">button</span> <span class="token punctuation">{</span>
     <span class="token property">font-size</span><span class="token punctuation">:</span> 14px<span class="token punctuation">;</span>
@@ -129,7 +160,8 @@ Vue<span class="token punctuation">.</span><span class="token function">use</spa
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre><p>效果如下：</p>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre>
+<p>效果如下：</p>
 
 <div class="vue-demo-block vue-demo-block-demo-only">
 <md2vuedemo2></md2vuedemo2>
@@ -297,6 +329,9 @@ module.exports = {
         console.log(el);
       }
     }
+  },
+  created: function created() {
+    console.log('document created...');
   }
 };
 

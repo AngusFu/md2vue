@@ -1,3 +1,6 @@
+/**
+ * 用于从 Vue SFC 代码块中提取出不同部分
+ */
 const reStyle = /<style(|\s*[^>]+)>([\s\S]+)<\/style>/
 const reScript = /<script(|\s*[^>]+)>([\s\S]+)<\/script>/
 const reTemplate = /<template(|\s*[^>]+)>([\s\S]+)<\/template>/

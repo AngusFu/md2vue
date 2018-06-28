@@ -18,7 +18,7 @@ export function toJSON (obj) {
     let str = inspectf(2, obj)
 
     // prepend `function ` for short style like `a(){}`
-    if (!/\=\>/.test(str) && /^function /.test(str) === false) {
+    if (!/=>/.test(str) && /^function /.test(str) === false) {
       str = 'function ' + str
     }
 
@@ -31,4 +31,14 @@ export function toJSON (obj) {
   }
 
   return JSON.stringify(obj)
+}
+
+export function defer () {
+  const deferred = {}
+  const promise = new Promise((resolve, reject) => {
+    deferred.resolve = resolve
+    deferred.reject = reject
+  })
+  deferred.promise = promise
+  return deferred
 }

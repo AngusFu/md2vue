@@ -22,8 +22,25 @@ const extend = {
         console.log(el)
       }
     }
+  },
+  created () {
+    console.log('document created...')
   }
 }
+
+const remarkPlugins = [
+  () => ast => {
+    require('unist-util-visit')(ast, 'link', node => {
+      if (/^https?:/.test(node.url)) {
+        node.data = {
+          hProperties: {
+            target: '_blank'
+          }
+        }
+      }
+    })
+  }
+]
 
 ;(async () => {
   /**
@@ -33,7 +50,8 @@ const extend = {
     target: 'vue',
     highlight: 'prism',
     extend,
-    inject
+    inject,
+    remarkPlugins
   })
 
   /**
@@ -44,7 +62,8 @@ const extend = {
     target: 'js',
     highlight: 'prism',
     extend,
-    inject
+    inject,
+    remarkPlugins
   })
 
   if (dest) {

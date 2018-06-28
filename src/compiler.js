@@ -1,5 +1,6 @@
 import { compiler as vueCompiler } from 'vueify'
 import StyleBundler from './style-bundler'
+import { defer } from './util'
 
 vueCompiler.applyConfig({
   extractCSS: true,
@@ -55,13 +56,3 @@ vueCompiler.compilePromise = (content = '', filePath = '') => {
 }
 
 export default vueCompiler
-
-function defer () {
-  const deferred = {}
-  const promise = new Promise((resolve, reject) => {
-    deferred.resolve = resolve
-    deferred.reject = reject
-  })
-  deferred.promise = promise
-  return deferred
-}
