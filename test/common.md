@@ -1,10 +1,10 @@
-# 简介
-
-> Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— [wikipedia](https://en.wikipedia.org/wiki/Markdown)
+# [md2vue](https://github.com/AngusFu/md2vue)
 
 ## 说明
 
 最初灵感来自 <a href="https://nuxtjs.org">nuxt</a>。
+
+> Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— [wikipedia](https://en.wikipedia.org/wiki/Markdown)
 
 ## devDependencies
 
