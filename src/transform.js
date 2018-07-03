@@ -41,8 +41,15 @@ export default (source, config) => {
 
   const codeVisitor = node => {
     const { lang, value } = node
-    const highlighted = hl(node)
 
+    // for inline html
+    // FIXME: look for better condition
+    if (lang === null) {
+      node.type = 'html'
+      return
+    }
+
+    const highlighted = hl(node)
     if (lang !== 'html') {
       node.type = 'html'
       node.value = wrapCode(highlighted, lang)
