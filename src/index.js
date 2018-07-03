@@ -13,7 +13,8 @@ nodent()
 
 const defaults = {
   target: 'vue',
-  highlight: 'highlight.js'
+  highlight: 'highlight.js',
+  inject: ''
 }
 
 export default async function (source, config = {}) {
