@@ -1,11 +1,11 @@
 <template>
 <article class="markdown-body">
-<h1>简介</h1>
+<h1><a href="https://github.com/AngusFu/md2vue" target="_blank">md2vue</a></h1>
+<h2>说明</h2>
+<p>最初灵感来自 <a href="https://nuxtjs.org">nuxt</a>。</p>
 <blockquote>
 <p>Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank">wikipedia</a></p>
 </blockquote>
-<h2>说明</h2>
-<p>最初灵感来自 <a href="https://nuxtjs.org">nuxt</a>。</p>
 <h2>devDependencies</h2>
 <ul>
 <li><a href="/remarkjs/remark">remark</a>: Remark is an ecosystem of plugins for processing markdown.</li>

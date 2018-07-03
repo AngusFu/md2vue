@@ -105,7 +105,7 @@ var __proxy = {};
 
     return _c('article', {
       staticClass: "markdown-body"
-    }, [_c('h1', [_vm._v("简介")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('h2', [_vm._v("说明")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('h2', [_vm._v("devDependencies")]), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('h2', [_vm._v("Typography & UI")]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('h2', [_vm._v("使用")]), _vm._v(" "), _c('p', [_vm._v("API 相当简单。直接看代码即可：")]), _vm._v(" "), _vm._m(4), _vm._v(" "), _c('h2', [_vm._v("配置字段")]), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._m(6), _vm._v(" "), _vm._m(7), _vm._v(" "), _vm._m(8), _vm._v(" "), _vm._m(9), _vm._v(" "), _vm._m(10), _vm._v(" "), _vm._m(11), _vm._v(" "), _vm._m(12), _vm._v(" "), _c('p', [_vm._v("使用何种工具进行代码高亮处理。")]), _vm._v(" "), _vm._m(13), _vm._v(" "), _vm._m(14), _vm._v(" "), _vm._m(15), _vm._v(" "), _c('p', [_vm._v("字符串或函数。将会插入到文档的可运行 demo 与源码之间。")]), _vm._v(" "), _vm._m(16), _vm._v(" "), _c('p', [_vm._v("其他可以提供给 Vue 文档的内容，请传入 Plain Object。 下面的例子就插入了一个生命周期函数：")]), _vm._v(" "), _vm._m(17), _vm._v(" "), _vm._m(18), _vm._v(" "), _c('p', [_vm._v("从 v4.0 开始，md2vue 采用 remark 作为 markdown 转换工具。")]), _vm._v(" "), _vm._m(19), _vm._v(" "), _c('h2', [_vm._v("说明")]), _vm._v(" "), _vm._m(20), _vm._v(" "), _c('h2', [_vm._v("演示")]), _vm._v(" "), _c('p', [_vm._v("下面的代码将会渲染出可以运行的 demo：（当然，前提是你必须自行安装 stylus 和 pug 依赖）")]), _vm._v(" "), _c('div', {
+    }, [_vm._m(0), _vm._v(" "), _c('h2', [_vm._v("说明")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('h2', [_vm._v("devDependencies")]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('h2', [_vm._v("Typography & UI")]), _vm._v(" "), _vm._m(4), _vm._v(" "), _c('h2', [_vm._v("使用")]), _vm._v(" "), _c('p', [_vm._v("API 相当简单。直接看代码即可：")]), _vm._v(" "), _vm._m(5), _vm._v(" "), _c('h2', [_vm._v("配置字段")]), _vm._v(" "), _vm._m(6), _vm._v(" "), _vm._m(7), _vm._v(" "), _vm._m(8), _vm._v(" "), _vm._m(9), _vm._v(" "), _vm._m(10), _vm._v(" "), _vm._m(11), _vm._v(" "), _vm._m(12), _vm._v(" "), _vm._m(13), _vm._v(" "), _c('p', [_vm._v("使用何种工具进行代码高亮处理。")]), _vm._v(" "), _vm._m(14), _vm._v(" "), _vm._m(15), _vm._v(" "), _vm._m(16), _vm._v(" "), _c('p', [_vm._v("字符串或函数。将会插入到文档的可运行 demo 与源码之间。")]), _vm._v(" "), _vm._m(17), _vm._v(" "), _c('p', [_vm._v("其他可以提供给 Vue 文档的内容，请传入 Plain Object。 下面的例子就插入了一个生命周期函数：")]), _vm._v(" "), _vm._m(18), _vm._v(" "), _vm._m(19), _vm._v(" "), _c('p', [_vm._v("从 v4.0 开始，md2vue 采用 remark 作为 markdown 转换工具。")]), _vm._v(" "), _vm._m(20), _vm._v(" "), _c('h2', [_vm._v("说明")]), _vm._v(" "), _vm._m(21), _vm._v(" "), _c('h2', [_vm._v("演示")]), _vm._v(" "), _c('p', [_vm._v("下面的代码将会渲染出可以运行的 demo：（当然，前提是你必须自行安装 stylus 和 pug 依赖）")]), _vm._v(" "), _c('div', {
       staticClass: "vue-demo-block"
     }, [_c('md2vuedemo0'), _vm._v(" "), _c('input', {
       attrs: {
@@ -116,7 +116,7 @@ var __proxy = {};
       attrs: {
         "for": "vue-demo-1335"
       }
-    }), _vm._v(" "), _vm._m(21)], 1), _vm._v(" "), _vm._m(22), _vm._v(" "), _c('div', {
+    }), _vm._v(" "), _vm._m(22)], 1), _vm._v(" "), _vm._m(23), _vm._v(" "), _c('div', {
       staticClass: "vue-demo-block"
     }, [_c('md2vuedemo1'), _vm._v(" "), _c('input', {
       attrs: {
@@ -127,7 +127,7 @@ var __proxy = {};
       attrs: {
         "for": "vue-demo-1336"
       }
-    }), _vm._v(" "), _vm._m(23)], 1), _vm._v(" "), _c('p', [_vm._v("问题来了，假如我真的只是想在页面中插入一个可交互的 tiny app，而不想展示源码，该怎么办？")]), _vm._v(" "), _vm._m(24), _vm._v(" "), _vm._m(25), _vm._v(" "), _c('p', [_vm._v("效果如下：")]), _vm._v(" "), _c('div', {
+    }), _vm._v(" "), _vm._m(24)], 1), _vm._v(" "), _c('p', [_vm._v("问题来了，假如我真的只是想在页面中插入一个可交互的 tiny app，而不想展示源码，该怎么办？")]), _vm._v(" "), _vm._m(25), _vm._v(" "), _vm._m(26), _vm._v(" "), _c('p', [_vm._v("效果如下：")]), _vm._v(" "), _c('div', {
       staticClass: "vue-demo-block vue-demo-block-demo-only"
     }, [_c('md2vuedemo2')], 1)]);
   };
@@ -139,12 +139,12 @@ var __proxy = {};
 
     var _c = _vm._self._c || _h;
 
-    return _c('blockquote', [_c('p', [_vm._v("Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— "), _c('a', {
+    return _c('h1', [_c('a', {
       attrs: {
-        "href": "https://en.wikipedia.org/wiki/Markdown",
+        "href": "https://github.com/AngusFu/md2vue",
         "target": "_blank"
       }
-    }, [_vm._v("wikipedia")])])]);
+    }, [_vm._v("md2vue")])]);
   };
 
   var _b = function () {
@@ -162,6 +162,21 @@ var __proxy = {};
   };
 
   var _d = function () {
+    var _vm = this;
+
+    var _h = _vm.$createElement;
+
+    var _c = _vm._self._c || _h;
+
+    return _c('blockquote', [_c('p', [_vm._v("Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. —— "), _c('a', {
+      attrs: {
+        "href": "https://en.wikipedia.org/wiki/Markdown",
+        "target": "_blank"
+      }
+    }, [_vm._v("wikipedia")])])]);
+  };
+
+  var _e = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -200,7 +215,7 @@ var __proxy = {};
     }, [_vm._v("buble")]), _vm._v(": The blazing fast, batteries-included ES2015 compiler.")])]);
   };
 
-  var _e = function () {
+  var _f = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -225,7 +240,7 @@ var __proxy = {};
     }, [_vm._v("prism")]), _vm._v(": Code highlighting.")])]);
   };
 
-  var _f = function () {
+  var _g = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -364,7 +379,7 @@ var __proxy = {};
     }, [_vm._v(")")])])]);
   };
 
-  var _g = function () {
+  var _i = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -374,7 +389,7 @@ var __proxy = {};
     return _c('h4', [_c('code', [_vm._v("config.target")])]);
   };
 
-  var _i = function () {
+  var _j = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -384,7 +399,7 @@ var __proxy = {};
     return _c('p', [_vm._v("字符串。可选址值为 "), _c('code', [_vm._v("vue")]), _vm._v(" "), _c('code', [_vm._v("js")]), _vm._v("。默认为 "), _c('code', [_vm._v("vue")]), _vm._v("。")]);
   };
 
-  var _j = function () {
+  var _k = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -394,7 +409,7 @@ var __proxy = {};
     return _c('p', [_vm._v("使用 "), _c('code', [_vm._v("vue")]), _vm._v(" 时，生成结果是一个 SFC（single file component）。这种情况下，你可以将内容写入到一个 "), _c('code', [_vm._v(".vue")]), _vm._v(" 文件中。")]);
   };
 
-  var _k = function () {
+  var _l = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -404,7 +419,7 @@ var __proxy = {};
     return _c('p', [_vm._v("使用 "), _c('code', [_vm._v("js")]), _vm._v(" 时，则会进一步将 SFC 编译为 JavaScript。你可以将结果写到一个 "), _c('code', [_vm._v(".js")]), _vm._v(" 文件中，并像下面这样引用：")]);
   };
 
-  var _l = function () {
+  var _n = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -503,7 +518,7 @@ var __proxy = {};
     }, [_vm._v(")")])])]);
   };
 
-  var _n = function () {
+  var _o = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -513,7 +528,7 @@ var __proxy = {};
     return _c('h4', [_c('code', [_vm._v("config.name")])]);
   };
 
-  var _o = function () {
+  var _p = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -523,7 +538,7 @@ var __proxy = {};
     return _c('p', [_vm._v("字符串类型。注意，当 target 字段为 "), _c('code', [_vm._v("js")]), _vm._v(" 时，必须配置此字段，表示 Vue 组件名称。")]);
   };
 
-  var _p = function () {
+  var _q = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -533,7 +548,7 @@ var __proxy = {};
     return _c('h4', [_c('code', [_vm._v("config.highlight")])]);
   };
 
-  var _q = function () {
+  var _r = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -543,7 +558,7 @@ var __proxy = {};
     return _c('p', [_vm._v("可选值 "), _c('code', [_vm._v("highlight.js")]), _vm._v(" "), _c('code', [_vm._v("prism")]), _vm._v("。默认为 "), _c('code', [_vm._v("highlight.js")]), _vm._v("。")]);
   };
 
-  var _r = function () {
+  var _s = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -553,7 +568,7 @@ var __proxy = {};
     return _c('p', [_vm._v("当然，也可以传入一个函数，该函数接收两个参数："), _c('code', [_vm._v("code")]), _vm._v(", "), _c('code', [_vm._v("language")])]);
   };
 
-  var _s = function () {
+  var _t = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -563,7 +578,7 @@ var __proxy = {};
     return _c('h4', [_c('code', [_vm._v("config.inject")])]);
   };
 
-  var _t = function () {
+  var _u = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -573,7 +588,7 @@ var __proxy = {};
     return _c('h4', [_c('code', [_vm._v("config.extend")])]);
   };
 
-  var _u = function () {
+  var _w = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -640,7 +655,7 @@ var __proxy = {};
     }, [_vm._v("}")])])]);
   };
 
-  var _w = function () {
+  var _x = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -650,7 +665,7 @@ var __proxy = {};
     return _c('h4', [_c('code', [_vm._v("config.remarkPlugins")])]);
   };
 
-  var _x = function () {
+  var _y = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -660,7 +675,7 @@ var __proxy = {};
     return _c('p', [_c('code', [_vm._v("config.remarkPlugins")]), _vm._v(" 为数组，其中每个元素都是一个 remark 插件函数。")]);
   };
 
-  var _y = function () {
+  var _z = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -670,7 +685,7 @@ var __proxy = {};
     return _c('ol', [_c('li', [_c('p', [_vm._v("所有语言类型设置为 "), _c('code', [_vm._v("html")]), _vm._v(" 的代码块将会被视为可运行的 Vue demo")])]), _vm._v(" "), _c('li', [_c('p', [_vm._v("如果你真的只是需要展示代码，请将语言设置为 "), _c('code', [_vm._v("xml")])])])]);
   };
 
-  var _z = function () {
+  var _10 = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -981,7 +996,7 @@ var __proxy = {};
     }, [_vm._v(">")])])])]);
   };
 
-  var _10 = function () {
+  var _11 = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -991,7 +1006,7 @@ var __proxy = {};
     return _c('p', [_vm._v("其实也可以偷懒，不写 "), _c('code', [_vm._v("<template>")]), _vm._v(" 也是可以的。（这时候，template 的内容就是去掉 style 和 script 两部分之后剩余的内容。）示例如下：")]);
   };
 
-  var _11 = function () {
+  var _12 = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -1218,7 +1233,7 @@ var __proxy = {};
     }, [_vm._v(">")])])])]);
   };
 
-  var _12 = function () {
+  var _13 = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -1228,7 +1243,7 @@ var __proxy = {};
     return _c('p', [_vm._v("这时候，可以像下面一样，为 "), _c('code', [_vm._v("<template>")]), _vm._v(" 添加一个 "), _c('code', [_vm._v("demo-only")]), _vm._v(" 属性。")]);
   };
 
-  var _13 = function () {
+  var _14 = function () {
     var _vm = this;
 
     var _h = _vm.$createElement;
@@ -1491,7 +1506,7 @@ var __proxy = {};
     }, [_vm._v(">")])])])]);
   };
 
-  var _16 = function (css) {
+  var _17 = function (css) {
     if (typeof window === 'undefined' || typeof document === 'undefined') return;
     var elem = document.createElement('style');
     elem.setAttribute('type', 'text/css');
@@ -1505,14 +1520,14 @@ var __proxy = {};
 
   var _R = function () {
     var css = ".wrapper input[data-v-029571ac] {\n  width: 50px;\n  text-align: center;\n}\nbutton[data-v-029571ad] {\n  font-size: 14px;\n}\nbutton[data-v-029571ae] {\n  font-size: 14px;\n}";
-    this.__clean = _16(css);
+    this.__clean = _17(css);
   };
 
-  var _14 = function () {
+  var _15 = function () {
     this.__clean();
   };
 
-  var _15 = function (Vue) {
+  var _16 = function (Vue) {
     Vue.component(_3.name, _3);
   };
 
@@ -1558,7 +1573,7 @@ var __proxy = {};
     md2vuedemo1: _F,
     md2vuedemo2: _J
   };
-  var _N = [_a, _b, _d, _e, _f, _g, _i, _j, _k, _l, _n, _o, _p, _q, _r, _s, _t, _u, _w, _x, _y, _z, _10, _11, _12, _13];
+  var _N = [_a, _b, _d, _e, _f, _g, _i, _j, _k, _l, _n, _o, _p, _q, _r, _s, _t, _u, _w, _x, _y, _z, _10, _11, _12, _13, _14];
   var _3 = {
     head: _P,
     layout: "component",
@@ -1568,8 +1583,8 @@ var __proxy = {};
     render: _Z,
     staticRenderFns: _N,
     name: "my-comp",
-    destroyed: _14,
-    install: _15
+    destroyed: _15,
+    install: _16
   };
   _$1.MyComp = _3;
 
