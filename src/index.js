@@ -58,27 +58,29 @@ export default async function (source, config = {}) {
 }
 
 function checkDeprecation (config) {
-  const {
-    componentName = '',
-    documentInfo = '',
-    customMarkups = ''
-  } = config
-
-  if (componentName) {
+  if (config.componentName) {
     console.warn('`componentName` is deprecated, use `name` instead.')
+
+    if (typeof config.name === 'undefined') {
+      config.name = config.componentName
+    }
   }
 
-  if (documentInfo) {
+  if (config.documentInfo) {
     console.warn('`documentInfo` is deprecated, use `extend` instead.')
+
+    if (typeof config.extend === 'undefined') {
+      config.extend = config.documentInfo
+    }
   }
 
-  if (customMarkups) {
+  if (config.customMarkups) {
     console.warn('`customMarkups` is deprecated, use `inject` instead.')
-  }
 
-  config.name = config.name || componentName
-  config.extend = config.extend || documentInfo
-  config.inject = config.inject || customMarkups
+    if (typeof config.inject === 'undefined') {
+      config.inject = config.customMarkups
+    }
+  }
 }
 
 function compileVue (content, path) {
