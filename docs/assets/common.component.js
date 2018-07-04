@@ -1592,4 +1592,4 @@ var __proxy = {};
 
 var component = __proxy.MyComp;
 typeof exports === 'object' && typeof module !== 'undefined' && (module.exports = component);
-typeof window !== void 0 && window.Vue && Vue.use(component);
+typeof window !== 'undefined' && window.Vue && Vue.use(component);

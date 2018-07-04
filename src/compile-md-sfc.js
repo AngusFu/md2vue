@@ -48,7 +48,7 @@ return module.exports;
     prefix: 'var __proxy = {};',
     suffix: `var component = __proxy.${varName};
 typeof exports === 'object' && typeof module !== 'undefined' && (module.exports = component);
-typeof window !== void 0 && window.Vue && Vue.use(component);
+typeof window !== 'undefined' && window.Vue && Vue.use(component);
 `,
     globalName: '__proxy'
   })
