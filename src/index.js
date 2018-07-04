@@ -58,15 +58,21 @@ export default async function (source, config = {}) {
 }
 
 function checkDeprecation (config) {
-  if (config.componentName) {
+  const {
+    componentName = '',
+    documentInfo = '',
+    customMarkups = ''
+  } = config
+
+  if (componentName) {
     console.warn('`componentName` is deprecated, use `name` instead.')
   }
 
-  if (config.documentInfo) {
+  if (documentInfo) {
     console.warn('`documentInfo` is deprecated, use `extend` instead.')
   }
 
-  if (config.customMarkups) {
+  if (customMarkups) {
     console.warn('`customMarkups` is deprecated, use `inject` instead.')
   }
 
