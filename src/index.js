@@ -76,9 +76,9 @@ function checkDeprecation (config) {
     console.warn('`customMarkups` is deprecated, use `inject` instead.')
   }
 
-  config.name = config.name || config.componentName
-  config.extend = config.extend || config.documentInfo
-  config.inject = config.inject || config.customMarkups
+  config.name = config.name || componentName
+  config.extend = config.extend || documentInfo
+  config.inject = config.inject || customMarkups
 }
 
 function compileVue (content, path) {
