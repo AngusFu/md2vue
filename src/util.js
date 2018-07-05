@@ -26,6 +26,10 @@ export function toJSON (obj) {
   }
 
   if (obj && typeof obj === 'object') {
+    if (Array.isArray(obj)) {
+      return `[${obj.map(toJSON).join(',\n')}]`
+    }
+
     const arr = Object.keys(obj).map(key => `"${key}": ${toJSON(obj[key])}`)
     return `{${arr.join(',')}}`
   }
