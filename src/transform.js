@@ -104,8 +104,8 @@ ${demoOnly ? '' : wrapCode(highlighted, lang)}
 
   const deferred = defer()
   let transform = remark()
-    .use(html)
     .use(remarkPlugins)
+    .use(html)
     .use(() => ast => visit(ast, 'code', codeVisitor))
 
   transform.process(source, (err, file) => {
