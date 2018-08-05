@@ -1,9 +1,0 @@
-src/
-test/
-.vscode/
-rollup.config.js
-build-doc.js
-demo/
-docs/
-coverage/
-.vscode/
