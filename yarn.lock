@@ -733,6 +733,10 @@ highlight.js@~9.12.0:
   version "9.12.0"
   resolved "http://registry.npm.taobao.org/highlight.js/download/highlight.js-9.12.0.tgz#e6d9dbe57cbefe60751f02af336195870c90c01e"
 
+html-element-attributes@^1.3.1:
+  version "1.3.1"
+  resolved "http://registry.npm.taobao.org/html-element-attributes/download/html-element-attributes-1.3.1.tgz#9fa6a2e37e6b61790a303e87ddbbb9746e8c035f"
+
 html-void-elements@^1.0.0, html-void-elements@^1.0.1:
   version "1.0.3"
   resolved "http://registry.npm.taobao.org/html-void-elements/download/html-void-elements-1.0.3.tgz#956707dbecd10cf658c92c5d27fee763aa6aa982"
@@ -999,6 +1003,10 @@ match-at@^0.1.1:
 math-random@^1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/math-random/download/math-random-1.0.1.tgz#8b3aac588b8a66e4975e3cdea67f7bb329601fac"
+
+md-attr-parser@^1.1.5:
+  version "1.1.5"
+  resolved "http://registry.npm.taobao.org/md-attr-parser/download/md-attr-parser-1.1.5.tgz#67a2c3c6836bf06ec517181b74c809194deb1f3e"
 
 mdast-normalize-headings@^1.0.0:
   version "1.0.0"
@@ -1486,6 +1494,13 @@ rehype-stringify@^4.0.0:
   dependencies:
     hast-util-to-html "^4.0.0"
     xtend "^4.0.1"
+
+remark-attr@^0.6.2:
+  version "0.6.2"
+  resolved "http://registry.npm.taobao.org/remark-attr/download/remark-attr-0.6.2.tgz#27dbc91ce3156fc4299b6d490a55990330bfe9e3"
+  dependencies:
+    html-element-attributes "^1.3.1"
+    md-attr-parser "^1.1.5"
 
 remark-autolink-headings@^5.0.0:
   version "5.0.0"
