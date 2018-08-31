@@ -53,6 +53,8 @@
     "stylus": "^0.54.5"
   },
   "devDependencies": {
-    "jest": "^23.5.0"
+    "@vue/test-utils": "^1.0.0-beta.24",
+    "jest": "^23.5.0",
+    "vue": "^2.5.17"
   }
 }
