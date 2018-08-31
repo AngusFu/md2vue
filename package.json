@@ -36,7 +36,7 @@
     "remark-parse": "^5.0.0",
     "remark-rehype": "^3.0.0",
     "rollup": "^0.63.5",
-    "rollup-plugin-vue": "^4.3.2",
+    "rollup-plugin-vue": "3.0.0",
     "to-vfile": "^5.0.0",
     "toml": "^2.3.3",
     "transliteration": "^1.6.6",
@@ -51,5 +51,8 @@
   "optionalDependencies": {
     "pug": "^2.0.3",
     "stylus": "^0.54.5"
+  },
+  "devDependencies": {
+    "jest": "^23.5.0"
   }
 }
