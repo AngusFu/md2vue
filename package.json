@@ -1,6 +1,6 @@
 {
   "name": "md2vue",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
