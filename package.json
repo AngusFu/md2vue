@@ -1,6 +1,6 @@
 {
   "name": "md2vue",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -56,6 +56,7 @@
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.24",
     "jest": "^23.5.0",
+    "standard-version": "^5.0.0",
     "vue": "^2.5.17"
   }
 }
