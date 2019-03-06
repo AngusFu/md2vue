@@ -1,3 +1,7 @@
+---
+pageClass: my-custom-class
+---
+
 # Test
 
 ## 1

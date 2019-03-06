@@ -19,13 +19,15 @@ describe('md2vue', () => {
     expect(file.extname).toEqual('.js')
     expect(file.data.toc.length).toEqual(3)
     expect(file.data.frontmatter).toEqual({
-      heading: 'Test'
+      heading: 'Test',
+      pageClass: 'my-custom-class'
     })
 
     expect(file.data.styles).toContain('button')
 
     const app = mountVfile(file)
     expect(app.classes()).toContain('markdown-body')
+    expect(app.classes()).toContain('my-custom-class')
     expect(app.contains('pre.vue-demo-source-code > code.language-html')).toBe(
       true
     )
