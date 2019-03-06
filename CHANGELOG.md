@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.1](https://github.com/AngusFu/md2vue/compare/v0.9.0...v0.9.1) (2019-03-06)
+
+### Features
+
+- more flexible file inputs ([e2e6f6a](https://github.com/AngusFu/md2vue/commit/e2e6f6a))
+
 # [0.9.0](https://github.com/AngusFu/md2vue/compare/v0.8.0...v0.9.0) (2019-03-06)
 
 ### Features
