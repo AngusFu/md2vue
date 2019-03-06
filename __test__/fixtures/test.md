@@ -16,7 +16,14 @@
 
 ```html
 @demo
-<button>Test Button</button>
+<script>
+  export default {
+    render(h) {
+      // JSX not yet supported
+      return h('div', null, 222)
+    }
+  }
+</script>
 <style>
   button {
     color: red;
