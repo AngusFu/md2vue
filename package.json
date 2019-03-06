@@ -48,6 +48,7 @@
     "unist-util-select": "^1.5.0",
     "unist-util-source": "^1.0.3",
     "unist-util-visit": "^1.4.0",
+    "vfile": "^4.0.0",
     "vue-template-compiler": "^2.6.7",
     "vue-template-es2015-compiler": "^1.9.1"
   },
