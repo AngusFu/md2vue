@@ -1,4 +1,3 @@
-/* eslint-disable */
 const Module = require('module')
 const { resolve } = require('path')
 const { promisify } = require('util')
@@ -16,10 +15,11 @@ describe('md2vue', () => {
     const path = resolve(__dirname, './fixtures/test.md')
     const file = await md2vue(path)
 
+    expect(file.contents.indexOf('@demo')).toBe(-1)
     expect(file.extname).toEqual('.js')
-    expect(file.data.toc).toEqual([])
+    expect(file.data.toc.length).toEqual(3)
     expect(file.data.frontmatter).toEqual({
-      heading: 'Not Found',
+      heading: 'Test'
     })
 
     expect(file.data.styles).toContain('button')
