@@ -29,7 +29,7 @@ describe('md2vue', () => {
         return file
       },
       extendProcessor(processor) {
-        return processor.use(() => {
+        return processor().use(() => {
           return (tree, file, next) => {
             // console.log(file)
             setTimeout(() => {
