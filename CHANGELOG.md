@@ -2,14 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [0.9.3](https://github.com/AngusFu/md2vue/compare/v0.9.1...v0.9.3) (2019-03-15)
+# [0.10.0](https://github.com/AngusFu/md2vue/compare/v0.9.3...v0.10.0) (2019-05-30)
 
+### Features
+
+- support prism ([5baa679](https://github.com/AngusFu/md2vue/commit/5baa679))
+
+## [0.9.3](https://github.com/AngusFu/md2vue/compare/v0.9.1...v0.9.3) (2019-03-15)
 
 ### Bug Fixes
 
-* hotfix for path under windows ([47ef563](https://github.com/AngusFu/md2vue/commit/47ef563))
-
-
+- hotfix for path under windows ([47ef563](https://github.com/AngusFu/md2vue/commit/47ef563))
 
 # Change Log
 
@@ -17,12 +20,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [0.9.2](https://github.com/AngusFu/md2vue/compare/v0.9.1...v0.9.2) (2019-03-15)
 
-
 ### Bug Fixes
 
-* hotfix for path under windows ([127a9cc](https://github.com/AngusFu/md2vue/commit/127a9cc))
-
-
+- hotfix for path under windows ([127a9cc](https://github.com/AngusFu/md2vue/commit/127a9cc))
 
 # Change Log
 
