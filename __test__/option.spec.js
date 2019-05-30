@@ -58,4 +58,34 @@ describe('md2vue', () => {
     )
     expect(app.find('.vue-demo > button').text()).toBe('Test Button')
   })
+
+  it('works with prism highlight', async () => {
+    const path = resolve(__dirname, './fixtures/test.md')
+    const file = await md2vue(path, {
+      highlight: 'prism'
+    })
+
+    const app = mountVfile(file)
+    expect(app.findAll('.token').length > 0).toBeTruthy()
+  })
+
+  it('works with other highlight tools', async () => {
+    const path = resolve(__dirname, './fixtures/test.md')
+    const file = await md2vue(path, {
+      highlight: require('@mapbox/rehype-prism')
+    })
+
+    const app = mountVfile(file)
+    expect(app.findAll('.token').length > 0).toBeTruthy()
+  })
+
+  it('works with module name', async () => {
+    const path = resolve(__dirname, './fixtures/test.md')
+    const file = await md2vue(path, {
+      highlight: '@mapbox/rehype-prism'
+    })
+
+    const app = mountVfile(file)
+    expect(app.findAll('.token').length > 0).toBeTruthy()
+  })
 })
