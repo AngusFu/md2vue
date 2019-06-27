@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.1"></a>
+
+## [0.10.1](https://github.com/AngusFu/md2vue/compare/v0.10.0...v0.10.1) (2019-06-27)
+
+### Bug Fixes
+
+- wrong deps ([8fda3fd](https://github.com/AngusFu/md2vue/commit/8fda3fd))
+
 # [0.10.0](https://github.com/AngusFu/md2vue/compare/v0.9.3...v0.10.0) (2019-05-30)
 
 ### Features
