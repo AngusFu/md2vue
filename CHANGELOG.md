@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.2"></a>
+
+## [0.10.2](https://github.com/AngusFu/md2vue/compare/v0.10.1...v0.10.2) (2019-08-22)
+
+### Bug Fixes
+
+- possible error when no h2 present ([9a95081](https://github.com/AngusFu/md2vue/commit/9a95081))
+- pre transpile styleInject ([31d9376](https://github.com/AngusFu/md2vue/commit/31d9376))
+
 <a name="0.10.1"></a>
 
 ## [0.10.1](https://github.com/AngusFu/md2vue/compare/v0.10.0...v0.10.1) (2019-06-27)
