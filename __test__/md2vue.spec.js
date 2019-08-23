@@ -33,4 +33,32 @@ describe('md2vue', () => {
     )
     expect(app.find('.vue-demo > button').text()).toBe('Test Button')
   })
+
+  it('should emit styles', async () => {
+    const path = resolve(__dirname, './fixtures/test.md')
+    const file = await md2vue(path, {
+      extractCSS: true,
+      moduleType: 'esm'
+    })
+
+    expect(file.extname).toEqual('.js')
+    expect(file.data.toc.length).toEqual(3)
+    expect(file.data.frontmatter).toEqual({
+      heading: 'Test',
+      pageClass: 'my-custom-class'
+    })
+
+    expect(file.contents).toContain('export default')
+    expect(file.stylesheet.extname).toEqual('.css')
+    expect(file.stylesheet.contents).toContain('button')
+
+    file.contents = file.contents.replace('export default', 'module.exports = ')
+    const app = mountVfile(file)
+    expect(app.classes()).toContain('markdown-body')
+    expect(app.classes()).toContain('my-custom-class')
+    expect(app.contains('pre.vue-demo-source-code > code.language-html')).toBe(
+      true
+    )
+    expect(app.find('.vue-demo > button').text()).toBe('Test Button')
+  })
 })
