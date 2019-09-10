@@ -49,7 +49,7 @@
     "unist-util-is": "^2.1.2",
     "unist-util-select": "^1.5.0",
     "unist-util-source": "^1.0.3",
-    "unist-util-visit": "^1.4.0",
+    "unist-util-visit": "^2.0.0",
     "vfile": "^4.0.0",
     "vue-template-compiler": "^2.6.7",
     "vue-template-es2015-compiler": "^1.9.1"
