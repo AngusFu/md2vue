@@ -63,7 +63,7 @@
     "@commitlint/config-conventional": "7.6.0",
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-eslint": "10.0.3",
-    "commitizen": "3.1.2",
+    "commitizen": "4.0.3",
     "cz-conventional-changelog": "2.1.0",
     "eslint": "5.16.0",
     "eslint-config-prettier": "4.1.0",
