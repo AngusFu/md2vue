@@ -74,7 +74,7 @@
     "lint-staged": "8.1.5",
     "prettier": "1.16.4",
     "pretty-quick": "1.10.0",
-    "standard-version": "5.0.1",
+    "standard-version": "7.0.0",
     "vue": "2.6.8"
   },
   "config": {
