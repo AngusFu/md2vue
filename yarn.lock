@@ -2792,9 +2792,9 @@ hosted-git-info@^2.1.4:
   version "2.7.1"
   resolved "http://registry.npm.taobao.org/hosted-git-info/download/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
 
-html-element-attributes@^1.3.1:
-  version "1.3.1"
-  resolved "http://registry.npm.taobao.org/html-element-attributes/download/html-element-attributes-1.3.1.tgz#9fa6a2e37e6b61790a303e87ddbbb9746e8c035f"
+html-element-attributes@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/html-element-attributes/-/html-element-attributes-2.1.0.tgz#ff674b8716526b8a9ee1d8e454466eda56d6d0cc"
 
 html-encoding-sniffer@^1.0.2:
   version "1.0.2"
@@ -4075,9 +4075,9 @@ matcher@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.4"
 
-md-attr-parser@^1.1.5:
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/md-attr-parser/download/md-attr-parser-1.2.1.tgz#1043f6451c33ed3e392b40504df08010f4d03e3d"
+md-attr-parser@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/md-attr-parser/-/md-attr-parser-1.3.0.tgz#23e1d507858746d4e84beb244c089799979cfce8"
 
 mdast-normalize-headings@^1.0.0:
   version "1.0.1"
@@ -5273,12 +5273,12 @@ rehype-stringify@^4.0.0:
     hast-util-to-html "^4.0.0"
     xtend "^4.0.1"
 
-remark-attr@^0.6.2:
-  version "0.6.2"
-  resolved "http://registry.npm.taobao.org/remark-attr/download/remark-attr-0.6.2.tgz#27dbc91ce3156fc4299b6d490a55990330bfe9e3"
+remark-attr@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/remark-attr/-/remark-attr-0.9.0.tgz#5b213c4e9815fa4f8c07cbaa674aeb525966b15a"
   dependencies:
-    html-element-attributes "^1.3.1"
-    md-attr-parser "^1.1.5"
+    html-element-attributes "^2.0.0"
+    md-attr-parser "^1.3.0"
 
 remark-autolink-headings@^5.0.0:
   version "5.1.0"
