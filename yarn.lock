@@ -5540,9 +5540,9 @@ rollup-pluginutils@^2.4.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^0.63.5:
-  version "0.63.5"
-  resolved "http://registry.npm.taobao.org/rollup/download/rollup-0.63.5.tgz#5543eecac9a1b83b7e1be598b5be84c9c0a089db"
+rollup@^0.68.0:
+  version "0.68.2"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.68.2.tgz#c26afb5d981ca7a1a32f76087dbde9dad4fcc653"
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "*"
