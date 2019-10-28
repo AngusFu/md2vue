@@ -6372,13 +6372,15 @@ unist-util-remove-position@^1.0.0:
   dependencies:
     unist-util-visit "^1.1.0"
 
-unist-util-select@^1.5.0:
-  version "1.5.0"
-  resolved "http://registry.npm.taobao.org/unist-util-select/download/unist-util-select-1.5.0.tgz#a93c2be8c0f653827803b81331adec2aa24cd933"
+unist-util-select@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/unist-util-select/-/unist-util-select-3.0.0.tgz#36cef56c000caa09c51383269946ab17365c702e"
   dependencies:
     css-selector-parser "^1.1.0"
-    debug "^2.2.0"
+    not "^0.1.0"
     nth-check "^1.0.1"
+    unist-util-is "^4.0.0"
+    zwitch "^1.0.3"
 
 unist-util-source@^1.0.3:
   version "1.0.4"
@@ -6777,3 +6779,7 @@ yup@^0.26.10:
 zwitch@^1.0.0:
   version "1.0.3"
   resolved "http://registry.npm.taobao.org/zwitch/download/zwitch-1.0.3.tgz#159fae4b3f737db1e42bf321d3423e4c96688a18"
+
+zwitch@^1.0.3:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/zwitch/-/zwitch-1.0.4.tgz#93b1b993b13c8926753a41afaf8f27bbfac6be8b"
