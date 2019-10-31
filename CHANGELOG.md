@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.12.0"></a>
+
+# [0.12.0](https://github.com/AngusFu/md2vue/compare/v0.11.0...v0.12.0) (2019-10-31)
+
+### Bug Fixes
+
+- **deps:** update dependency unist-util-select to v3 ([999e9ab](https://github.com/AngusFu/md2vue/commit/999e9ab))
+- **deps:** update remark monorepo ([21ddf35](https://github.com/AngusFu/md2vue/commit/21ddf35))
+
+### Features
+
+- 升级依赖并解决了 vue normalizer 问题 ([e2f093d](https://github.com/AngusFu/md2vue/commit/e2f093d)), closes [#63](https://github.com/AngusFu/md2vue/issues/63)
+
 <a name="0.11.0"></a>
 
 # [0.11.0](https://github.com/AngusFu/md2vue/compare/v0.10.3...v0.11.0) (2019-08-23)
