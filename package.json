@@ -20,7 +20,7 @@
   "homepage": "https://github.com/AngusFu/md2vue#readme",
   "dependencies": {
     "@mapbox/rehype-prism": "^0.3.1",
-    "chalk": "^2.4.1",
+    "chalk": "^3.0.0",
     "classnames": "^2.2.6",
     "hast-util-select": "^2.1.0",
     "js-yaml": "^3.13.1",
