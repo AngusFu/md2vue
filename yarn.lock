@@ -6520,11 +6520,11 @@ unist-util-select@^3.0.0:
     unist-util-is "^4.0.0"
     zwitch "^1.0.3"
 
-unist-util-source@^1.0.3:
-  version "1.0.4"
-  resolved "http://registry.npm.taobao.org/unist-util-source/download/unist-util-source-1.0.4.tgz#011175e6c300aa865a1725c2fb7673961f02cb9c"
+unist-util-source@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/unist-util-source/-/unist-util-source-2.0.0.tgz#ed45f907d225996fcb2590c19e91041eb86fb8cb"
   dependencies:
-    vfile-location "^2.0.1"
+    vfile-location "^3.0.0"
 
 unist-util-stringify-position@^1.0.0, unist-util-stringify-position@^1.1.1:
   version "1.1.2"
@@ -6624,9 +6624,13 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vfile-location@^2.0.0, vfile-location@^2.0.1:
+vfile-location@^2.0.0:
   version "2.0.4"
   resolved "http://registry.npm.taobao.org/vfile-location/download/vfile-location-2.0.4.tgz#2a5e7297dd0d9e2da4381464d04acc6b834d3e55"
+
+vfile-location@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/vfile-location/-/vfile-location-3.0.0.tgz#fc47181e49470aff24a1cac3f9b867428ced6ba2"
 
 vfile-message@^1.0.0:
   version "1.1.1"
