@@ -1310,7 +1310,7 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-comma-separated-tokens@^1.0.0, comma-separated-tokens@^1.0.1, comma-separated-tokens@^1.0.2:
+comma-separated-tokens@^1.0.0, comma-separated-tokens@^1.0.1:
   version "1.0.5"
   resolved "http://registry.npm.taobao.org/comma-separated-tokens/download/comma-separated-tokens-1.0.5.tgz#b13793131d9ea2d2431cf5b507ddec258f0ce0db"
   dependencies:
@@ -1603,9 +1603,9 @@ css-parse@1.7.x:
   version "1.7.0"
   resolved "http://registry.npm.taobao.org/css-parse/download/css-parse-1.7.0.tgz#321f6cf73782a6ff751111390fc05e2c657d8c9b"
 
-css-selector-parser@^1.1.0, css-selector-parser@^1.3.0:
+css-selector-parser@^1.0.0, css-selector-parser@^1.1.0:
   version "1.3.0"
-  resolved "http://registry.npm.taobao.org/css-selector-parser/download/css-selector-parser-1.3.0.tgz#5f1ad43e2d8eefbfdc304fcd39a521664943e3eb"
+  resolved "https://registry.yarnpkg.com/css-selector-parser/-/css-selector-parser-1.3.0.tgz#5f1ad43e2d8eefbfdc304fcd39a521664943e3eb"
 
 css-selector-tokenizer@^0.7.0:
   version "0.7.1"
@@ -1809,9 +1809,9 @@ diff-sequences@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-24.9.0.tgz#5715d6244e2aa65f48bba0bc972db0b0b11e95b5"
 
-direction@^1.0.2:
-  version "1.0.2"
-  resolved "http://registry.npm.taobao.org/direction/download/direction-1.0.2.tgz#ac49c4699edf1283fd82f34e701ca668ea4883b9"
+direction@^1.0.0:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/direction/-/direction-1.0.4.tgz#2b86fb686967e987088caf8b89059370d4837442"
 
 doctrine@^3.0.0:
   version "3.0.0"
@@ -2728,23 +2728,23 @@ hast-util-raw@^4.0.0:
     xtend "^4.0.1"
     zwitch "^1.0.0"
 
-hast-util-select@^2.1.0:
-  version "2.1.0"
-  resolved "http://registry.npm.taobao.org/hast-util-select/download/hast-util-select-2.1.0.tgz#a1db6c02de37ca215d95ee5e8c1412dc1916b1b0"
+hast-util-select@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/hast-util-select/-/hast-util-select-4.0.0.tgz#0eda0933853792dd2865f54510db123b00d675c8"
   dependencies:
     bcp-47-match "^1.0.0"
-    comma-separated-tokens "^1.0.2"
-    css-selector-parser "^1.3.0"
-    direction "^1.0.2"
+    comma-separated-tokens "^1.0.0"
+    css-selector-parser "^1.0.0"
+    direction "^1.0.0"
     hast-util-has-property "^1.0.0"
     hast-util-is-element "^1.0.0"
-    hast-util-to-string "^1.0.1"
+    hast-util-to-string "^1.0.0"
     hast-util-whitespace "^1.0.0"
     not "^0.1.0"
-    nth-check "^1.0.1"
-    property-information "^4.0.0"
-    space-separated-tokens "^1.1.0"
-    unist-util-visit "^1.3.1"
+    nth-check "^1.0.0"
+    property-information "^5.0.0"
+    space-separated-tokens "^1.0.0"
+    unist-util-visit "^2.0.0"
     zwitch "^1.0.0"
 
 hast-util-to-html@^4.0.0:
@@ -2772,7 +2772,7 @@ hast-util-to-parse5@^4.0.1:
     xtend "^4.0.1"
     zwitch "^1.0.0"
 
-hast-util-to-string@^1.0.0, hast-util-to-string@^1.0.1:
+hast-util-to-string@^1.0.0:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/hast-util-to-string/download/hast-util-to-string-1.0.1.tgz#b28055cdca012d3c8fd048757c8483d0de0d002c"
 
@@ -4498,9 +4498,9 @@ npmlog@^4.0.2:
     gauge "~2.7.3"
     set-blocking "~2.0.0"
 
-nth-check@^1.0.1:
+nth-check@^1.0.0, nth-check@^1.0.1:
   version "1.0.2"
-  resolved "http://registry.npm.taobao.org/nth-check/download/nth-check-1.0.2.tgz#b2bd295c37e3dd58a3bf0700376663ba4d9cf05c"
+  resolved "https://registry.yarnpkg.com/nth-check/-/nth-check-1.0.2.tgz#b2bd295c37e3dd58a3bf0700376663ba4d9cf05c"
   dependencies:
     boolbase "~1.0.0"
 
@@ -5895,7 +5895,7 @@ sourcemap-codec@^1.4.4:
   version "1.4.4"
   resolved "http://registry.npm.taobao.org/sourcemap-codec/download/sourcemap-codec-1.4.4.tgz#c63ea927c029dd6bd9a2b7fa03b3fec02ad56e9f"
 
-space-separated-tokens@^1.0.0, space-separated-tokens@^1.1.0:
+space-separated-tokens@^1.0.0:
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/space-separated-tokens/download/space-separated-tokens-1.1.2.tgz#e95ab9d19ae841e200808cd96bc7bd0adbbb3412"
   dependencies:
@@ -6549,7 +6549,7 @@ unist-util-visit-parents@^3.0.0:
     "@types/unist" "^2.0.3"
     unist-util-is "^4.0.0"
 
-unist-util-visit@^1.0.0, unist-util-visit@^1.0.1, unist-util-visit@^1.1.0, unist-util-visit@^1.3.1, unist-util-visit@^1.4.0:
+unist-util-visit@^1.0.0, unist-util-visit@^1.0.1, unist-util-visit@^1.1.0, unist-util-visit@^1.4.0:
   version "1.4.0"
   resolved "http://registry.npm.taobao.org/unist-util-visit/download/unist-util-visit-1.4.0.tgz#1cb763647186dc26f5e1df5db6bd1e48b3cc2fb1"
   dependencies:
